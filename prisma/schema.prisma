@@ -1,0 +1,395 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  COACH
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING_PAYMENT
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+  EXPIRED
+}
+
+enum PaymentStatus {
+  CREATED
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUND_DUE
+  REFUNDED
+}
+
+enum SkillStage {
+  INTRODUCED
+  DEVELOPING
+  RELIABLE
+  FLUENT
+}
+
+enum Level {
+  BEGINNER
+  FOUNDATIONS
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum HomeworkStatus {
+  ASSIGNED
+  SUBMITTED
+  REVIEWED
+}
+
+model User {
+  id              String           @id @default(cuid())
+  email           String           @unique
+  passwordHash    String
+  name            String
+  phone           String?
+  role            Role             @default(STUDENT)
+  emailVerifiedAt DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  coachProfile    Coach?
+  studentProfiles Student[]        @relation("GuardianStudents")
+  bookingsMade    Booking[]        @relation("BookedByUser")
+  notifications   Notification[]
+  resetTokens     PasswordResetToken[]
+}
+
+model Student {
+  id                    String                @id @default(cuid())
+  ownerUserId           String
+  ownerUser             User                  @relation("GuardianStudents", fields: [ownerUserId], references: [id], onDelete: Cascade)
+  displayName           String
+  dateOfBirth           DateTime?
+  birthYear             Int?
+  level                 Level                 @default(BEGINNER)
+  isMinor               Boolean               @default(false)
+  chessPlatformUsername String?
+  currentRating         Int?
+  notes                 String?
+  createdAt             DateTime              @default(now())
+
+  bookings              Booking[]
+  skills                StudentSkill[]
+  skillHistory          StudentSkillHistory[]
+  goals                 Goal[]
+  coachNotes            CoachNote[]
+  homework              Homework[]
+  ratingSnapshots       RatingSnapshot[]
+
+  @@index([ownerUserId])
+}
+
+model Coach {
+  id                String                  @id @default(cuid())
+  userId            String                  @unique
+  user              User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug              String                  @unique
+  displayName       String
+  bio               String
+  philosophy        String
+  focusLevels       String                  // JSON array string e.g. ["BEGINNER", "FOUNDATIONS"]
+  defaultMeetUrl    String
+  timeZone          String                  @default("Asia/Kolkata")
+  slotBufferMinutes Int                     @default(10)
+  minNoticeHours    Int                     @default(12)
+  maxAdvanceDays    Int                     @default(30)
+  fideId            String?
+  fideRating        Int?
+  isActive          Boolean                 @default(true)
+  createdAt         DateTime                @default(now())
+
+  credentials       CoachCredential[]
+  sessionTypes      SessionType[]
+  availabilityRules AvailabilityRule[]
+  exceptions        AvailabilityException[]
+  bookings          Booking[]
+  coachNotes        CoachNote[]
+  homeworkAssigned  Homework[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model CoachCredential {
+  id        String   @id @default(cuid())
+  coachId   String
+  coach     Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  label     String
+  detail    String
+  sortOrder Int      @default(0)
+
+  @@index([coachId])
+}
+
+model SessionType {
+  id              String    @id @default(cuid())
+  coachId         String
+  coach           Coach     @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  name            String
+  level           Level
+  durationMinutes Int
+  pricePaise      Int
+  description     String
+  isTrial         Boolean   @default(false)
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  bookings        Booking[]
+
+  @@index([coachId])
+  @@index([isActive])
+}
+
+model AvailabilityRule {
+  id             String    @id @default(cuid())
+  coachId        String
+  coach          Coach     @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  weekday        Int       // 0 = Sunday, 1 = Monday, ... 6 = Saturday
+  startMinute    Int       // minutes from midnight (e.g. 540 = 09:00)
+  endMinute      Int       // minutes from midnight (e.g. 1080 = 18:00)
+  sessionTypeIds String?   // comma-separated or JSON string, null = all
+  validFrom      DateTime?
+  validTo        DateTime?
+
+  @@index([coachId, weekday])
+}
+
+model AvailabilityException {
+  id          String   @id @default(cuid())
+  coachId     String
+  coach       Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  date        String   // YYYY-MM-DD
+  kind        String   // "BLOCKED" | "EXTRA_OPEN"
+  startMinute Int?
+  endMinute   Int?
+  reason      String?
+
+  @@index([coachId, date])
+}
+
+model Booking {
+  id                 String        @id @default(cuid())
+  reference          String        @unique // e.g. TR-0142
+  studentId          String
+  student            Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  bookedByUserId     String
+  bookedByUser       User          @relation("BookedByUser", fields: [bookedByUserId], references: [id], onDelete: Cascade)
+  coachId            String
+  coach              Coach         @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  sessionTypeId      String
+  sessionType        SessionType   @relation(fields: [sessionTypeId], references: [id])
+  startsAt           DateTime
+  endsAt             DateTime
+  status             BookingStatus @default(PENDING_PAYMENT)
+  meetUrl            String?
+  holdExpiresAt      DateTime?
+  cancelledAt        DateTime?
+  cancelledBy        String?       // "STUDENT" | "COACH" | "SYSTEM"
+  cancelReason       String?
+  rescheduledFromId  String?
+  utmSource          String?
+  utmMedium          String?
+  utmCampaign        String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  payments           Payment[]
+  coachNotes         CoachNote[]
+  homework           Homework[]
+
+  @@index([coachId, startsAt, endsAt])
+  @@index([studentId])
+  @@index([bookedByUserId])
+  @@index([status])
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  bookingId         String
+  booking           Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  provider          String        // "mock" | "razorpay"
+  providerOrderId   String
+  providerPaymentId String?
+  amountPaise       Int
+  currency          String        @default("INR")
+  status            PaymentStatus @default(CREATED)
+  failureReason     String?
+  refundedAt        DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([bookingId])
+  @@index([providerOrderId])
+}
+
+model PaymentEvent {
+  id              String   @id @default(cuid())
+  providerEventId String   @unique
+  type            String
+  payload         String   // JSON string
+  processedAt     DateTime @default(now())
+}
+
+model SkillArea {
+  id           String                @id @default(cuid())
+  name         String
+  track        String                // "FOUNDATIONS" | "IMPROVEMENT"
+  sortOrder    Int                   @default(0)
+
+  skills       StudentSkill[]
+  skillHistory StudentSkillHistory[]
+}
+
+model StudentSkill {
+  id                String      @id @default(cuid())
+  studentId         String
+  student           Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  skillAreaId       String
+  skillArea         SkillArea   @relation(fields: [skillAreaId], references: [id], onDelete: Cascade)
+  stage             SkillStage  @default(INTRODUCED)
+  coachComment      String?
+  updatedByCoachId  String?
+  updatedAt         DateTime    @updatedAt
+
+  @@unique([studentId, skillAreaId])
+  @@index([studentId])
+}
+
+model StudentSkillHistory {
+  id                String      @id @default(cuid())
+  studentId         String
+  student           Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  skillAreaId       String
+  skillArea         SkillArea   @relation(fields: [skillAreaId], references: [id], onDelete: Cascade)
+  oldStage          SkillStage?
+  newStage          SkillStage
+  comment           String?
+  changedByCoachId  String?
+  changedAt         DateTime    @default(now())
+
+  @@index([studentId])
+}
+
+model Goal {
+  id          String    @id @default(cuid())
+  studentId   String
+  student     Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  targetDate  DateTime?
+  status      String    @default("ACTIVE") // ACTIVE | COMPLETED | PAUSED
+  createdBy   String    // STUDENT | COACH
+  createdAt   DateTime  @default(now())
+
+  @@index([studentId])
+}
+
+model CoachNote {
+  id               String   @id @default(cuid())
+  bookingId        String?
+  booking          Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  studentId        String
+  student          Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  coachId          String
+  coach            Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  body             String
+  visibleToStudent Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  @@index([studentId])
+  @@index([coachId])
+}
+
+model Homework {
+  id              String         @id @default(cuid())
+  studentId       String
+  student         Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  coachId         String
+  coach           Coach          @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  bookingId       String?
+  booking         Booking?       @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  title           String
+  instructions    String
+  tags            String         // JSON array string e.g. ["Fork", "Italian Game"]
+  dueDate         DateTime?
+  status          HomeworkStatus @default(ASSIGNED)
+  studentResponse String?
+  coachFeedback   String?
+  createdAt       DateTime       @default(now())
+
+  @@index([studentId])
+  @@index([coachId])
+}
+
+model RatingSnapshot {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  rating     Int
+  source     String   // SELF | LICHESS | CHESSCOM | FIDE | COACH
+  recordedAt DateTime @default(now())
+
+  @@index([studentId])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  body      String
+  href      String?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model Testimonial {
+  id           String    @id @default(cuid())
+  authorName   String
+  relationship String    // "student" | "parent"
+  body         String
+  approvedAt   DateTime?
+  isVisible    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  @@index([isVisible, approvedAt])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  level     String?
+  createdAt DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}

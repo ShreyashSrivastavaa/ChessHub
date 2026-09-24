@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-voltage-lime: #e3fc03;
+  --color-obsidian: #000000;
+  --color-graphite: #323232;
+  --color-carbon: #1a1a1a;
+  --color-paper-white: #ffffff;
+  --color-concrete: #e6e6e6;
+  --color-error: #B3261E;
+
+  /* Typography — Font Families */
+  --font-whyteregular: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-whyte: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-whyte-book: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-whyte-inktrap: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+
+  --font-heading: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+
+  /* Typography — Scale */
+  --text-caption: 13px;
+  --leading-caption: 1.6;
+  --tracking-caption: 0px;
+  --text-body-sm: 16px;
+  --leading-body-sm: 1.6;
+  --tracking-body-sm: 0px;
+  --text-body: 18px;
+  --leading-body: 1.5;
+  --tracking-body: 0px;
+  --text-subheading: 22px;
+  --leading-subheading: 1.4;
+  --tracking-subheading: 0px;
+  --text-heading-sm: 26px;
+  --leading-heading-sm: 1.3;
+  --tracking-heading-sm: -0.26px;
+  --text-heading: 32px;
+  --leading-heading: 1.15;
+  --tracking-heading: -0.64px;
+  --text-heading-lg: 38px;
+  --leading-heading-lg: 1.3;
+  --tracking-heading-lg: -0.38px;
+  --text-display: 72px;
+  --leading-display: 1.1;
+  --tracking-display: -1.44px;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-64: 64px;
+  --spacing-68: 68px;
+
+  /* Border Radius */
+  --radius-lg: 8px;
+  --radius-2xl: 16px;
+  --radius-full: 50px;
+  --radius-pill: 50px;
+  --radius-card: 16px;
+}
+
+:root {
+  /* Colors */
+  --color-voltage-lime: #e3fc03;
+  --color-obsidian: #000000;
+  --color-graphite: #323232;
+  --color-carbon: #1a1a1a;
+  --color-paper-white: #ffffff;
+  --color-concrete: #e6e6e6;
+  --color-error: #B3261E;
+
+  /* Typography — Font Families */
+  --font-whyteregular: 'WhyteRegular', var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-whyte: 'Whyte', var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-whyte-book: 'Whyte Book', var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-whyte-inktrap: 'Whyte Inktrap', var(--font-jetbrains-mono), monospace, sans-serif;
+
+  /* Typography — Weights */
+  --font-weight-regular: 400;
+
+  /* Spacing */
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-64: 64px;
+  --spacing-68: 68px;
+
+  /* Layout */
+  --page-max-width: 1280px;
+  --section-gap: 64px;
+  --card-padding: 20px;
+  --element-gap: 16px;
+
+  /* Named Radii */
+  --radius-tags: 50px;
+  --radius-cards: 16px;
+  --radius-images: 16px;
+  --radius-inputs: 50px;
+  --radius-buttons: 50px;
+  --radius-pill: 50px;
+  --radius-card: 16px;
+
+  /* Surfaces */
+  --surface-paper-white: #ffffff;
+  --surface-concrete: #e6e6e6;
+  --surface-voltage-lime: #e3fc03;
+  --surface-obsidian: #000000;
+}
+
+/* Base resets & typography discipline */
+* {
+  border-color: #000000;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom focus ring according to design guidelines */
+:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.dark-surface :focus-visible {
+  outline: 2px solid #e3fc03;
+  outline-offset: 2px;
+}
+
+/* Hairline utility */
+.border-hairline {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+
+/* Subtle link underline animation */
+.hover-underline-animation {
+  position: relative;
+  text-decoration: none;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
