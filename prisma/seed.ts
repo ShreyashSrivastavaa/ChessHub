@@ -127,8 +127,9 @@ async function main() {
   });
 
   // 3. Session Types (All prices in paise, marked PLACEHOLDER)
-  await prisma.sessionType.deleteMany({});
-  await prisma.sessionType.createMany({
+  const existingSessionTypes = await prisma.sessionType.count();
+  if (existingSessionTypes === 0) {
+    await prisma.sessionType.createMany({
     data: [
       // Shreyash
       {
@@ -204,6 +205,7 @@ async function main() {
       },
     ],
   });
+  }
 
   // 4. Availability Rules (Monday - Saturday)
   await prisma.availabilityRule.deleteMany({});
@@ -386,15 +388,20 @@ async function main() {
     });
 
     if (foundationsSession) {
-      // Upcoming booking tomorrow
-      const tomorrow17 = new Date();
-      tomorrow17.setDate(tomorrow17.getDate() + 1);
-      tomorrow17.setHours(17, 0, 0, 0);
-      const tomorrow17End = new Date(tomorrow17.getTime() + 50 * 60000);
+      const existingDemoBooking = await prisma.booking.findUnique({
+        where: { reference: "TR-0101" },
+      });
 
-      const booking = await prisma.booking.create({
-        data: {
-          reference: "TR-0101",
+      if (!existingDemoBooking) {
+        // Upcoming booking tomorrow
+        const tomorrow17 = new Date();
+        tomorrow17.setDate(tomorrow17.getDate() + 1);
+        tomorrow17.setHours(17, 0, 0, 0);
+        const tomorrow17End = new Date(tomorrow17.getTime() + 50 * 60000);
+
+        const booking = await prisma.booking.create({
+          data: {
+            reference: "TR-0101",
           studentId: studentProfile.id,
           bookedByUserId: guardianUser.id,
           coachId: shreyashCoach.id,
@@ -441,6 +448,7 @@ async function main() {
           visibleToStudent: true,
         },
       });
+      }
     }
   }
 
