@@ -5,22 +5,18 @@ import { BRAND_CONFIG } from "@/config/brand";
 
 const featureDeck = Newsreader({
   subsets: ["latin"],
-  weight: ["300", "400"],
-  style: ["normal", "italic"],
   variable: "--font-feature-deck",
   display: "swap",
 });
 
 const sohne = Inter({
   subsets: ["latin"],
-  weight: ["300", "400"],
   variable: "--font-sohne",
   display: "swap",
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400"],
   variable: "--font-mono",
   display: "swap",
 });
