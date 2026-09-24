@@ -394,17 +394,17 @@ export function BookingFlow({
                   if (isCompleted && step < 9) setStep(stepNum);
                 }}
                 disabled={!isCompleted || step === 9}
-                className={`flex items-center gap-1.5 text-[11px] md:text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.04em] whitespace-nowrap px-2 py-1 rounded-[50px] transition-colors ${
+                className={`flex items-center gap-1.5 text-[11px] md:text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.04em] whitespace-nowrap px-3 py-1 rounded-[9999px] transition-colors ${
                   isCurrent
-                    ? "bg-[#e3fc03] text-[#000000] font-normal"
+                    ? "bg-[#ffffff] text-[#000000] font-medium"
                     : isCompleted
-                    ? "text-[#000000] hover:text-[#323232] cursor-pointer"
-                    : "text-[#323232] opacity-40 cursor-not-allowed"
+                    ? "text-[#ffffff] hover:text-[#d6d5d0] cursor-pointer"
+                    : "text-[#d6d5d0]/35 cursor-not-allowed"
                 }`}
               >
                 <span>{lbl}</span>
                 {idx < stepLabels.length - 1 && (
-                  <span className="text-[#323232]/30 ml-1">/</span>
+                  <span className="text-[#d6d5d0]/20 ml-1.5">/</span>
                 )}
               </button>
             );
@@ -420,10 +420,10 @@ export function BookingFlow({
           {step === 1 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Select your current chess level
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Pick the tier that best matches you or your child&apos;s familiarity with chess.
                 </p>
               </div>
@@ -467,30 +467,30 @@ export function BookingFlow({
                           setSelectedCoachSlug("tapesh");
                         }
                       }}
-                      className={`p-5 rounded-[16px] border cursor-pointer transition-all duration-150 flex flex-col justify-between h-[180px] ${
+                      className={`p-5 rounded-[12px] border cursor-pointer transition-all duration-150 flex flex-col justify-between h-[180px] ${
                         isSelected
-                          ? "border-2 border-[#000000] bg-[#e3fc03]/15"
-                          : "border-[#000000] bg-[#ffffff] hover:border-[#323232]"
+                          ? "border-2 border-[#ffffff] bg-[#252525] shadow-[0_0_24px_rgba(255,255,255,0.06)]"
+                          : "border-[#d6d5d0]/20 bg-[#1d1d1d] hover:border-[#d6d5d0]/50"
                       }`}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#000000]">
+                          <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                             {lvl.title}
                           </span>
-                          <Tag variant="outline" size="sm">
+                          <Tag variant={isSelected ? "lime" : "concrete"} size="sm">
                             {lvl.coachNote}
                           </Tag>
                         </div>
-                        <p className="text-[13px] text-[#323232] leading-[1.5]">
+                        <p className="text-[13px] text-[#d6d5d0]/80 leading-[1.5]">
                           {lvl.desc}
                         </p>
                       </div>
                       <div className="flex items-center gap-1.5 text-[11px] font-[family-name:var(--font-mono)] uppercase">
                         {isSelected ? (
-                          <span className="text-[#000000] font-normal">Selected</span>
+                          <span className="text-[#ffffff] font-medium">Selected</span>
                         ) : (
-                          <span className="text-[#323232]">Click to select</span>
+                          <span className="text-[#d6d5d0]/50">Click to select</span>
                         )}
                       </div>
                     </div>
@@ -499,12 +499,12 @@ export function BookingFlow({
               </div>
 
               {/* Not sure? Trial routing */}
-              <div className="p-4 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-2">
+              <div className="p-5 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-2">
                 <div>
-                  <span className="text-[14px] font-[family-name:var(--font-heading)] text-[#000000]">
+                  <span className="text-[15px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                     Not sure where you stand?
                   </span>
-                  <p className="text-[13px] text-[#323232]">
+                  <p className="text-[13px] text-[#d6d5d0]">
                     Book a free 30-minute diagnostic assessment session with a coach.
                   </p>
                 </div>
@@ -539,10 +539,10 @@ export function BookingFlow({
           {step === 2 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Choose your coach
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Each coach specializes in specific stages of mastery.
                 </p>
               </div>
@@ -559,48 +559,54 @@ export function BookingFlow({
                     <div
                       key={coach.id}
                       onClick={() => setSelectedCoachSlug(coach.slug)}
-                      className={`p-5 rounded-[16px] border cursor-pointer transition-all duration-150 flex flex-col justify-between ${
+                      className={`p-5 rounded-[12px] border cursor-pointer transition-all duration-150 flex flex-col justify-between ${
                         isSelected
-                          ? "border-2 border-[#000000] bg-[#e3fc03]/15"
-                          : "border-[#000000] bg-[#ffffff] hover:border-[#323232]"
+                          ? "border-2 border-[#ffffff] bg-[#252525] shadow-[0_0_24px_rgba(255,255,255,0.06)]"
+                          : "border-[#d6d5d0]/20 bg-[#1d1d1d] hover:border-[#d6d5d0]/50"
                       }`}
                     >
                       <div>
-                        {/* Top bar with avatar placeholder */}
+                        {/* Top bar with avatar */}
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="w-[44px] h-[44px] rounded-[16px] bg-[#e6e6e6] border border-[#000000] flex items-center justify-center font-[family-name:var(--font-mono)] text-[16px]">
+                          <div
+                            className={`w-[44px] h-[44px] rounded-[10px] flex items-center justify-center font-[family-name:var(--font-mono)] text-[16px] ${
+                              isSelected
+                                ? "bg-[#ffffff] text-[#000000]"
+                                : "bg-[#000000] border border-[#d6d5d0]/30 text-[#ffffff]"
+                            }`}
+                          >
                             {coachBrand.avatarPlaceholderInitial}
                           </div>
                           <div>
-                            <span className="text-[20px] font-[family-name:var(--font-heading)] text-[#000000]">
+                            <span className="text-[20px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                               {coach.displayName}
                             </span>
                             {coach.fideRating ? (
-                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                                 FIDE {coach.fideRating}
                               </p>
                             ) : coachBrand.fideRated ? (
-                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                                 FIDE-rated Player
                               </p>
                             ) : (
-                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                              <p className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                                 Foundations Specialist
                               </p>
                             )}
                           </div>
                         </div>
 
-                        <p className="text-[13px] text-[#323232] leading-[1.6]">
+                        <p className="text-[13px] text-[#d6d5d0]/80 leading-[1.6]">
                           {coachBrand.focus}
                         </p>
                       </div>
 
-                      <div className="pt-4 mt-4 border-t border-[#000000]/10 flex items-center justify-between">
-                        <Tag variant={isSelected ? "lime" : "outline"} size="sm">
+                      <div className="pt-4 mt-4 border-t border-[#d6d5d0]/10 flex items-center justify-between">
+                        <Tag variant={isSelected ? "lime" : "concrete"} size="sm">
                           {isSelected ? "Selected" : "Select Coach"}
                         </Tag>
-                        <span className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                        <span className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/60">
                           Live on Meet
                         </span>
                       </div>
@@ -628,10 +634,10 @@ export function BookingFlow({
           {step === 3 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Select class type
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Available sessions offered by {activeCoach?.displayName}.
                 </p>
               </div>
@@ -650,15 +656,15 @@ export function BookingFlow({
                       <div
                         key={session.id}
                         onClick={() => setSelectedSessionTypeId(session.id)}
-                        className={`p-5 rounded-[16px] border cursor-pointer transition-all duration-150 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                        className={`p-5 rounded-[12px] border cursor-pointer transition-all duration-150 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                           isSelected
-                            ? "border-2 border-[#000000] bg-[#e3fc03]/15"
-                            : "border-[#000000] bg-[#ffffff] hover:border-[#323232]"
+                            ? "border-2 border-[#ffffff] bg-[#252525] shadow-[0_0_24px_rgba(255,255,255,0.06)]"
+                            : "border-[#d6d5d0]/20 bg-[#1d1d1d] hover:border-[#d6d5d0]/50"
                         }`}
                       >
                         <div className="flex flex-col gap-1 max-w-[480px]">
                           <div className="flex items-center gap-2">
-                            <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#000000]">
+                            <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                               {session.name}
                             </span>
                             {session.isTrial && (
@@ -667,10 +673,10 @@ export function BookingFlow({
                               </Tag>
                             )}
                           </div>
-                          <p className="text-[13px] text-[#323232]">
+                          <p className="text-[13px] text-[#d6d5d0]/80">
                             {session.description}
                           </p>
-                          <div className="flex items-center gap-3 mt-1 text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                          <div className="flex items-center gap-3 mt-1 text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70">
                             <span className="flex items-center gap-1">
                               <Clock size={13} strokeWidth={1.5} />
                               {session.durationMinutes} min
@@ -680,12 +686,16 @@ export function BookingFlow({
                           </div>
                         </div>
 
-                        <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-3 sm:pt-0 border-[#000000]/10">
-                          <span className="text-[20px] font-[family-name:var(--font-mono)] text-[#000000]">
+                        <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-3 sm:pt-0 border-[#d6d5d0]/10">
+                          <span className="text-[20px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                             {priceFormatted}
                           </span>
-                          <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#323232] mt-0.5">
-                            {isSelected ? "Selected" : "Select"}
+                          <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase mt-0.5">
+                            {isSelected ? (
+                              <span className="text-[#ffffff] font-medium">Selected</span>
+                            ) : (
+                              <span className="text-[#d6d5d0]/60">Select</span>
+                            )}
                           </span>
                         </div>
                       </div>
@@ -712,43 +722,43 @@ export function BookingFlow({
           {step === 4 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Pick a date
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Only dates with open slots for {activeCoach?.displayName} are selectable.
                 </p>
               </div>
 
               {isLoadingSlots ? (
-                <div className="flex flex-col items-center justify-center p-12 border border-[#000000] rounded-[16px]">
+                <div className="flex flex-col items-center justify-center p-12 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d]">
                   <KnightPath />
                 </div>
               ) : slotsError ? (
-                <div className="p-6 border-2 border-[#000000] rounded-[16px] text-center">
+                <div className="p-6 border border-[#B3261E] rounded-[12px] bg-[#1d1d1d] text-center">
                   <p className="text-[14px] text-[#B3261E] mb-3">{slotsError}</p>
                   <Button variant="secondary" size="sm" onClick={() => setStep(3)}>
                     Change Session Type
                   </Button>
                 </div>
               ) : (
-                <div className="border border-[#000000] rounded-[16px] p-5 bg-[#ffffff]">
+                <div className="border border-[#d6d5d0]/20 rounded-[12px] p-5 bg-[#1d1d1d] text-[#ffffff]">
                   {/* Calendar Month Header */}
-                  <div className="flex items-center justify-between pb-4 border-b border-[#000000]/10">
-                    <span className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.04em]">
+                  <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/15">
+                    <span className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.04em] text-[#ffffff]">
                       {format(currentMonth, "MMMM yyyy")}
                     </span>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => setCurrentMonth((prev) => subMonths(prev, 1))}
-                        className="w-[36px] h-[36px] rounded-[50px] inline-flex items-center justify-center border border-[#000000] hover:bg-[#fafafa]"
+                        className="w-[36px] h-[36px] rounded-[50px] inline-flex items-center justify-center border border-[#d6d5d0]/30 hover:border-[#ffffff] text-[#ffffff] hover:bg-[#252525] transition-colors"
                         aria-label="Previous month"
                       >
                         <ChevronLeft size={16} strokeWidth={1.5} />
                       </button>
                       <button
                         onClick={() => setCurrentMonth((prev) => addMonths(prev, 1))}
-                        className="w-[36px] h-[36px] rounded-[50px] inline-flex items-center justify-center border border-[#000000] hover:bg-[#fafafa]"
+                        className="w-[36px] h-[36px] rounded-[50px] inline-flex items-center justify-center border border-[#d6d5d0]/30 hover:border-[#ffffff] text-[#ffffff] hover:bg-[#252525] transition-colors"
                         aria-label="Next month"
                       >
                         <ChevronRight size={16} strokeWidth={1.5} />
@@ -756,8 +766,8 @@ export function BookingFlow({
                     </div>
                   </div>
 
-                  {/* Day of Week Headers with subtle rank & file labels */}
-                  <div className="grid grid-cols-7 gap-1 text-center py-3 text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
+                  {/* Day of Week Headers */}
+                  <div className="grid grid-cols-7 gap-1 text-center py-3 text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                     {[
                       { name: "Sun", file: "a" },
                       { name: "Mon", file: "b" },
@@ -808,19 +818,19 @@ export function BookingFlow({
                           disabled={!hasSlots}
                           onClick={() => {
                             setSelectedDate(dateStr);
-                            setSelectedSlot(null); // Reset time when date changes
+                            setSelectedSlot(null);
                           }}
                           className={`h-[44px] rounded-[50px] flex flex-col items-center justify-center font-[family-name:var(--font-mono)] text-[14px] transition-all relative ${
                             isSelected
-                              ? "bg-[#e3fc03] text-[#000000] font-normal border border-[#000000]"
+                              ? "bg-[#ffffff] text-[#000000] font-medium border border-[#ffffff]"
                               : hasSlots
-                              ? "bg-[#ffffff] text-[#000000] border border-[#000000]/20 hover:border-[#000000] cursor-pointer"
-                              : "text-[#323232]/30 cursor-not-allowed"
+                              ? "bg-[#252525] text-[#ffffff] border border-[#d6d5d0]/30 hover:border-[#ffffff] cursor-pointer"
+                              : "text-[#d6d5d0]/20 cursor-not-allowed"
                           }`}
                         >
                           <span>{dayNumber}</span>
                           {isToday && !isSelected && (
-                            <span className="w-1 h-1 rounded-full bg-[#000000] mt-0.5" />
+                            <span className="w-1 h-1 rounded-full bg-[#ffffff] mt-0.5" />
                           )}
                         </button>
                       );
@@ -848,17 +858,17 @@ export function BookingFlow({
           {step === 5 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Select session time
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Available times for {selectedDate} (IST).
                 </p>
               </div>
 
               {slotsForSelectedDate.length === 0 ? (
-                <div className="p-8 border border-[#000000] rounded-[16px] text-center">
-                  <p className="text-[14px] text-[#323232] mb-3">
+                <div className="p-8 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] text-center">
+                  <p className="text-[14px] text-[#d6d5d0] mb-3">
                     No open slots remaining on this date.
                   </p>
                   <Button variant="secondary" size="sm" onClick={() => setStep(4)}>
@@ -876,8 +886,8 @@ export function BookingFlow({
                         onClick={() => setSelectedSlot(slot)}
                         className={`h-[48px] px-4 rounded-[50px] font-[family-name:var(--font-mono)] text-[14px] border transition-all duration-150 flex items-center justify-center cursor-pointer ${
                           isSelected
-                            ? "bg-[#e3fc03] text-[#000000] border-2 border-[#000000]"
-                            : "bg-[#ffffff] text-[#000000] border-[#000000] hover:bg-[#fafafa]"
+                            ? "bg-[#ffffff] text-[#000000] font-medium border-2 border-[#ffffff]"
+                            : "bg-[#1d1d1d] text-[#ffffff] border-[#d6d5d0]/30 hover:border-[#ffffff] hover:bg-[#252525]"
                         }`}
                       >
                         {slot.timeStr} IST
@@ -902,14 +912,14 @@ export function BookingFlow({
             </div>
           )}
 
-          {/* STEP 6: LEARNER PROFILE (WHO IS IT FOR) */}
+          {/* STEP 6: LEARNER PROFILE */}
           {step === 6 && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Who is this class for?
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Coaching is customized to the learner&apos;s background and goals.
                 </p>
               </div>
@@ -920,8 +930,8 @@ export function BookingFlow({
                     onClick={() => setIsForChild(false)}
                     className={`h-[44px] px-6 rounded-[50px] border text-[14px] font-[family-name:var(--font-mono)] transition-all ${
                       !isForChild
-                        ? "bg-[#e3fc03] text-[#000000] border-2 border-[#000000]"
-                        : "bg-[#ffffff] text-[#000000] border-[#000000]"
+                        ? "bg-[#ffffff] text-[#000000] font-medium border-2 border-[#ffffff]"
+                        : "bg-[#1d1d1d] text-[#ffffff] border-[#d6d5d0]/30 hover:border-[#ffffff]"
                     }`}
                   >
                     Myself
@@ -930,8 +940,8 @@ export function BookingFlow({
                     onClick={() => setIsForChild(true)}
                     className={`h-[44px] px-6 rounded-[50px] border text-[14px] font-[family-name:var(--font-mono)] transition-all ${
                       isForChild
-                        ? "bg-[#e3fc03] text-[#000000] border-2 border-[#000000]"
-                        : "bg-[#ffffff] text-[#000000] border-[#000000]"
+                        ? "bg-[#ffffff] text-[#000000] font-medium border-2 border-[#ffffff]"
+                        : "bg-[#1d1d1d] text-[#ffffff] border-[#d6d5d0]/30 hover:border-[#ffffff]"
                     }`}
                   >
                     My Child
@@ -940,7 +950,7 @@ export function BookingFlow({
 
                 {currentUser?.students && currentUser.students.length > 0 && (
                   <div className="flex flex-col gap-2 mt-2">
-                    <label className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+                    <label className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                       Select Student Profile
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -953,8 +963,8 @@ export function BookingFlow({
                           }}
                           className={`h-[38px] px-4 rounded-[50px] border text-[13px] font-[family-name:var(--font-mono)] ${
                             selectedStudentId === st.id
-                              ? "bg-[#e3fc03] text-[#000000] border-2 border-[#000000]"
-                              : "bg-[#ffffff] text-[#000000] border-[#000000]"
+                              ? "bg-[#ffffff] text-[#000000] font-medium border-2 border-[#ffffff]"
+                              : "bg-[#1d1d1d] text-[#ffffff] border-[#d6d5d0]/30 hover:border-[#ffffff]"
                           }`}
                         >
                           {st.displayName}
@@ -987,14 +997,14 @@ export function BookingFlow({
             </div>
           )}
 
-          {/* STEP 7: ACCOUNT / INLINE AUTH (NO PAGE RELOAD) */}
+          {/* STEP 7: ACCOUNT / INLINE AUTH */}
           {step === 7 && !currentUser && (
             <div className="flex flex-col gap-4 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   {authMode === "signup" ? "Create your account" : "Log in to your account"}
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Your booking details and Meet link will be saved to your dashboard.
                 </p>
               </div>
@@ -1029,11 +1039,11 @@ export function BookingFlow({
                 />
 
                 {isForChild && authMode === "signup" && (
-                  <label className="flex items-start gap-2.5 text-[13px] text-[#323232] mt-1 select-none">
+                  <label className="flex items-start gap-2.5 text-[13px] text-[#d6d5d0] mt-1 select-none">
                     <input
                       type="checkbox"
                       required
-                      className="mt-1 w-4 h-4 rounded border-[#000000] accent-[#000000]"
+                      className="mt-1 w-4 h-4 rounded border-[#d6d5d0]/40 accent-[#ffffff]"
                     />
                     <span>
                       I confirm I am the parent or legal guardian booking on behalf of a minor student.
@@ -1055,7 +1065,7 @@ export function BookingFlow({
                       setAuthMode(authMode === "signup" ? "login" : "signup");
                       setAuthError("");
                     }}
-                    className="text-[13px] text-[#323232] hover-underline-animation"
+                    className="text-[13px] text-[#d6d5d0] hover:text-[#ffffff] transition-colors"
                   >
                     {authMode === "signup"
                       ? "Already have an account? Log in"
@@ -1088,56 +1098,56 @@ export function BookingFlow({
           {step === 8 && (
             <div className="flex flex-col gap-6 animate-fade-in">
               <div>
-                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                <h2 className="text-[26px] md:text-[32px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                   Review and confirm
                 </h2>
-                <p className="text-[16px] text-[#323232] font-[family-name:var(--font-body)]">
+                <p className="text-[16px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   Confirm your session time and complete your booking.
                 </p>
               </div>
 
-              <div className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col gap-4">
-                <div className="flex items-center justify-between pb-4 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+              <div className="p-6 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] flex flex-col gap-4">
+                <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Coach
                   </span>
-                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#000000]">
+                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                     {activeCoach?.displayName}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between pb-4 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+                <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Class Type
                   </span>
-                  <span className="text-[16px] text-[#000000]">
+                  <span className="text-[16px] text-[#ffffff]">
                     {activeSessionType?.name} ({activeSessionType?.durationMinutes} min)
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between pb-4 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+                <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Date & Time
                   </span>
-                  <span className="text-[16px] font-[family-name:var(--font-mono)] text-[#000000]">
+                  <span className="text-[16px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                     {selectedDate} at {selectedSlot?.timeStr} IST
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between pb-4 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+                <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Learner Profile
                   </span>
-                  <span className="text-[16px] text-[#000000]">
+                  <span className="text-[16px] text-[#ffffff]">
                     {learnerName || currentUser?.name}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#000000]">
+                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                     Total Amount
                   </span>
-                  <span className="text-[24px] font-[family-name:var(--font-mono)] text-[#000000]">
+                  <span className="text-[24px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                     {activeSessionType?.pricePaise === 0
                       ? "Free Assessment"
                       : `₹${((activeSessionType?.pricePaise || 0) / 100).toLocaleString("en-IN")}`}
@@ -1146,16 +1156,16 @@ export function BookingFlow({
               </div>
 
               {/* Policy Reassurance */}
-              <div className="p-4 border border-[#000000] rounded-[16px] bg-[#ffffff] flex items-start gap-3">
-                <ShieldCheck size={20} strokeWidth={1.5} className="text-[#000000] shrink-0 mt-0.5" />
-                <div className="text-[13px] text-[#323232] leading-[1.5]">
-                  <p className="text-[#000000] font-normal">Cancellation & Reschedule Policy</p>
+              <div className="p-4 border border-[#d6d5d0]/20 rounded-[12px] bg-[#171717] flex items-start gap-3">
+                <ShieldCheck size={20} strokeWidth={1.5} className="text-[#ffffff] shrink-0 mt-0.5" />
+                <div className="text-[13px] text-[#d6d5d0] leading-[1.5]">
+                  <p className="text-[#ffffff] font-normal">Cancellation & Reschedule Policy</p>
                   <p>{POLICY_CONFIG.refundPolicySummary}</p>
                 </div>
               </div>
 
               {bookingError && (
-                <div className="p-4 border-2 border-[#000000] rounded-[16px] text-[13px] text-[#B3261E] flex items-center gap-2">
+                <div className="p-4 border border-[#B3261E] rounded-[12px] bg-[#1d1d1d] text-[13px] text-[#B3261E] flex items-center gap-2">
                   <AlertCircle size={16} strokeWidth={1.5} />
                   <span>{bookingError}</span>
                 </div>
@@ -1192,37 +1202,37 @@ export function BookingFlow({
                 <Tag variant="lime" size="md" className="mb-3">
                   {confirmedBookingData.reference}
                 </Tag>
-                <h2 className="text-[32px] md:text-[38px] font-[family-name:var(--font-heading)] font-normal text-[#000000] mb-2">
+                <h2 className="text-[32px] md:text-[38px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mb-2">
                   Your class is booked.
                 </h2>
-                <p className="text-[16px] text-[#323232] leading-[1.6]">
+                <p className="text-[16px] text-[#d6d5d0] leading-[1.6]">
                   A confirmation email has been dispatched with calendar invite and meeting details.
                 </p>
               </div>
 
               {/* Class Card */}
-              <div className="w-full max-w-[520px] p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] text-left flex flex-col gap-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+              <div className="w-full max-w-[520px] p-6 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] text-left flex flex-col gap-4">
+                <div className="flex items-center justify-between pb-3 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Coach
                   </span>
-                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#000000]">
+                  <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                     {confirmedBookingData.coachName}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between pb-3 border-b border-[#000000]/10">
-                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+                <div className="flex items-center justify-between pb-3 border-b border-[#d6d5d0]/10">
+                  <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
                     Time
                   </span>
-                  <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#000000]">
+                  <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                     {format(parseISO(confirmedBookingData.startsAt), "PPpp")} IST
                   </span>
                 </div>
 
                 {/* Google Meet Link Display */}
-                <div className="p-4 rounded-[16px] bg-[#e6e6e6]/60 border border-[#000000]/20 flex flex-col gap-2">
-                  <div className="flex items-center gap-2 text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#000000]">
+                <div className="p-4 rounded-[10px] bg-[#252525] border border-[#d6d5d0]/20 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#ffffff]">
                     <Video size={16} strokeWidth={1.5} />
                     <span>Google Meet Classroom</span>
                   </div>
@@ -1230,11 +1240,11 @@ export function BookingFlow({
                     href={confirmedBookingData.meetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[14px] font-[family-name:var(--font-mono)] text-[#000000] underline break-all"
+                    className="text-[14px] font-[family-name:var(--font-mono)] text-[#ffffff] underline break-all"
                   >
                     {confirmedBookingData.meetUrl}
                   </a>
-                  <p className="text-[11px] text-[#323232]">
+                  <p className="text-[11px] text-[#d6d5d0]/70">
                     Link activates 10 minutes prior to class start.
                   </p>
                 </div>
@@ -1264,11 +1274,11 @@ export function BookingFlow({
               </div>
 
               {/* What to prepare checklist */}
-              <div className="w-full max-w-[520px] p-5 border border-[#000000] rounded-[16px] text-left">
-                <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000]">
+              <div className="w-full max-w-[520px] p-5 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] text-left">
+                <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff]">
                   What to prepare:
                 </span>
-                <ul className="mt-2 text-[13px] text-[#323232] space-y-1.5 list-disc list-inside">
+                <ul className="mt-2 text-[13px] text-[#d6d5d0] space-y-1.5 list-disc list-inside">
                   <li>A laptop or tablet with a working microphone and camera.</li>
                   <li>Stable internet connection.</li>
                   <li>Physical chessboard optional (board is shared on screen).</li>
@@ -1281,44 +1291,44 @@ export function BookingFlow({
         {/* Right Column: Persistent Summary Card (Desktop) */}
         {step < 9 && (
           <div className="hidden lg:block lg:col-span-4 sticky top-6">
-            <Card className="flex flex-col gap-4">
-              <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#323232] pb-2 border-b border-[#000000]/10">
+            <Card className="flex flex-col gap-4 border border-[#d6d5d0]/20 bg-[#1d1d1d] text-[#ffffff] rounded-[12px] p-6">
+              <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] text-[#d6d5d0] pb-3 border-b border-[#d6d5d0]/15">
                 Session Summary
               </span>
 
-              <div className="flex flex-col gap-3 text-[14px]">
+              <div className="flex flex-col gap-3.5 text-[14px]">
                 <div>
-                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block">
+                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/60 block mb-0.5">
                     Level
                   </span>
-                  <span className="text-[15px] text-[#000000]">
+                  <span className="text-[15px] font-medium text-[#ffffff]">
                     {selectedLevel || "Not selected yet"}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block">
+                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/60 block mb-0.5">
                     Coach
                   </span>
-                  <span className="text-[15px] text-[#000000]">
+                  <span className="text-[15px] font-medium text-[#ffffff]">
                     {activeCoach?.displayName || "Not selected yet"}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block">
+                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/60 block mb-0.5">
                     Session
                   </span>
-                  <span className="text-[15px] text-[#000000]">
+                  <span className="text-[15px] font-medium text-[#ffffff]">
                     {activeSessionType?.name || "Not selected yet"}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block">
+                  <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/60 block mb-0.5">
                     Date & Time
                   </span>
-                  <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#000000]">
+                  <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                     {selectedDate && selectedSlot
                       ? `${selectedDate} · ${selectedSlot.timeStr} IST`
                       : "Pending selection"}
@@ -1326,11 +1336,11 @@ export function BookingFlow({
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#000000]/10 flex items-center justify-between">
-                <span className="text-[14px] font-[family-name:var(--font-heading)] text-[#000000]">
+              <div className="pt-4 border-t border-[#d6d5d0]/15 flex items-center justify-between">
+                <span className="text-[14px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                   Price
                 </span>
-                <span className="text-[20px] font-[family-name:var(--font-mono)] text-[#000000]">
+                <span className="text-[22px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                   {activeSessionType
                     ? activeSessionType.pricePaise === 0
                       ? "Free Assessment"

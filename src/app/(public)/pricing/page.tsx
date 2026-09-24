@@ -23,8 +23,8 @@ export default async function PricingPage() {
       />
 
       {/* Pricing Table / Grid */}
-      <div className="border border-[#000000] rounded-[16px] overflow-hidden bg-[#ffffff] mt-8">
-        <div className="hidden md:grid grid-cols-12 gap-4 p-5 bg-[#fafafa] border-b border-[#000000] text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#323232]">
+      <div className="border border-[#d6d5d0]/20 rounded-[12px] overflow-hidden bg-[#1d1d1d] mt-8">
+        <div className="hidden md:grid grid-cols-12 gap-4 p-5 bg-[#171717] border-b border-[#d6d5d0]/15 text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]">
           <span className="col-span-4">Session Format</span>
           <span className="col-span-3">Coach</span>
           <span className="col-span-2">Duration</span>
@@ -32,7 +32,7 @@ export default async function PricingPage() {
           <span className="col-span-1 text-right">Action</span>
         </div>
 
-        <div className="divide-y divide-[#000000]/10">
+        <div className="divide-y divide-[#d6d5d0]/10">
           {sessionTypes.map((st) => {
             const priceFormatted =
               st.pricePaise === 0
@@ -42,32 +42,32 @@ export default async function PricingPage() {
             return (
               <div
                 key={st.id}
-                className="p-5 flex flex-col md:grid md:grid-cols-12 gap-4 items-start md:items-center hover:bg-[#fafafa]/50 transition-colors"
+                className="p-5 flex flex-col md:grid md:grid-cols-12 gap-4 items-start md:items-center hover:bg-[#252525]/60 transition-colors"
               >
                 <div className="md:col-span-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#000000]">
+                    <span className="text-[16px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                       {st.name}
                     </span>
                     {st.isTrial && <Tag variant="lime" size="sm">Trial</Tag>}
                   </div>
-                  <p className="text-[13px] text-[#323232] mt-0.5">
+                  <p className="text-[13px] text-[#d6d5d0]/80 mt-0.5">
                     {st.description}
                   </p>
                 </div>
 
-                <div className="md:col-span-3 flex items-center gap-1.5 text-[14px] text-[#000000]">
+                <div className="md:col-span-3 flex items-center gap-1.5 text-[14px] text-[#ffffff]">
                   <span>{st.coach.displayName}</span>
-                  <span className="text-[#323232] text-[12px] font-[family-name:var(--font-mono)]">
+                  <span className="text-[#d6d5d0]/70 text-[12px] font-[family-name:var(--font-mono)]">
                     ({st.level})
                   </span>
                 </div>
 
-                <div className="md:col-span-2 text-[13px] font-[family-name:var(--font-mono)] text-[#323232]">
+                <div className="md:col-span-2 text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                   {st.durationMinutes} minutes
                 </div>
 
-                <div className="md:col-span-2 text-[18px] font-[family-name:var(--font-mono)] text-[#000000]">
+                <div className="md:col-span-2 text-[18px] font-[family-name:var(--font-mono)] text-[#ffffff]">
                   {priceFormatted}
                 </div>
 
@@ -88,46 +88,46 @@ export default async function PricingPage() {
       </div>
 
       {/* Included with every session */}
-      <div className="mt-8 p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="mt-8 p-6 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d] grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000] block mb-1">
+          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff] block mb-1">
             Google Meet Classroom
           </span>
-          <p className="text-[13px] text-[#323232]">
+          <p className="text-[13px] text-[#d6d5d0]">
             Interactive digital board with real-time arrow and highlight analysis.
           </p>
         </div>
         <div>
-          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000] block mb-1">
+          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff] block mb-1">
             Personalized Notes
           </span>
-          <p className="text-[13px] text-[#323232]">
+          <p className="text-[13px] text-[#d6d5d0]">
             Your coach records specific concepts and blunder checks directly on your portal.
           </p>
         </div>
         <div>
-          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000] block mb-1">
+          <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff] block mb-1">
             Tactical Homework
           </span>
-          <p className="text-[13px] text-[#323232]">
+          <p className="text-[13px] text-[#d6d5d0]">
             Targeted puzzle positions and game tasks assigned between sessions.
           </p>
         </div>
       </div>
 
       {/* Policy Notes */}
-      <div className="mt-6 flex flex-col gap-3 text-[13px] text-[#323232] font-[family-name:var(--font-body)]">
+      <div className="mt-6 flex flex-col gap-3 text-[13px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
         <div className="flex items-start gap-2">
-          <ShieldCheck size={16} strokeWidth={1.5} className="text-[#000000] shrink-0 mt-0.5" />
+          <ShieldCheck size={16} strokeWidth={1.5} className="text-[#ffffff] shrink-0 mt-0.5" />
           <p>
             Payments are securely processed via Razorpay in INR. Supported methods include UPI (Google Pay, PhonePe, Paytm), credit/debit cards, and netbanking.
           </p>
         </div>
         <div className="flex items-start gap-2">
-          <Info size={16} strokeWidth={1.5} className="text-[#000000] shrink-0 mt-0.5" />
+          <Info size={16} strokeWidth={1.5} className="text-[#ffffff] shrink-0 mt-0.5" />
           <p>
             Rescheduling and Cancellation: You may reschedule or cancel free of charge up to {POLICY_CONFIG.cancelNoticeHours} hours before class start. Inside {POLICY_CONFIG.cancelNoticeHours} hours, the session is treated as delivered. See our full{" "}
-            <Link href="/refund-policy" className="text-[#000000] underline">
+            <Link href="/refund-policy" className="text-[#ffffff] underline">
               Refund & Reschedule Policy
             </Link>
             .

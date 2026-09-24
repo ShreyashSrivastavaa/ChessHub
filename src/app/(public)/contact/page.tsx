@@ -63,14 +63,14 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8">
         {/* Left Column: Form */}
         <div className="md:col-span-7">
-          <div className="p-8 border border-[#000000] rounded-[16px] bg-[#ffffff]">
+          <div className="p-8 border border-[#d6d5d0]/20 rounded-[12px] bg-[#1d1d1d]">
             {success ? (
               <div className="flex flex-col items-center text-center py-8 gap-4">
-                <CheckCircle2 size={36} strokeWidth={1.5} className="text-[#000000]" />
-                <h3 className="text-[22px] font-[family-name:var(--font-heading)] text-[#000000]">
+                <CheckCircle2 size={36} strokeWidth={1.5} className="text-[#ffffff]" />
+                <h3 className="text-[22px] font-[family-name:var(--font-heading)] text-[#ffffff]">
                   Message received
                 </h3>
-                <p className="text-[14px] text-[#323232] max-w-[360px]">
+                <p className="text-[14px] text-[#d6d5d0] max-w-[360px]">
                   Thank you for writing to us. Shreyash or Tapesnu will get back to you within 24 hours.
                 </p>
                 <Button
@@ -114,24 +114,24 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.04em] text-[#000000]">
+                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.06em] text-[#d6d5d0]">
                     Current Level (Optional)
                   </label>
                   <select
                     value={level}
                     onChange={(e) => setLevel(e.target.value)}
-                    className="w-full h-[46px] px-[20px] bg-[#ffffff] text-[#000000] text-[16px] rounded-[50px] border border-[#000000] focus:border-2 focus:border-[#000000] outline-none"
+                    className="w-full h-[46px] px-[20px] bg-[#1d1d1d] text-[#ffffff] text-[16px] rounded-[9999px] border border-[#d6d5d0]/40 focus:border-[#ffffff] outline-none"
                   >
-                    <option value="">Select level if known</option>
-                    <option value="Beginner">Beginner / Learning rules</option>
-                    <option value="Foundations">Foundations (under 1000)</option>
-                    <option value="Intermediate">Intermediate (1000 - 1500)</option>
-                    <option value="Advanced">Advanced (1500+ / Tournament)</option>
+                    <option value="" className="bg-[#1d1d1d] text-[#ffffff]">Select level if known</option>
+                    <option value="Beginner" className="bg-[#1d1d1d] text-[#ffffff]">Beginner / Learning rules</option>
+                    <option value="Foundations" className="bg-[#1d1d1d] text-[#ffffff]">Foundations (under 1000)</option>
+                    <option value="Intermediate" className="bg-[#1d1d1d] text-[#ffffff]">Intermediate (1000 - 1500)</option>
+                    <option value="Advanced" className="bg-[#1d1d1d] text-[#ffffff]">Advanced (1500+ / Tournament)</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.04em] text-[#000000]">
+                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.06em] text-[#d6d5d0]">
                     Message
                   </label>
                   <textarea
@@ -140,7 +140,7 @@ export default function ContactPage() {
                     onChange={(e) => setMessage(e.target.value)}
                     required
                     placeholder="Tell us what you or your child would like to achieve..."
-                    className="w-full p-[16px] bg-[#ffffff] text-[#000000] text-[15px] rounded-[16px] border border-[#000000] focus:border-2 focus:border-[#000000] outline-none resize-none"
+                    className="w-full p-[16px] bg-[#1d1d1d] text-[#ffffff] placeholder:text-[#d6d5d0]/50 text-[15px] rounded-[12px] border border-[#d6d5d0]/40 focus:border-[#ffffff] outline-none resize-none"
                   />
                 </div>
 
@@ -169,26 +169,26 @@ export default function ContactPage() {
         <div className="md:col-span-5 flex flex-col gap-6">
           <Card>
             <div className="flex items-center gap-3 mb-3">
-              <Mail size={18} strokeWidth={1.5} />
-              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000]">
+              <Mail size={18} strokeWidth={1.5} className="text-[#ffffff]" />
+              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff]">
                 Email Inquiries
               </span>
             </div>
             <a
               href={`mailto:${BRAND_CONFIG.contactEmail}`}
-              className="text-[15px] font-[family-name:var(--font-mono)] text-[#000000] underline"
+              className="text-[15px] font-[family-name:var(--font-mono)] text-[#ffffff] underline"
             >
               {BRAND_CONFIG.contactEmail}
             </a>
-            <p className="text-[13px] text-[#323232] mt-1">
+            <p className="text-[13px] text-[#d6d5d0] mt-1">
               For scheduling questions, sibling enrollments, or invoice receipts.
             </p>
           </Card>
 
           <Card>
             <div className="flex items-center gap-3 mb-3">
-              <MessageSquare size={18} strokeWidth={1.5} />
-              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000]">
+              <MessageSquare size={18} strokeWidth={1.5} className="text-[#ffffff]" />
+              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff]">
                 WhatsApp Support
               </span>
             </div>
@@ -196,23 +196,23 @@ export default function ContactPage() {
               href={`https://wa.me/${BRAND_CONFIG.whatsappNumber.replace(/[^0-9]/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[15px] font-[family-name:var(--font-mono)] text-[#000000] underline"
+              className="text-[15px] font-[family-name:var(--font-mono)] text-[#ffffff] underline"
             >
               {BRAND_CONFIG.whatsappNumber}
             </a>
-            <p className="text-[13px] text-[#323232] mt-1">
+            <p className="text-[13px] text-[#d6d5d0] mt-1">
               Quick questions for parents coming from Instagram or YouTube.
             </p>
           </Card>
 
           <Card>
             <div className="flex items-center gap-3 mb-2">
-              <Clock size={18} strokeWidth={1.5} />
-              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#000000]">
+              <Clock size={18} strokeWidth={1.5} className="text-[#ffffff]" />
+              <span className="text-[14px] font-[family-name:var(--font-heading)] uppercase text-[#ffffff]">
                 Response Guarantee
               </span>
             </div>
-            <p className="text-[13px] text-[#323232] leading-[1.5]">
+            <p className="text-[13px] text-[#d6d5d0] leading-[1.5]">
               We reply within 24 hours on weekdays.
             </p>
           </Card>

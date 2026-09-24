@@ -54,7 +54,7 @@ export default async function BookPage() {
   }
 
   return (
-    <div className="w-full bg-[#ffffff] min-h-[calc(100vh-140px)]">
+    <div className="w-full bg-[#000000] text-[#ffffff] min-h-[calc(100vh-140px)]">
       <BookingFlow
         coaches={coaches}
         sessionTypes={sessionTypes}

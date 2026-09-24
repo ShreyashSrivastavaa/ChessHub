@@ -12,7 +12,7 @@ export default async function PublicLayout({
   const session = await getSession();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#ffffff]">
+    <div className="min-h-screen flex flex-col bg-[#000000] text-[#ffffff]">
       <TopNav user={session} />
       <main className="flex-1 pb-16 md:pb-0">{children}</main>
       <MobileCtaBar />
