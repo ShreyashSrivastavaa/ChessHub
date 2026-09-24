@@ -73,25 +73,25 @@ async function main() {
     ],
   });
 
-  // Tapesh
+  // Tapeshnu
   const tapeshUser = await prisma.user.upsert({
     where: { email: "tapesh@tworooks.com" },
-    update: {},
+    update: { name: "Tapeshnu" },
     create: {
       email: "tapesh@tworooks.com",
       passwordHash,
-      name: "Tapesh",
+      name: "Tapeshnu",
       role: "COACH",
     },
   });
 
   const tapeshCoach = await prisma.coach.upsert({
     where: { slug: "tapesh" },
-    update: {},
+    update: { displayName: "Tapeshnu" },
     create: {
       userId: tapeshUser.id,
       slug: "tapesh",
-      displayName: "Tapesh",
+      displayName: "Tapeshnu",
       bio: "FIDE-rated competitive player and analytical coach working with intermediate and tournament-aspiring players.",
       philosophy:
         "Chess at the competitive level is about concrete calculation, opening discipline, and exploiting dynamic imbalances. We analyze your real games to eliminate systemic inaccuracies.",

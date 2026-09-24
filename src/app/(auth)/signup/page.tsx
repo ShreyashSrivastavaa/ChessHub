@@ -65,19 +65,19 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-[460px] mx-auto p-6 md:p-8 border border-[#000000] rounded-[16px] bg-[#ffffff]">
+    <div className="min-h-screen bg-[#000000] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[460px] mx-auto p-6 md:p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d]">
         <div className="text-center mb-6">
           <Link
             href="/"
-            className="text-[18px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#000000]"
+            className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#ffffff]"
           >
             {BRAND_CONFIG.name}
           </Link>
-          <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000] mt-3">
+          <h1 className="text-[28px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-3">
             Create Account
           </h1>
-          <p className="text-[13px] text-[#323232] font-[family-name:var(--font-mono)] mt-1">
+          <p className="text-[13px] text-[#d6d5d0] font-[family-name:var(--font-mono)] mt-1">
             Join the academy to track classes, homework & progress
           </p>
         </div>
@@ -118,21 +118,21 @@ export default function SignupPage() {
           />
 
           {/* Minor / Child toggle */}
-          <div className="p-4 rounded-[16px] bg-[#fafafa] border border-[#000000]/10 flex flex-col gap-3">
+          <div className="p-4 rounded-[8px] bg-[#000000]/40 border border-[#d6d5d0]/20 flex flex-col gap-3">
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={isMinor}
                 onChange={(e) => setIsMinor(e.target.checked)}
-                className="w-4 h-4 accent-[#000000]"
+                className="w-4 h-4 accent-[#ffffff]"
               />
-              <span className="text-[13px] font-[family-name:var(--font-body)] text-[#000000]">
+              <span className="text-[13px] font-[family-name:var(--font-body)] text-[#ffffff]">
                 I am a parent or guardian registering for my child
               </span>
             </label>
 
             {isMinor && (
-              <div className="flex flex-col gap-3 pt-2 border-t border-[#000000]/10">
+              <div className="flex flex-col gap-3 pt-2 border-t border-[#d6d5d0]/20">
                 <Input
                   label="Child / Student Name"
                   value={studentName}
@@ -142,28 +142,28 @@ export default function SignupPage() {
                 />
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.04em] text-[#000000]">
+                  <label className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.04em] text-[#d6d5d0]">
                     Current Level
                   </label>
                   <select
                     value={studentLevel}
                     onChange={(e) => setStudentLevel(e.target.value as any)}
-                    className="w-full h-[46px] px-[20px] bg-[#ffffff] text-[#000000] text-[15px] rounded-[50px] border border-[#000000] outline-none"
+                    className="w-full h-[46px] px-[20px] bg-[#1d1d1d] text-[#ffffff] text-[15px] rounded-[9999px] border border-[#d6d5d0]/30 outline-none"
                   >
-                    <option value="BEGINNER">Absolute Beginner (Shreyash)</option>
-                    <option value="FOUNDATIONS">Foundations (Shreyash)</option>
-                    <option value="INTERMEDIATE">Intermediate (Tapesh)</option>
-                    <option value="ADVANCED">Advanced (Tapesh)</option>
+                    <option value="BEGINNER" className="bg-[#1d1d1d] text-[#ffffff]">Absolute Beginner (Shreyash)</option>
+                    <option value="FOUNDATIONS" className="bg-[#1d1d1d] text-[#ffffff]">Foundations (Shreyash)</option>
+                    <option value="INTERMEDIATE" className="bg-[#1d1d1d] text-[#ffffff]">Intermediate (Tapeshnu)</option>
+                    <option value="ADVANCED" className="bg-[#1d1d1d] text-[#ffffff]">Advanced (Tapeshnu)</option>
                   </select>
                 </div>
 
-                <label className="flex items-start gap-2 cursor-pointer select-none text-[12px] text-[#323232] mt-1">
+                <label className="flex items-start gap-2 cursor-pointer select-none text-[12px] text-[#d6d5d0] mt-1">
                   <input
                     type="checkbox"
                     checked={guardianConsent}
                     onChange={(e) => setGuardianConsent(e.target.checked)}
                     required={isMinor}
-                    className="mt-0.5 w-4 h-4 accent-[#000000]"
+                    className="mt-0.5 w-4 h-4 accent-[#ffffff]"
                   />
                   <span>
                     I give explicit guardian consent for the minor student to attend live 1:1 online coaching sessions.
@@ -174,7 +174,7 @@ export default function SignupPage() {
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 text-[13px] text-[#B3261E]">
+            <div className="flex items-center gap-2 text-[13px] text-[#ff6b6b]">
               <AlertCircle size={15} strokeWidth={1.5} />
               <span>{error}</span>
             </div>
@@ -192,9 +192,9 @@ export default function SignupPage() {
           </Button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-[#000000]/10 text-center text-[13px] text-[#323232]">
+        <div className="mt-6 pt-6 border-t border-[#d6d5d0]/20 text-center text-[13px] text-[#d6d5d0]">
           Already have an account?{" "}
-          <Link href="/login" className="text-[#000000] font-normal underline">
+          <Link href="/login" className="text-[#ffffff] underline font-medium">
             Sign In
           </Link>
         </div>

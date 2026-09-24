@@ -2,11 +2,11 @@
 
 > "Live chess coaching. One coach, one student, one board."
 
-TWO ROOKS is a premium online 1:1 chess coaching academy platform built with ruthless Swiss-editorial visual discipline (monochrome + Voltage Lime `#e3fc03`).
+TWO ROOKS is a premium online 1:1 chess coaching academy platform built with the Athletics gallery-grade dark monograph aesthetic (pure obsidian `#000000`, charcoal `#1d1d1d`, paper white `#ffffff`, ash `#d6d5d0`, Newsreader serif display).
 
 Coaching is delivered live on Google Meet by two dedicated specialists:
 - **Shreyash**: Foundations, beginners, children, piece coordination, checkmate patterns, opening principles, building confidence.
-- **Tapesh (FIDE-rated)**: Intermediate & competitive players, opening repertoires, positional play, dynamic calculation, game analysis, tournament preparation.
+- **Tapeshnu (FIDE-rated)**: Intermediate & competitive players, opening repertoires, positional play, dynamic calculation, game analysis, tournament preparation.
 
 ---
 
@@ -42,7 +42,7 @@ All seed passwords are initialized to `Password123!` (change on first login):
 |---|---|---|---|
 | **Admin** | `admin@tworooks.com` | `Password123!` | `/admin` (superadmin control center) |
 | **Coach (Shreyash)** | `shreyash@tworooks.com` | `Password123!` | `/coach` (foundations faculty) |
-| **Coach (Tapesh)** | `tapesh@tworooks.com` | `Password123!` | `/coach` (FIDE competitive faculty) |
+| **Coach (Tapeshnu)** | `tapesh@tworooks.com` | `Password123!` | `/coach` (FIDE competitive faculty) |
 | **Student / Guardian** | `guardian@example.com` | `Password123!` | `/app` (student learner portal) |
 
 ---

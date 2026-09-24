@@ -20,7 +20,7 @@ export default function FaqPage() {
     {
       question: "What age range is the academy designed for?",
       answer:
-        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapesh works with intermediate and competitive tournament players.",
+        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapeshnu works with intermediate and competitive tournament players.",
     },
     {
       question: "Can a parent book and manage classes for a child?",
@@ -30,7 +30,7 @@ export default function FaqPage() {
     {
       question: "Which level or coach should I choose?",
       answer:
-        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapesh. You can also book a diagnostic assessment class.",
+        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapeshnu. You can also book a diagnostic assessment class.",
     },
     {
       question: "What is the cancellation and rescheduling policy?",
@@ -63,14 +63,14 @@ export default function FaqPage() {
 
       <FaqAccordion items={allFaqItems} className="mt-8" />
 
-      <div className="mt-14 p-6 border border-[#000000] rounded-[16px] bg-[#fafafa] text-center flex flex-col items-center gap-3">
-        <h3 className="text-[18px] font-[family-name:var(--font-heading)] text-[#000000]">
+      <div className="mt-14 p-6 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] text-center flex flex-col items-center gap-3">
+        <h3 className="text-[18px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
           Still have a question not covered here?
         </h3>
-        <p className="text-[14px] text-[#323232]">
+        <p className="text-[14px] text-[#d6d5d0]">
           Reach out directly to the academy team.
         </p>
-        <div className="flex gap-4 mt-2">
+        <div className="flex gap-4 mt-2 items-center">
           <Button href="/contact" variant="secondary" size="sm">
             Contact Form
           </Button>
@@ -78,7 +78,7 @@ export default function FaqPage() {
             href={`https://wa.me/${BRAND_CONFIG.whatsappNumber.replace(/[^0-9]/g, "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-[13px] font-[family-name:var(--font-mono)] text-[#000000] underline px-3 py-1"
+            className="inline-flex items-center text-[13px] font-[family-name:var(--font-mono)] text-[#ffffff] underline px-3 py-1"
           >
             WhatsApp
           </a>

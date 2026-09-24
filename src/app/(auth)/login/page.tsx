@@ -55,18 +55,18 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-[420px] mx-auto p-6 md:p-8 border border-[#000000] rounded-[16px] bg-[#ffffff]">
+    <div className="w-full max-w-[420px] mx-auto p-6 md:p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d]">
       <div className="text-center mb-6">
         <Link
           href="/"
-          className="text-[18px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#000000]"
+          className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#ffffff]"
         >
           {BRAND_CONFIG.name}
         </Link>
-        <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000] mt-3">
+        <h1 className="text-[28px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-3">
           Sign In
         </h1>
-        <p className="text-[13px] text-[#323232] font-[family-name:var(--font-mono)] mt-1">
+        <p className="text-[13px] text-[#d6d5d0] font-[family-name:var(--font-mono)] mt-1">
           Access your classes, notes, and homework
         </p>
       </div>
@@ -93,7 +93,7 @@ function LoginForm() {
           <div className="text-right">
             <Link
               href="/forgot-password"
-              className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232] hover-underline-animation"
+              className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70 hover:text-[#ffffff] underline"
             >
               Forgot password?
             </Link>
@@ -101,7 +101,7 @@ function LoginForm() {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 text-[13px] text-[#B3261E]">
+          <div className="flex items-center gap-2 text-[13px] text-[#ff6b6b]">
             <AlertCircle size={15} strokeWidth={1.5} />
             <span>{error}</span>
           </div>
@@ -119,9 +119,9 @@ function LoginForm() {
         </Button>
       </form>
 
-      <div className="mt-6 pt-6 border-t border-[#000000]/10 text-center text-[13px] text-[#323232]">
+      <div className="mt-6 pt-6 border-t border-[#d6d5d0]/20 text-center text-[13px] text-[#d6d5d0]">
         Don&apos;t have an account yet?{" "}
-        <Link href="/signup" className="text-[#000000] font-normal underline">
+        <Link href="/signup" className="text-[#ffffff] font-medium underline">
           Create account
         </Link>
       </div>
@@ -131,8 +131,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#fafafa] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <Suspense fallback={<div className="text-center text-[13px]">Loading...</div>}>
+    <div className="min-h-screen bg-[#000000] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <Suspense fallback={<div className="text-center text-[13px] text-[#d6d5d0]">Loading...</div>}>
         <LoginForm />
       </Suspense>
     </div>

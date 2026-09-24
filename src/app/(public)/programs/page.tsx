@@ -38,7 +38,7 @@ export default function ProgramsPage() {
     },
     {
       name: "Intermediate Coaching",
-      coach: "Coach Tapesh (FIDE)",
+      coach: "Coach Tapeshnu (FIDE)",
       coachSlug: "tapesh",
       target: "Casual and club players looking to cross rating thresholds (1000 - 1500+).",
       covers: [
@@ -53,7 +53,7 @@ export default function ProgramsPage() {
     },
     {
       name: "Advanced & Tournament Prep",
-      coach: "Coach Tapesh (FIDE)",
+      coach: "Coach Tapeshnu (FIDE)",
       coachSlug: "tapesh",
       target: "Tournament players, FIDE aspirants, and serious competitors.",
       covers: [
@@ -76,11 +76,11 @@ export default function ProgramsPage() {
         description="Four structured development tiers. Each tier maps to a specific coach, learning outcome, and skill benchmarks."
       />
 
-      <div className="flex flex-col gap-8 mt-8">
+      <div className="flex flex-col gap-6 mt-8">
         {levels.map((lvl) => (
           <div
             key={lvl.name}
-            className="p-6 md:p-8 border border-[#000000] rounded-[16px] bg-[#ffffff] grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
+            className="p-6 md:p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
           >
             <div className="lg:col-span-4 flex flex-col gap-2">
               <div className="flex items-center gap-2">
@@ -88,34 +88,34 @@ export default function ProgramsPage() {
                   {lvl.coach}
                 </Tag>
               </div>
-              <h3 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+              <h3 className="text-[26px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                 {lvl.name}
               </h3>
-              <p className="text-[14px] text-[#323232] leading-[1.5]">
+              <p className="text-[14px] text-[#d6d5d0] leading-[1.6]">
                 {lvl.target}
               </p>
-              <div className="mt-4 pt-4 border-t border-[#000000]/10 text-[13px] font-[family-name:var(--font-mono)] text-[#323232]">
+              <div className="mt-4 pt-4 border-t border-[#d6d5d0]/10 text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                 <p>Typical duration: {lvl.duration}</p>
-                <p className="mt-1 text-[#000000]">Goal: {lvl.goal}</p>
+                <p className="mt-1 text-[#ffffff]">Goal: {lvl.goal}</p>
               </div>
             </div>
 
             <div className="lg:col-span-8 flex flex-col justify-between h-full gap-6">
               <div>
-                <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block mb-3 font-normal">
+                <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/60 block mb-3 font-normal">
                   What you will master:
                 </span>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[14px] text-[#000000] font-[family-name:var(--font-body)]">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[14px] text-[#d6d5d0] font-[family-name:var(--font-body)]">
                   {lvl.covers.map((c) => (
                     <li key={c} className="flex items-start gap-2">
-                      <span className="text-[#000000] mt-1">•</span>
+                      <span className="text-[#ffffff] mt-1">•</span>
                       <span>{c}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#000000]/10">
+              <div className="flex justify-end pt-4 border-t border-[#d6d5d0]/10">
                 <Button
                   href={`/book?level=${lvl.name.split(" ")[0].toUpperCase()}&coach=${lvl.coachSlug}`}
                   variant="primary"
