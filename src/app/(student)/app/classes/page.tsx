@@ -8,11 +8,26 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { MeetJoinButton } from "@/components/dashboard/MeetJoinButton";
 import { format } from "date-fns";
-import type { Prisma } from "@prisma/client";
 
-type UpcomingClassItem = Prisma.BookingGetPayload<{
-  include: { coach: true; sessionType: true; student: true };
-}>;
+interface UpcomingClassItem {
+  id: string;
+  reference: string;
+  status: string;
+  startsAt: Date;
+  endsAt: Date;
+  meetUrl: string | null;
+  coach: {
+    displayName: string;
+    defaultMeetUrl: string;
+  };
+  sessionType: {
+    name: string;
+    durationMinutes: number;
+  };
+  student: {
+    displayName: string;
+  };
+}
 
 export default async function StudentClassesPage() {
   const session = await requireRole(["STUDENT", "COACH", "ADMIN"]);
