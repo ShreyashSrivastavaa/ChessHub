@@ -1,7 +1,7 @@
 # Brag Plan: TWO ROOKS
 
 ## What is this app?
-TWO ROOKS is an online 1:1 chess academy delivering live private coaching on Google Meet with Shreyash (Foundations) and Tapeshnu (FIDE-rated competitive player).
+TWO ROOKS is an online 1:1 chess academy delivering live private coaching on Google Meet with Shreyash (Foundations) and Tapesnu (FIDE-rated competitive player).
 
 ## The angle
 Quiet, gallery-grade luxury product film ("Monograph on Black Velvet"). The platform rejects passive video courses and bloated gamification — it is ruthless 1:1 mentorship: one coach, one student, one board.
@@ -12,7 +12,7 @@ Deep obsidian screen `#000000`. Huge 96px light serif display letters fade into 
 Subtle chess pawn and rook wireframes shimmer into position.
 
 ## Key moments (the middle)
-- **The Dual Faculty**: Split editorial cards introducing Shreyash (Foundations & Youth) alongside Tapeshnu (FIDE Competitive & Repertoire).
+- **The Dual Faculty**: Split editorial cards introducing Shreyash (Foundations & Youth) alongside Tapesnu (FIDE Competitive & Repertoire).
 - **The Classroom & Board**: Dark gallery board mockup with live Google Meet button, 4-stage skill mastery blocks, and performance rating sparklines.
 - **Instant Booking**: Zero-friction slot reservation with instant Meet link generation.
 
@@ -22,7 +22,7 @@ The academy seal settles in pure paper white on obsidian:
 *"Elevate your chess. Book your first 1:1 session."*
 
 ## User flow worth showing
-1. Choose path: Foundations with Shreyash vs. FIDE Master Track with Tapeshnu.
+1. Choose path: Foundations with Shreyash vs. FIDE Master Track with Tapesnu.
 2. Reserve a verified slot in 2 minutes.
 3. Join your private Google Meet classroom with interactive board and progress tracking.
 
@@ -45,11 +45,11 @@ The academy seal settles in pure paper white on obsidian:
 - Strongest visual element: High-contrast serif typography paired with minimal 8x8 chessboard and pill badges.
 
 ## Share copy (draft)
-Meet TWO ROOKS: live 1:1 chess coaching with Shreyash and Tapeshnu. One coach, one student, one board.
+Meet TWO ROOKS: live 1:1 chess coaching with Shreyash and Tapesnu. One coach, one student, one board.
 
 ## Audio direction
 - Role: Restrained modern electronic bed with warm percussive pulse
-- Music: `happy-beats-business-moves-vol-10-by-ende-dot-app.mp3`
+- Music: `happy-beats-business-moves-vol-12-by-ende-dot-app.mp3`
 - Music treatment: Fade-in 0.0s - 0.5s at 0.35 volume, gentle dip at outro, final fade out at 17.5s - 18.0s
 - Music cue guidance: Strong beat sync points at ~4.5s (faculty split), ~9.0s (classroom reveal), ~14.0s (outro hit)
 - Audio-reactive treatment: Subtle card shadow bloom synced to beat pulse
@@ -70,7 +70,7 @@ Transition mood: Seamless fade & scale into Scene 2 at 4.5s.
 ### Scene 2 — The Dual Faculty — 4.5s (4.5s - 9.0s)
 Two elegant charcoal `#1d1d1d` cards glide into view:
 - **Left Card: Shreyash** | Foundations & Beginners | Kids from Age 6 | Board Comfort & Tactics
-- **Right Card: Tapeshnu** | FIDE-Rated Faculty | Tournament Players | Opening Repertoires & Calculation
+- **Right Card: Tapesnu** | FIDE-Rated Faculty | Tournament Players | Opening Repertoires & Calculation
 Tag: "TAILORED 1:1 SESSIONS ON GOOGLE MEET"
 Sequential: Cards stagger in at 4.6s and 4.9s with soft tactile sound.
 Audio intent: Rhythmic build with defined snare/clap.
@@ -91,6 +91,6 @@ Minimalist gallery lockup:
 Large serif: **"TWO ROOKS"**
 Subcopy: *"Private live chess coaching for ambitious learners."*
 Pill CTA: **"Book Your 1:1 Session — tworooks.com"**
-Faculty note: *"Coached by Shreyash & Tapeshnu"*
+Faculty note: *"Coached by Shreyash & Tapesnu"*
 Sequential: Final logo hits on beat at 14.2s, CTA settles, music gently fades to silence.
 Audio summary: Modern percussive warmth leading from quiet mystery to confident mastery.

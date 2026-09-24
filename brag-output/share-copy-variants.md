@@ -1,7 +1,7 @@
 # Share Copy Variants: TWO ROOKS Launch Video
 
 ### Twitter / X (Short & Punchy)
-> Meet TWO ROOKS: live 1:1 chess coaching with Shreyash and Tapeshnu.
+> Meet TWO ROOKS: live 1:1 chess coaching with Shreyash and Tapesnu.
 > 
 > One coach. One student. One board.
 > 
@@ -13,7 +13,7 @@
 > We built **TWO ROOKS** around a singular premise: real chess improvement happens through direct, 1:1 mentorship over a live board.
 > 
 > • **Shreyash** coaches beginners, children, and fundamentals — board comfort, piece coordination, and tactics.
-> • **Tapeshnu (FIDE)** coaches intermediate & competitive players — opening repertoires, dynamic calculation, and tournament prep.
+> • **Tapesnu (FIDE)** coaches intermediate & competitive players — opening repertoires, dynamic calculation, and tournament prep.
 > 
 > Live on Google Meet. Explore the curriculum and book your session: tworooks.com
 

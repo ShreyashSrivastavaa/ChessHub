@@ -16,12 +16,12 @@ Create a short launch-style brag video for TWO ROOKS — Online Chess Coaching A
 - Tagline / strongest claim: "One coach. One student. One board. Live on Google Meet."
 - Key UI or visual moments to recreate:
   - Athletics dark monograph hero with Newsreader light serif display
-  - Dual faculty cards: Shreyash (Foundations) vs. Tapeshnu (FIDE-rated competitive player)
+  - Dual faculty cards: Shreyash (Foundations) vs. Tapesnu (FIDE-rated competitive player)
   - Dark 8x8 interactive chessboard and Google Meet join pill
   - 4-tier skill mastery track (Introduced / Developing / Reliable / Fluent)
 - Copy that must appear verbatim:
   - "One coach. One student. One board."
-  - "Shreyash & Tapeshnu"
+  - "Shreyash & Tapesnu"
   - "Private 1:1 sessions on Google Meet"
   - "tworooks.com"
 
@@ -48,12 +48,12 @@ Create a short launch-style brag video for TWO ROOKS — Online Chess Coaching A
 
 ## Storyboard
 1. Scene 1: The Monograph Hook (0.0s – 4.5s) — "One coach. One student. One board."
-2. Scene 2: The Dual Faculty (4.5s – 9.0s) — Shreyash & Tapeshnu comparison cards
+2. Scene 2: The Dual Faculty (4.5s – 9.0s) — Shreyash & Tapesnu comparison cards
 3. Scene 3: Live Classroom & Skill Ranks (9.0s – 14.0s) — Dark chessboard, Google Meet pill, 4-stage mastery
 4. Scene 4: The Outro (14.0s – 18.0s) — Final TWO ROOKS lockup & booking CTA
 
 ## Audio
 - Audio role: Restrained modern electronic bed with warm percussive pulse
-- Music: `happy-beats-business-moves-vol-10-by-ende-dot-app.mp3`
+- Music: `happy-beats-business-moves-vol-12-by-ende-dot-app.mp3`
 - Music treatment: Fade-in 0.0s - 0.5s at 0.35 volume, gentle dip at outro, final fade out at 17.5s - 18.0s
 - Copy music file to `brag-output/composition/assets/music/`
