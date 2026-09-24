@@ -7,6 +7,7 @@ import { getCoachSlots } from "@/server/services/bookingService";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import type { CoachCredential, SessionType } from "@prisma/client";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -49,7 +50,7 @@ export default async function CoachProfilePage({
 
   // Filter out raw placeholders on the public UI per prompt rules
   const publicCredentials = coach.credentials.filter(
-    (c) => !c.detail.includes("[PLACEHOLDER")
+    (c: CoachCredential) => !c.detail.includes("[PLACEHOLDER")
   );
 
   // Fetch preview of next available slots
@@ -198,7 +199,7 @@ export default async function CoachProfilePage({
                   Verified Background
                 </span>
                 <div className="flex flex-col gap-4">
-                  {publicCredentials.map((c) => (
+                  {publicCredentials.map((c: CoachCredential) => (
                     <div key={c.id}>
                       <span className="text-[11px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/50 uppercase tracking-wider block">
                         {c.label}
@@ -268,7 +269,7 @@ export default async function CoachProfilePage({
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {coach.sessionTypes.map((st) => (
+          {coach.sessionTypes.map((st: SessionType) => (
             <div
               key={st.id}
               className="p-6 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] flex flex-col justify-between h-[280px]"

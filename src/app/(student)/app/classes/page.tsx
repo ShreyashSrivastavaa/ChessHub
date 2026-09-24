@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { MeetJoinButton } from "@/components/dashboard/MeetJoinButton";
 import { format } from "date-fns";
+import type { Prisma } from "@prisma/client";
+
+type UpcomingClassItem = Prisma.BookingGetPayload<{
+  include: { coach: true; sessionType: true; student: true };
+}>;
 
 export default async function StudentClassesPage() {
   const session = await requireRole(["STUDENT", "COACH", "ADMIN"]);
@@ -17,7 +22,7 @@ export default async function StudentClassesPage() {
     include: { studentProfiles: true },
   });
 
-  const studentIds = user?.studentProfiles.map((s) => s.id) || [];
+  const studentIds = user?.studentProfiles.map((s: { id: string }) => s.id) || [];
 
   const upcomingClasses = await prisma.booking.findMany({
     where: {
@@ -68,7 +73,7 @@ export default async function StudentClassesPage() {
         />
       ) : (
         <div className="flex flex-col gap-4">
-          {upcomingClasses.map((cls) => {
+          {upcomingClasses.map((cls: UpcomingClassItem) => {
             const isConfirmed = cls.status === "CONFIRMED";
             const meetUrl = cls.meetUrl || cls.coach.defaultMeetUrl;
 
