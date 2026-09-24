@@ -12,31 +12,63 @@ import { PieceIcon } from "@/components/chess/PieceIcon";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 
 export default async function HomePage() {
-  const coaches = await prisma.coach.findMany({
-    where: { isActive: true },
-    include: {
-      credentials: { orderBy: { sortOrder: "asc" } },
-      sessionTypes: { where: { isActive: true } },
-    },
-  });
+  let coaches: any[] = [];
+  let sessionTypes: any[] = [];
+  let skillAreas: any[] = [];
+  let testimonials: any[] = [];
 
-  const sessionTypes = await prisma.sessionType.findMany({
-    where: { isActive: true },
-    include: { coach: true },
-    orderBy: { pricePaise: "asc" },
-  });
+  try {
+    coaches = await prisma.coach.findMany({
+      where: { isActive: true },
+      include: {
+        credentials: { orderBy: { sortOrder: "asc" } },
+        sessionTypes: { where: { isActive: true } },
+      },
+    });
 
-  const skillAreas = await prisma.skillArea.findMany({
-    orderBy: { sortOrder: "asc" },
-  });
+    sessionTypes = await prisma.sessionType.findMany({
+      where: { isActive: true },
+      include: { coach: true },
+      orderBy: { pricePaise: "asc" },
+    });
+
+    skillAreas = await prisma.skillArea.findMany({
+      orderBy: { sortOrder: "asc" },
+    });
+
+    testimonials = await prisma.testimonial.findMany({
+      where: { isVisible: true, approvedAt: { not: null } },
+    });
+  } catch (err) {
+    console.error("Database query fallback on HomePage:", err);
+  }
+
+  // Fallback to Brand Config coaches if database query yields empty or errored
+  if (coaches.length === 0) {
+    coaches = [
+      {
+        id: "coach-shreyash",
+        slug: "shreyash",
+        displayName: BRAND_CONFIG.coaches.shreyash.name,
+        philosophy:
+          "Every master was once a beginner who learned to see the board clearly. We start with how pieces coordinate and build confidence move by move without memorization overload.",
+        credentials: [],
+        sessionTypes: [],
+      },
+      {
+        id: "coach-tapesh",
+        slug: "tapesh",
+        displayName: BRAND_CONFIG.coaches.tapesh.name,
+        philosophy:
+          "Chess at the competitive level is about concrete calculation, opening discipline, and exploiting dynamic imbalances. We analyze your real games to eliminate systemic inaccuracies.",
+        credentials: [],
+        sessionTypes: [],
+      },
+    ];
+  }
 
   const foundationsSkills = skillAreas.filter((s) => s.track === "FOUNDATIONS");
   const improvementSkills = skillAreas.filter((s) => s.track === "IMPROVEMENT");
-
-  // Real approved testimonials only - if none exist, hide section completely
-  const testimonials = await prisma.testimonial.findMany({
-    where: { isVisible: true, approvedAt: { not: null } },
-  });
 
   const faqItems = [
     {

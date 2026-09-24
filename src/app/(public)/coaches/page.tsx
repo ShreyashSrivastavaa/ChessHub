@@ -7,13 +7,42 @@ import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 
 export default async function CoachesIndexPage() {
-  const coaches = await prisma.coach.findMany({
-    where: { isActive: true },
-    include: {
-      credentials: { orderBy: { sortOrder: "asc" } },
-      sessionTypes: { where: { isActive: true } },
-    },
-  });
+  let coaches: any[] = [];
+
+  try {
+    coaches = await prisma.coach.findMany({
+      where: { isActive: true },
+      include: {
+        credentials: { orderBy: { sortOrder: "asc" } },
+        sessionTypes: { where: { isActive: true } },
+      },
+    });
+  } catch (err) {
+    console.error("Database query fallback on CoachesIndexPage:", err);
+  }
+
+  if (coaches.length === 0) {
+    coaches = [
+      {
+        id: "coach-shreyash",
+        slug: "shreyash",
+        displayName: BRAND_CONFIG.coaches.shreyash.name,
+        philosophy:
+          "Every master was once a beginner who learned to see the board clearly. We start with how pieces coordinate and build confidence move by move without memorization overload.",
+        credentials: [],
+        sessionTypes: [],
+      },
+      {
+        id: "coach-tapesh",
+        slug: "tapesh",
+        displayName: BRAND_CONFIG.coaches.tapesh.name,
+        philosophy:
+          "Chess at the competitive level is about concrete calculation, opening discipline, and exploiting dynamic imbalances. We analyze your real games to eliminate systemic inaccuracies.",
+        credentials: [],
+        sessionTypes: [],
+      },
+    ];
+  }
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-16">
