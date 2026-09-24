@@ -58,3 +58,11 @@ This file logs all product, design, and technical decisions made during the impl
 - **Chess-Specific Model:** No generic percentages or rings. Tracking uses 4-square ranks across predefined skill areas (Foundations track & Improvement track).
 - **Stages:** `Introduced` -> `Developing` -> `Reliable` -> `Fluent`.
 - **Sparklines:** Real 1px black sparkline ending in a lime dot rendered only if `RatingSnapshot` data exists.
+
+### 8. Strict DESIGN.md Compliance Audit (TWOTWO System)
+- **CSS Custom Properties & @theme:** Integrated the exact `--font-whyte*`, typography scale tokens (`--text-display` 72px, `--text-heading-lg` 38px, `--text-heading` 32px, `--text-heading-sm` 26px, `--text-subheading` 22px, `--text-body` 18px, `--text-body-sm` 16px, `--text-caption` 13px), spacing scale (`--spacing-4` through `--spacing-68`), and surface colors directly into `globals.css`.
+- **Weight Discipline:** Audited and normalized every heading and body text element across all public, auth, student, coach, and admin pages to weight 400 (`font-normal`), fulfilling the strict Whyte Book / Whyte Regular 400 design rule.
+- **Header Floating Canvas:** Removed bottom hairline border from top navigation bar, ensuring the full-width white bar floats freely without dividing lines.
+- **Footer Typography:** Aligned column headers to 16px uppercase Whyte Inktrap tokens and link lists to 13px Whyte Book.
+- **Two-Radius System:** Preserved 50px pill radius for interactive elements (buttons, inputs, tags) and 16px radius for containers and cards with 0px deviation.
+
