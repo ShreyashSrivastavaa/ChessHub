@@ -38,7 +38,7 @@ export default function ProgramsPage() {
     },
     {
       name: "Intermediate Coaching",
-      coach: "Coach Tapeshnu (FIDE)",
+      coach: "Coach Tapesnu (FIDE)",
       coachSlug: "tapesh",
       target: "Casual and club players looking to cross rating thresholds (1000 - 1500+).",
       covers: [
@@ -53,7 +53,7 @@ export default function ProgramsPage() {
     },
     {
       name: "Advanced & Tournament Prep",
-      coach: "Coach Tapeshnu (FIDE)",
+      coach: "Coach Tapesnu (FIDE)",
       coachSlug: "tapesh",
       target: "Tournament players, FIDE aspirants, and serious competitors.",
       covers: [

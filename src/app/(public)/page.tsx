@@ -52,7 +52,7 @@ export default async function HomePage() {
     {
       question: "What age range is the academy designed for?",
       answer:
-        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapeshnu works with intermediate and competitive tournament players.",
+        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapesnu works with intermediate and competitive tournament players.",
     },
     {
       question: "Can a parent book and manage classes for a child?",
@@ -62,7 +62,7 @@ export default async function HomePage() {
     {
       question: "Which level or coach should I choose?",
       answer:
-        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapeshnu. You can also book a diagnostic assessment class.",
+        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapesnu. You can also book a diagnostic assessment class.",
     },
     {
       question: "What is the cancellation and rescheduling policy?",
@@ -194,7 +194,7 @@ export default async function HomePage() {
                 size="md"
                 fullWidth
               >
-                Train with Tapeshnu
+                Train with Tapesnu
               </Button>
             </Card>
 
@@ -466,7 +466,7 @@ export default async function HomePage() {
             <div className="p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#000000]">
               <div className="flex items-center justify-between pb-5 border-b border-[#d6d5d0]/10 mb-6">
                 <span className="text-[22px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
-                  Improvement Track (Tapeshnu)
+                  Improvement Track (Tapesnu)
                 </span>
                 <Tag variant="lime" size="sm">
                   Intermediate / FIDE
@@ -529,7 +529,7 @@ export default async function HomePage() {
             One coach, one student, one board.
           </h2>
           <p className="text-[17px] md:text-[19px] text-[#d6d5d0] max-w-[600px] leading-[1.6]">
-            Book your first class in under 2 minutes. Shreyash builds your foundation, Tapeshnu sharpens your tournament play.
+            Book your first class in under 2 minutes. Shreyash builds your foundation, Tapesnu sharpens your tournament play.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
             <Button href="/book" variant="primary" size="lg" className="px-8">

@@ -22,7 +22,7 @@ export default function TermsPage() {
             1. Overview & Service Scope
           </h2>
           <p>
-            {BRAND_CONFIG.name} provides live, online 1:1 chess coaching delivered via Google Meet. Classes are taught by our designated coaches (Shreyash and Tapeshnu).
+            {BRAND_CONFIG.name} provides live, online 1:1 chess coaching delivered via Google Meet. Classes are taught by our designated coaches (Shreyash and Tapesnu).
           </p>
         </section>
 

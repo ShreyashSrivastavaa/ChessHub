@@ -152,8 +152,8 @@ export default function SignupPage() {
                   >
                     <option value="BEGINNER" className="bg-[#1d1d1d] text-[#ffffff]">Absolute Beginner (Shreyash)</option>
                     <option value="FOUNDATIONS" className="bg-[#1d1d1d] text-[#ffffff]">Foundations (Shreyash)</option>
-                    <option value="INTERMEDIATE" className="bg-[#1d1d1d] text-[#ffffff]">Intermediate (Tapeshnu)</option>
-                    <option value="ADVANCED" className="bg-[#1d1d1d] text-[#ffffff]">Advanced (Tapeshnu)</option>
+                    <option value="INTERMEDIATE" className="bg-[#1d1d1d] text-[#ffffff]">Intermediate (Tapesnu)</option>
+                    <option value="ADVANCED" className="bg-[#1d1d1d] text-[#ffffff]">Advanced (Tapesnu)</option>
                   </select>
                 </div>
 

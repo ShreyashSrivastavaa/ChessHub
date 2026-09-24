@@ -129,7 +129,7 @@ export default async function StudentProgressPage() {
               Improvement Track
             </span>
             <Tag variant="lime" size="sm">
-              Coach Tapeshnu (FIDE)
+              Coach Tapesnu (FIDE)
             </Tag>
           </div>
 

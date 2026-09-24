@@ -33,36 +33,36 @@ export default async function CoachesIndexPage() {
           return (
             <div
               key={coach.id}
-              className="border border-[#000000] rounded-[16px] p-6 md:p-8 bg-[#ffffff] flex flex-col justify-between"
+              className="border border-[#d6d5d0]/20 rounded-[8px] p-6 md:p-8 bg-[#1d1d1d] flex flex-col justify-between"
             >
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4 pb-4 border-b border-[#000000]/10">
-                  <div className="w-[56px] h-[56px] rounded-[16px] bg-[#e6e6e6] border border-[#000000] flex items-center justify-center font-[family-name:var(--font-mono)] text-[22px]">
+                <div className="flex items-center gap-4 pb-4 border-b border-[#d6d5d0]/10">
+                  <div className="w-[56px] h-[56px] rounded-[8px] bg-[#000000] border border-[#d6d5d0]/30 flex items-center justify-center font-[family-name:var(--font-mono)] text-[22px] text-[#ffffff]">
                     {coachBrand.avatarPlaceholderInitial}
                   </div>
                   <div>
-                    <h2 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+                    <h2 className="text-[26px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
                       {coach.displayName}
                     </h2>
-                    <p className="text-[13px] font-[family-name:var(--font-mono)] text-[#323232]">
+                    <p className="text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
                       {coachBrand.headline}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-[15px] leading-[1.6] text-[#323232]">
+                <p className="text-[15px] leading-[1.6] text-[#d6d5d0]">
                   {coach.bio}
                 </p>
 
-                <div className="p-4 bg-[#fafafa] rounded-[16px] border border-[#000000]/10">
-                  <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#323232] block mb-2">
+                <div className="p-4 bg-[#000000] rounded-[8px] border border-[#d6d5d0]/20">
+                  <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#d6d5d0]/70 block mb-2">
                     Core Specializations
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {coachBrand.focus.split(",").map((f) => (
                       <span
                         key={f}
-                        className="px-2.5 py-0.5 rounded-[50px] bg-[#ffffff] border border-[#000000] text-[12px] font-[family-name:var(--font-mono)]"
+                        className="px-3 py-1 rounded-[9999px] bg-[#1d1d1d] border border-[#d6d5d0]/20 text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]"
                       >
                         {f.trim()}
                       </span>
@@ -71,10 +71,10 @@ export default async function CoachesIndexPage() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-[#000000]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="pt-6 mt-6 border-t border-[#d6d5d0]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <Link
                   href={`/coaches/${coach.slug}`}
-                  className="text-[13px] font-[family-name:var(--font-body)] uppercase tracking-[0.04em] text-[#000000] hover-underline-animation"
+                  className="text-[13px] font-[family-name:var(--font-body)] uppercase tracking-[0.04em] text-[#ffffff] hover-underline-animation"
                 >
                   View full philosophy &rarr;
                 </Link>

@@ -9,7 +9,7 @@ export default function HowItWorksPage() {
     {
       num: "01",
       title: "Select your coach and session format",
-      body: "Choose Shreyash for foundational principles, tactics, and beginner confidence. Choose Tapeshnu (FIDE) for intermediate calculation, opening systems, and tournament games.",
+      body: "Choose Shreyash for foundational principles, tactics, and beginner confidence. Choose Tapesnu (FIDE) for intermediate calculation, opening systems, and tournament games.",
     },
     {
       num: "02",

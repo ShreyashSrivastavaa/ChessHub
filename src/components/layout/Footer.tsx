@@ -30,7 +30,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5 text-[14px] font-[family-name:var(--font-body)] text-[#ffffff]">
               <li>
                 <Link href="/coaches" className="hover:text-[#d6d5d0] transition-colors">
-                  Coaches (Shreyash & Tapeshnu)
+                  Coaches (Shreyash & Tapesnu)
                 </Link>
               </li>
               <li>

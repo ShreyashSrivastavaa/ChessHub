@@ -20,7 +20,7 @@ export default function FaqPage() {
     {
       question: "What age range is the academy designed for?",
       answer:
-        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapeshnu works with intermediate and competitive tournament players.",
+        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapesnu works with intermediate and competitive tournament players.",
     },
     {
       question: "Can a parent book and manage classes for a child?",
@@ -30,7 +30,7 @@ export default function FaqPage() {
     {
       question: "Which level or coach should I choose?",
       answer:
-        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapeshnu. You can also book a diagnostic assessment class.",
+        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapesnu. You can also book a diagnostic assessment class.",
     },
     {
       question: "What is the cancellation and rescheduling policy?",
