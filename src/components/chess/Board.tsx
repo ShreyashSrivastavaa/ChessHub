@@ -34,7 +34,7 @@ export function Board({
   return (
     <div
       style={style}
-      className={`relative aspect-square w-full max-w-[440px] border border-[#000000] rounded-[16px] overflow-hidden bg-[#ffffff] select-none ${className}`}
+      className={`relative aspect-square w-full max-w-[440px] border border-[#d6d5d0]/30 rounded-[8px] overflow-hidden bg-[#000000] select-none ${className}`}
     >
       <div className="grid grid-cols-8 grid-rows-8 w-full h-full">
         {ranks.map((rank, rIdx) =>
@@ -47,10 +47,10 @@ export function Board({
                 key={`${file}${rank}`}
                 className={`relative flex items-center justify-center transition-colors duration-200 ${
                   highlighted
-                    ? "bg-[#e3fc03]"
+                    ? "bg-[#ffffff]"
                     : isDark
-                    ? "bg-[#e6e6e6]"
-                    : "bg-[#ffffff]"
+                    ? "bg-[#141414]"
+                    : "bg-[#1d1d1d]"
                 }`}
               >
                 {/* File coordinate on bottom rank */}
@@ -58,11 +58,7 @@ export function Board({
                   <span
                     aria-hidden="true"
                     className={`absolute bottom-0.5 right-1 text-[9px] font-[family-name:var(--font-mono)] ${
-                      highlighted
-                        ? "text-[#000000]"
-                        : isDark
-                        ? "text-[#323232]"
-                        : "text-[#323232]"
+                      highlighted ? "text-[#000000]" : "text-[#d6d5d0]/50"
                     }`}
                   >
                     {file}
@@ -73,11 +69,7 @@ export function Board({
                   <span
                     aria-hidden="true"
                     className={`absolute top-0.5 left-1 text-[9px] font-[family-name:var(--font-mono)] ${
-                      highlighted
-                        ? "text-[#000000]"
-                        : isDark
-                        ? "text-[#323232]"
-                        : "text-[#323232]"
+                      highlighted ? "text-[#000000]" : "text-[#d6d5d0]/50"
                     }`}
                   >
                     {rank}

@@ -445,13 +445,13 @@ export function BookingFlow({
                   {
                     id: "INTERMEDIATE",
                     title: "Intermediate",
-                    coachNote: "Coach Tapesh (FIDE)",
+                    coachNote: "Coach Tapeshnu (FIDE)",
                     desc: "Plays online or club games. Wants deeper tactics, positional play, and calculation.",
                   },
                   {
                     id: "ADVANCED",
                     title: "Advanced / Competitive",
-                    coachNote: "Coach Tapesh (FIDE)",
+                    coachNote: "Coach Tapeshnu (FIDE)",
                     desc: "Tournament player or rated competitor. Opening repertoires and deep game analysis.",
                   },
                 ].map((lvl) => {

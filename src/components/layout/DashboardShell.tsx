@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { BRAND_CONFIG } from "@/config/brand";
-import { Button } from "../ui/Button";
 import { LogOut } from "lucide-react";
 
 export interface NavTabItem {
@@ -42,29 +41,29 @@ export function DashboardShell({
   };
 
   return (
-    <div className="min-h-screen bg-[#ffffff] flex flex-col">
+    <div className="min-h-screen bg-[#000000] text-[#ffffff] flex flex-col">
       {/* Top Bar */}
-      <header className="w-full bg-[#ffffff] border-b border-[#000000] select-none">
-        <div className="max-w-[1280px] mx-auto h-[64px] px-4 md:px-8 flex items-center justify-between">
+      <header className="w-full bg-[#000000] border-b border-[#1d1d1d] select-none">
+        <div className="max-w-[1440px] mx-auto h-[64px] px-6 md:px-12 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="text-[18px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#000000]"
+              className="text-[17px] font-[family-name:var(--font-body)] text-[#ffffff] hover:text-[#d6d5d0]"
             >
               {BRAND_CONFIG.name}
             </Link>
-            <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase px-2 py-0.5 rounded-[50px] bg-[#e6e6e6] text-[#000000]">
+            <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase px-2.5 py-0.5 rounded-[9999px] bg-[#1d1d1d] border border-[#d6d5d0]/30 text-[#d6d5d0]">
               {role}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-[13px] font-[family-name:var(--font-mono)] text-[#323232]">
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
               {userName}
             </span>
             <button
               onClick={handleLogout}
-              className="h-[36px] px-3 rounded-[50px] border border-[#000000] inline-flex items-center gap-1.5 text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#000000] hover:bg-[#fafafa]"
+              className="h-[36px] px-3.5 rounded-[9999px] border border-[#d6d5d0]/30 inline-flex items-center gap-1.5 text-[12px] font-[family-name:var(--font-mono)] uppercase text-[#ffffff] hover:bg-[#1d1d1d]"
             >
               <LogOut size={13} strokeWidth={1.5} />
               <span className="hidden sm:inline">Logout</span>
@@ -74,15 +73,15 @@ export function DashboardShell({
       </header>
 
       {/* Main Container */}
-      <div className="max-w-[1280px] mx-auto w-full px-4 md:px-8 py-8 flex-1 flex flex-col">
+      <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 py-10 flex-1 flex flex-col">
         {/* Page Title & Actions */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#000000]/10 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1d1d1d] mb-8">
           <div>
-            <h1 className="text-[28px] md:text-[34px] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+            <h1 className="text-[32px] md:text-[44px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-[14px] text-[#323232] font-[family-name:var(--font-body)] mt-0.5">
+              <p className="text-[15px] text-[#d6d5d0] font-[family-name:var(--font-body)] mt-1">
                 {subtitle}
               </p>
             )}
@@ -91,7 +90,7 @@ export function DashboardShell({
         </div>
 
         {/* Dashboard Tabs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start flex-1">
           {/* Tabs: Mobile horizontal pill scroll / Desktop slim list */}
           <div className="lg:col-span-3 w-full">
             <nav className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-2 lg:pb-0 scrollbar-none">
@@ -107,15 +106,17 @@ export function DashboardShell({
                   <Link
                     key={tab.href}
                     href={tab.href}
-                    className={`h-[40px] px-4 rounded-[50px] lg:rounded-[16px] inline-flex items-center justify-between text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.04em] whitespace-nowrap transition-all duration-150 ${
+                    className={`h-[40px] px-4 rounded-[9999px] inline-flex items-center justify-between text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.04em] whitespace-nowrap transition-all duration-150 ${
                       isActive
-                        ? "bg-[#e3fc03] text-[#000000] border border-[#000000] font-normal"
-                        : "bg-[#ffffff] text-[#323232] border border-[#000000]/15 hover:border-[#000000] hover:text-[#000000]"
+                        ? "bg-[#ffffff] text-[#000000] border-0 font-normal"
+                        : "bg-transparent text-[#d6d5d0] border border-[#d6d5d0]/20 hover:border-[#d6d5d0] hover:text-[#ffffff]"
                     }`}
                   >
                     <span>{tab.label}</span>
                     {tab.badge !== undefined && tab.badge > 0 && (
-                      <span className="w-5 h-5 rounded-full bg-[#000000] text-[#ffffff] text-[10px] flex items-center justify-center font-normal ml-2">
+                      <span className={`w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-normal ml-2 ${
+                        isActive ? "bg-[#000000] text-[#ffffff]" : "bg-[#ffffff] text-[#000000]"
+                      }`}>
                         {tab.badge}
                       </span>
                     )}

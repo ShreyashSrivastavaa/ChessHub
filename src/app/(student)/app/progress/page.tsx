@@ -76,28 +76,28 @@ export default async function StudentProgressPage() {
     >
       <div className="flex flex-col gap-8">
         {/* Rating Sparkline & Stage Legend */}
-        <div className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-6 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex flex-col gap-1 max-w-[380px]">
-            <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#000000] font-normal">
+            <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase text-[#ffffff] font-normal">
               Pedagogy Framework
             </span>
-            <p className="text-[13px] text-[#323232]">
+            <p className="text-[13px] text-[#d6d5d0]">
               Chess mastery is tracked across four distinct stages: Introduced &rarr; Developing &rarr; Reliable &rarr; Fluent.
             </p>
           </div>
 
           {/* Rating Sparkline (Only if data exists!) */}
           {sparklineData.length >= 2 && (
-            <div className="p-3 bg-[#fafafa] rounded-[16px] border border-[#000000]/10">
+            <div className="p-3 bg-[#000000] rounded-[8px] border border-[#d6d5d0]/20">
               <RatingSparkline data={sparklineData} width={260} height={48} />
             </div>
           )}
         </div>
 
         {/* Foundations Track */}
-        <div className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col gap-2">
-          <div className="flex items-center justify-between pb-3 border-b border-[#000000]/10 mb-2">
-            <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#000000]">
+        <div className="p-6 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] flex flex-col gap-2">
+          <div className="flex items-center justify-between pb-3 border-b border-[#d6d5d0]/10 mb-2">
+            <span className="text-[20px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
               Foundations Track
             </span>
             <Tag variant="outline" size="sm">
@@ -105,7 +105,7 @@ export default async function StudentProgressPage() {
             </Tag>
           </div>
 
-          <div className="flex flex-col divide-y divide-[#000000]/10">
+          <div className="flex flex-col divide-y divide-[#1d1d1d]">
             {allSkillAreas
               .filter((a) => a.track === "FOUNDATIONS")
               .map((area) => {
@@ -123,13 +123,13 @@ export default async function StudentProgressPage() {
         </div>
 
         {/* Improvement Track */}
-        <div className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col gap-2">
-          <div className="flex items-center justify-between pb-3 border-b border-[#000000]/10 mb-2">
-            <span className="text-[18px] font-[family-name:var(--font-heading)] text-[#000000]">
+        <div className="p-6 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] flex flex-col gap-2">
+          <div className="flex items-center justify-between pb-3 border-b border-[#d6d5d0]/10 mb-2">
+            <span className="text-[20px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
               Improvement Track
             </span>
             <Tag variant="lime" size="sm">
-              Coach Tapesh (FIDE)
+              Coach Tapeshnu (FIDE)
             </Tag>
           </div>
 

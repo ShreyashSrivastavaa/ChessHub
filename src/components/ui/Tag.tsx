@@ -13,18 +13,18 @@ export function Tag({
   ...props
 }: TagProps) {
   const base =
-    "inline-flex items-center gap-1.5 font-[family-name:var(--font-mono)] rounded-[50px] uppercase tracking-[0.04em] whitespace-nowrap select-none";
+    "inline-flex items-center gap-1.5 font-[family-name:var(--font-mono)] rounded-[9999px] uppercase tracking-[0.04em] whitespace-nowrap select-none";
 
   const variants = {
-    lime: "bg-[#e3fc03] text-[#000000] border-0",
-    outline: "bg-[#ffffff] text-[#000000] border border-[#000000]",
-    concrete: "bg-[#e6e6e6] text-[#000000] border-0",
-    cancelled: "bg-[#ffffff] text-[#323232] border border-dashed border-[#000000] line-through",
+    lime: "bg-[#ffffff] text-[#000000] border-0",
+    outline: "bg-transparent text-[#ffffff] border border-[#d6d5d0]",
+    concrete: "bg-[#1d1d1d] text-[#ffffff] border border-[#d6d5d0]/30",
+    cancelled: "bg-transparent text-[#d6d5d0]/60 border border-dashed border-[#d6d5d0]/40 line-through",
   };
 
   const sizes = {
-    sm: "h-[22px] px-[8px] text-[11px]",
-    md: "h-[28px] px-[12px] text-[13px]",
+    sm: "h-[24px] px-[10px] text-[11px]",
+    md: "h-[30px] px-[14px] text-[13px]",
   };
 
   return (

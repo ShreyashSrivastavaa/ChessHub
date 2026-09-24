@@ -63,7 +63,7 @@ export default async function StudentHomeworkPage() {
       <div className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col gap-4">
         {homeworkItems.length === 0 ? (
           <p className="text-[14px] text-[#323232] py-8 text-center">
-            Nothing assigned. After your next class, Shreyash or Tapesh may add a few positions to work through.
+            Nothing assigned. After your next class, Shreyash or Tapeshnu may add a few positions to work through.
           </p>
         ) : (
           <div className="flex flex-col divide-y divide-[#000000]/10">

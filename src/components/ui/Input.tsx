@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.04em] text-[#000000]"
+            className="text-[13px] uppercase font-[family-name:var(--font-mono)] tracking-[0.06em] text-[#d6d5d0]"
           >
             {label}
           </label>
@@ -25,10 +25,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             id={inputId}
             ref={ref}
-            className={`w-full h-[46px] px-[20px] bg-[#ffffff] text-[#000000] text-[16px] font-[family-name:var(--font-body)] placeholder:text-[#323232] rounded-[50px] border transition-all duration-150 outline-none ${
+            className={`w-full h-[46px] px-[20px] bg-[#1d1d1d] text-[#ffffff] text-[16px] font-[family-name:var(--font-body)] placeholder:text-[#d6d5d0]/50 rounded-[9999px] border transition-all duration-150 outline-none ${
               error
-                ? "border-2 border-[#000000]"
-                : "border border-[#000000] focus:border-2 focus:border-[#000000]"
+                ? "border border-[#B3261E]"
+                : "border border-[#d6d5d0]/40 focus:border-[#ffffff]"
             } ${className}`}
             {...props}
           />
@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <span>{error}</span>
           </div>
         ) : helperText ? (
-          <p className="text-[13px] text-[#323232] font-[family-name:var(--font-body)]">
+          <p className="text-[13px] text-[#d6d5d0]/70 font-[family-name:var(--font-body)]">
             {helperText}
           </p>
         ) : null}

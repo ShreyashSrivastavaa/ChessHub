@@ -31,19 +31,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-[#e3fc03] text-[#000000] border-0 rounded-[50px] hover:-translate-y-0.5 active:translate-y-0",
+        "bg-[#ffffff] text-[#000000] border-0 rounded-[9999px] hover:opacity-90 active:opacity-100",
       secondary:
-        "bg-[#ffffff] text-[#000000] border border-[#000000] rounded-[50px] hover:-translate-y-0.5 active:translate-y-0 hover:bg-[#fafafa]",
+        "bg-transparent text-[#ffffff] border border-[#d6d5d0] rounded-[9999px] hover:bg-[#1d1d1d] active:bg-[#1d1d1d]",
       ghost:
-        "bg-transparent text-[#000000] border-0 rounded-[50px] hover-underline-animation p-0",
+        "bg-transparent text-[#ffffff] border-0 rounded-[9999px] hover-underline-animation p-0",
       inverted:
-        "bg-[#000000] text-[#ffffff] border border-[#000000] rounded-[50px] hover:-translate-y-0.5 active:translate-y-0 hover:bg-[#1a1a1a]",
+        "bg-[#1d1d1d] text-[#ffffff] border border-[#d6d5d0]/30 rounded-[9999px] hover:border-[#d6d5d0] hover:bg-[#252525]",
     };
 
     const sizeStyles = {
-      sm: variant === "ghost" ? "text-[13px]" : "h-[36px] px-[18px] text-[13px]",
-      md: variant === "ghost" ? "text-[16px]" : "h-[44px] px-[24px] text-[16px]",
-      lg: variant === "ghost" ? "text-[18px]" : "h-[52px] px-[32px] text-[16px]",
+      sm: variant === "ghost" ? "text-[14px]" : "h-[38px] px-[20px] text-[14px]",
+      md: variant === "ghost" ? "text-[16px]" : "h-[46px] px-[24px] text-[16px]",
+      lg: variant === "ghost" ? "text-[17px]" : "h-[54px] px-[32px] text-[16px]",
     };
 
     const widthStyle = fullWidth ? "w-full" : "";

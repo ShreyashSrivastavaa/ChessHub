@@ -1,26 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { BRAND_CONFIG } from "@/config/brand";
 
-const interTight = Inter_Tight({
+const featureDeck = Newsreader({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-inter-tight",
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  variable: "--font-feature-deck",
   display: "swap",
 });
 
-const inter = Inter({
+const sohne = Inter({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-inter",
+  weight: ["300", "400"],
+  variable: "--font-sohne",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -61,9 +62,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${featureDeck.variable} ${sohne.variable} ${mono.variable}`}
     >
-      <body className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col antialiased selection:bg-[#e3fc03] selection:text-[#000000]">
+      <body className="min-h-screen bg-[#000000] text-[#ffffff] flex flex-col antialiased selection:bg-[#1d1d1d] selection:text-[#ffffff]">
         {children}
       </body>
     </html>

@@ -71,7 +71,7 @@ export default function ContactPage() {
                   Message received
                 </h3>
                 <p className="text-[14px] text-[#323232] max-w-[360px]">
-                  Thank you for writing to us. Shreyash or Tapesh will get back to you within 24 hours.
+                  Thank you for writing to us. Shreyash or Tapeshnu will get back to you within 24 hours.
                 </p>
                 <Button
                   variant="secondary"

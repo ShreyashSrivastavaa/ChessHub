@@ -14,17 +14,17 @@ export function SectionHeader({
   className = "",
 }: SectionHeaderProps) {
   return (
-    <div className={`max-w-[640px] mx-auto text-center flex flex-col items-center gap-3 mb-10 md:mb-14 ${className}`}>
+    <div className={`max-w-[760px] mx-auto text-center flex flex-col items-center gap-4 mb-14 md:mb-20 ${className}`}>
       {tag && (
-        <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] text-[#323232] border border-[#000000] px-3 py-1 rounded-[50px]">
+        <span className="text-[12px] md:text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.1em] text-[#d6d5d0] border border-[#d6d5d0]/30 px-3.5 py-1 rounded-[9999px]">
           {tag}
         </span>
       )}
-      <h2 className="text-[28px] md:text-[38px] leading-[1.2] tracking-[-0.02em] font-[family-name:var(--font-heading)] font-normal text-[#000000]">
+      <h2 className="text-[36px] sm:text-[48px] md:text-[60px] lg:text-[72px] leading-[1.05] tracking-[-0.015em] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
         {title}
       </h2>
       {description && (
-        <p className="text-[16px] leading-[1.6] text-[#323232] font-[family-name:var(--font-body)]">
+        <p className="text-[16px] md:text-[17px] leading-[1.5] text-[#d6d5d0] font-[family-name:var(--font-body)] max-w-[560px]">
           {description}
         </p>
       )}

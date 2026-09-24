@@ -42,10 +42,10 @@ export function RatingSparkline({
   const lastPoint = points[points.length - 1];
 
   return (
-    <div className={`inline-flex flex-col gap-1 ${className}`}>
-      <div className="flex items-center justify-between text-[11px] font-[family-name:var(--font-mono)] text-[#323232]">
+    <div className={`inline-flex flex-col gap-1.5 ${className}`}>
+      <div className="flex items-center justify-between text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
         <span>Rating Progression</span>
-        <span className="text-[#000000]">{lastPoint.rating}</span>
+        <span className="text-[#ffffff]">{lastPoint.rating}</span>
       </div>
       <svg
         width={width}
@@ -59,28 +59,28 @@ export function RatingSparkline({
           y1={height - padding}
           x2={width - padding}
           y2={height - padding}
-          stroke="#000000"
+          stroke="#d6d5d0"
           strokeWidth="0.5"
           strokeDasharray="2 2"
-          opacity="0.3"
+          opacity="0.2"
         />
 
-        {/* 1px black sparkline */}
+        {/* 1px white sparkline */}
         <path
           d={pathD}
           fill="none"
-          stroke="#000000"
+          stroke="#ffffff"
           strokeWidth="1.25"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
 
-        {/* Ending Voltage Lime dot */}
+        {/* Ending white dot */}
         <circle
           cx={lastPoint.x}
           cy={lastPoint.y}
           r="3.5"
-          fill="#e3fc03"
+          fill="#ffffff"
           stroke="#000000"
           strokeWidth="1"
         />

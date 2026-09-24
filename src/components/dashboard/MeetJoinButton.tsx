@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/Button";
-import { Video, Clock, Check } from "lucide-react";
-import { differenceInMinutes, differenceInSeconds, isBefore, isAfter } from "date-fns";
+import { Video, Check } from "lucide-react";
+import { differenceInMinutes, isBefore, isAfter } from "date-fns";
 
 export interface MeetJoinButtonProps {
   startsAt: string | Date;
@@ -29,7 +29,7 @@ export function MeetJoinButton({ startsAt, endsAt, meetUrl }: MeetJoinButtonProp
 
   if (isClassEnded) {
     return (
-      <span className="text-[13px] font-[family-name:var(--font-mono)] text-[#323232] flex items-center gap-1.5">
+      <span className="text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70 flex items-center gap-1.5">
         <Check size={14} strokeWidth={1.5} />
         <span>Class Concluded</span>
       </span>
@@ -51,7 +51,7 @@ export function MeetJoinButton({ startsAt, endsAt, meetUrl }: MeetJoinButtonProp
           <span>{isClassLive ? "Join Class (Live Now)" : "Join Classroom"}</span>
         </Button>
         {isClassLive && (
-          <span className="w-2.5 h-2.5 rounded-full bg-[#e3fc03] border border-[#000000] animate-ping" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ffffff] border border-[#000000] animate-ping" />
         )}
       </div>
     );
@@ -63,12 +63,12 @@ export function MeetJoinButton({ startsAt, endsAt, meetUrl }: MeetJoinButtonProp
         disabled
         variant="secondary"
         size="md"
-        className="opacity-50 cursor-not-allowed flex items-center gap-2"
+        className="opacity-40 cursor-not-allowed flex items-center gap-2"
       >
         <Video size={16} strokeWidth={1.5} />
         <span>Join on Meet</span>
       </Button>
-      <span className="text-[11px] font-[family-name:var(--font-mono)] text-[#323232]">
+      <span className="text-[11px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70">
         Opens 10 min before start ({minutesUntilStart > 60 ? `${Math.floor(minutesUntilStart / 60)}h ${minutesUntilStart % 60}m` : `${minutesUntilStart}m`} remaining)
       </span>
     </div>

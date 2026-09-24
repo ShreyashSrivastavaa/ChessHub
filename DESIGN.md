@@ -1,378 +1,139 @@
-# TWOTWO — Style Reference
-> voltage lime on monochrome concrete — a single neon punch inside a black-and-white editorial grid
+# Athletics — Style Reference
+> monograph on black velvet
 
-**Theme:** light
+**Theme:** dark
 
 Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
 
-TWOTWO operates on ruthless visual discipline: a near-pure black-and-white system interrupted by a single piercing voltage-lime accent. The brand reads like a sports-tech catalog stripped to its bones — generous white space, a Swiss-grotesque typeface (Whyte) that does all the tonal work, and absolutely no decorative gradients, shadows, or secondary hues. Product photography is the only color the page permits on its own terms: the rackets themselves bring in coral, blue, sage, and orange, but every UI surface, border, and label stays monochrome. The lime accent functions as functional punctuation — a filled pill button, a hover state, a small swatch tag — never as decoration. Everything is geometric, compact, and confident: 16px image radii, 50px pill buttons, 72px display headlines, uppercase tracked navigation, and tight 1.1 line heights that let type do the heavy lifting. The mood is less 'padel store' and more 'industrial design catalog on a white marble bench.'
+Athletics operates as a gallery-grade creative studio: the entire experience sits on a dark canvas, letting enormous light-weight serif display type breathe against deep charcoal and pure black. The system is ruthlessly monochromatic — zero chromatic color across the interface, with warmth and saturation living exclusively inside editorial photography and the brand mark. Typography does the heavy lifting: a high-contrast pairing of a delicate serif display (Feature Deck at 300 weight, 72–116px) against a quiet grotesque (Söhne at 300/400 for everything functional). The layout is full-bleed, generous, and editorial — wide section gaps of 128–144px, asymmetric two-column blocks, and a vertical service index annotated with A/B/C/D letter labels that evoke a printed specimen sheet. Components are minimal: pill-shaped tags, hairline borders, no shadows, no gradients, no elevation. It reads as confident, restrained, and considered — the design equivalent of a well-typeset monograph.
 
 ## Tokens — Colors
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Voltage Lime | `#e3fc03` | `--color-voltage-lime` | Primary CTA fill, active state, accent badges, and decorative highlights — the single chromatic moment in an otherwise monochrome system. Sits at 18.2:1 contrast against black, so it doubles as a high-visibility call-to-action and a hover indicator without needing a second hue |
-| Obsidian | `#000000` | `--color-obsidian` | Primary text, hairline borders, icon strokes, image borders, and footer background. Carries 2,045 border usages — this system uses black lines to structure space more than boxes or cards |
-| Graphite | `#323232` | `--color-graphite` | Secondary text and softer borders — slightly lifted from pure black to create a visible hierarchy without introducing color |
-| Carbon | `#1a1a1a` | `--color-carbon` | Icon strokes, link underlines, and low-priority UI marks — the third step of the dark scale, reserved for fine detail that should recede from primary text |
-| Paper White | `#ffffff` | `--color-paper-white` | Primary page and card surface — the canvas everything else is drawn onto |
-| Concrete | `#e6e6e6` | `--color-concrete` | Soft section background, alternate surface, and quiet card fill. |
+| Obsidian | `#000000` | `--color-obsidian` | Page canvas, deepest section backgrounds, hairline borders on text |
+| Charcoal | `#1d1d1d` | `--color-charcoal` | Elevated section surfaces, card backgrounds, input fields — the middle layer between pure black and white |
+| Paper White | `#ffffff` | `--color-paper-white` | Primary display and body text on dark surfaces, default borders, icon strokes, form controls |
+| Ash | `#d6d5d0` | `--color-ash` | Hairline borders, dividers, input outlines, and card edges on light surfaces. |
 
 ## Tokens — Typography
 
-### WhyteRegular — WhyteRegular — detected in extracted data but not described by AI · `--font-whyteregular`
-- **Weights:** 400
-- **Sizes:** 32px, 72px
-- **Line height:** 1.1, 1.15
-- **Role:** WhyteRegular — detected in extracted data but not described by AI
+### Feature Deck — Display and heading type — used exclusively for the largest editorial moments: hero headline, section openers, and the service index. The 300 weight (light/thin) with tight negative tracking is the signature move: most display serifs default to 400–700, so the whisper-weight conveys authority through restraint rather than volume. Letter-spacing tightens from -0.009em at 82px to -0.018em at 116px. · `--font-feature-deck`
+- **Substitute:** Newsreader, Cormorant Garamond, GT Sectra Display Light, Canela, Domaine Display Thin
+- **Weights:** 300
+- **Sizes:** 72px, 82px, 116px
+- **Line height:** 1.05–1.10
+- **Letter spacing:** -0.0090em at 82px, -0.0180em at 116px
+- **Role:** Display and heading type — used exclusively for the largest editorial moments: hero headline, section openers, and the service index. The 300 weight (light/thin) with tight negative tracking is the signature move: most display serifs default to 400–700, so the whisper-weight conveys authority through restraint rather than volume. Letter-spacing tightens from -0.009em at 82px to -0.018em at 116px.
 
-### Whyte — Display and section headings — used at 72px hero scale and 32px section scale. Tight 1.1 leading and a regular (not bold) weight are anti-convention: most sports brands shout with 800-weight display type, but Whyte Regular at 72px carries authority through letterform precision and negative space alone. The headlines never need a second style. Substitute: Inter Tight or Neue Haas Grotesk Display Pro at 400. · `--font-whyte`
-- **Weights:** 400
-- **Sizes:** 13px, 16px, 18px, 20px, 22px, 26px, 38px
-- **Line height:** 1.10-1.15
-- **Letter spacing:** -0.02em
-- **Role:** Display and section headings — used at 72px hero scale and 32px section scale. Tight 1.1 leading and a regular (not bold) weight are anti-convention: most sports brands shout with 800-weight display type, but Whyte Regular at 72px carries authority through letterform precision and negative space alone. The headlines never need a second style. Substitute: Inter Tight or Neue Haas Grotesk Display Pro at 400.
-
-### Whyte Book — Universal workhorse — body copy, subheadings, product captions, navigation, and buttons. One weight, one family, used at seven sizes. The 38px tier handles product card titles; 16px is the default body; 13px is the fine-print and footer size. Line-height tightens from 1.60 at body to 1.30 at 38px. Substitute: Inter or Söhne at 400. · `--font-whyte-book`
-- **Weights:** 400
-- **Sizes:** 13px, 16px, 18px, 20px, 22px, 26px, 38px
-- **Line height:** 1.30-1.60
-- **Role:** Universal workhorse — body copy, subheadings, product captions, navigation, and buttons. One weight, one family, used at seven sizes. The 38px tier handles product card titles; 16px is the default body; 13px is the fine-print and footer size. Line-height tightens from 1.60 at body to 1.30 at 38px. Substitute: Inter or Söhne at 400.
-
-### Whyte Inktrap — Secondary detail typeface with inktrap terminals — used for fine UI labels, tag monograms, and small monospace-feeling metadata. The inktrap cuts prevent the letterforms from filling in at small sizes, giving tags and micro-copy a distinct technical voice. Substitute: JetBrains Mono or IBM Plex Mono at 400. · `--font-whyte-inktrap`
-- **Weights:** 400
-- **Sizes:** 16px
-- **Line height:** 1.60
-- **Role:** Secondary detail typeface with inktrap terminals — used for fine UI labels, tag monograms, and small monospace-feeling metadata. The inktrap cuts prevent the letterforms from filling in at small sizes, giving tags and micro-copy a distinct technical voice. Substitute: JetBrains Mono or IBM Plex Mono at 400.
+### Söhne — All functional and body type — navigation, links, body copy, list items, input fields, buttons, footer. Weight 300 for secondary labels and 400 for body. A neo-grotesque with humanist warmth that stays invisible so the serif can speak. · `--font-shne`
+- **Substitute:** Inter, Neue Haas Grotesk, Untitled Sans
+- **Weights:** 300, 400
+- **Sizes:** 16px, 17px, 22px
+- **Line height:** 1.30–1.50
+- **Role:** All functional and body type — navigation, links, body copy, list items, input fields, buttons, footer. Weight 300 for secondary labels and 400 for body. A neo-grotesque with humanist warmth that stays invisible so the serif can speak.
 
 ### Type Scale
 
 | Role | Family | Weight | Size | Line Height | Letter Spacing | Token |
 |------|--------|--------|------|-------------|----------------|-------|
-| caption | — | — | 13px | 1.6 | 0px | `--text-caption` |
-| body-sm | — | — | 16px | 1.6 | 0px | `--text-body-sm` |
-| body | — | — | 18px | 1.5 | 0px | `--text-body` |
-| subheading | — | — | 22px | 1.4 | 0px | `--text-subheading` |
-| heading-sm | — | — | 26px | 1.3 | -0.26px | `--text-heading-sm` |
-| heading | — | — | 32px | 1.15 | -0.64px | `--text-heading` |
-| heading-lg | — | — | 38px | 1.3 | -0.38px | `--text-heading-lg` |
-| display | — | — | 72px | 1.1 | -1.44px | `--text-display` |
+| body-sm | — | — | 16px | 1.5 | 0px | `--text-body-sm` |
+| subheading | — | — | 22px | 1.3 | 0px | `--text-subheading` |
+| heading | — | — | 72px | 1.1 | -0.65px | `--text-heading` |
+| heading-lg | — | — | 82px | 1.05 | -0.74px | `--text-heading-lg` |
+| display | — | — | 116px | 1.05 | -2.09px | `--text-display` |
 
 ## Tokens — Spacing & Shapes
 
-**Base unit:** 4px
+**Base unit:** 8px
 
-**Density:** compact
+**Density:** comfortable
 
 ### Spacing Scale
 
 | Name | Value | Token |
 |------|-------|-------|
-| 4 | 4px | `--spacing-4` |
-| 8 | 8px | `--spacing-8` |
-| 12 | 12px | `--spacing-12` |
 | 16 | 16px | `--spacing-16` |
-| 20 | 20px | `--spacing-20` |
+| 24 | 24px | `--spacing-24` |
 | 32 | 32px | `--spacing-32` |
-| 40 | 40px | `--spacing-40` |
+| 48 | 48px | `--spacing-48` |
 | 64 | 64px | `--spacing-64` |
-| 68 | 68px | `--spacing-68` |
+| 128 | 128px | `--spacing-128` |
+| 144 | 144px | `--spacing-144` |
 
 ### Border Radius
 
 | Element | Value |
 |---------|-------|
-| tags | 50px |
-| cards | 16px |
-| images | 16px |
-| inputs | 50px |
-| buttons | 50px |
+| tags | 9999px |
+| cards | 8px |
+| buttons | 9999px |
 
 ### Layout
 
-- **Page max-width:** 1280px
-- **Section gap:** 64px
-- **Card padding:** 20px
-- **Element gap:** 16px
+- **Page max-width:** 1440px
+- **Section gap:** 128-144px
+- **Card padding:** 24px
+- **Element gap:** 24-32px
 
 ## Components
 
 ### Top Navigation Bar
-**Role:** Primary site navigation
+**Role:** Site-wide navigation
 
-Full-width white bar, 64-80px tall, containing the 'TWO TWO' wordmark (left), five uppercase text links at 13px Whyte Book (SHOP, PADEL RACKETS, PADEL BALLS, APPAREL & ACCESSORIES, BEST SELLERS, CONTACT US), and three right-aligned icon actions (CAD currency selector, search magnifier, cart bag) at 20px Obsidian stroke. No background fill, no border-bottom — the bar floats on white. Links are black, uppercase, tracked at ~0.04em.
+Transparent or black background, no visible border or shadow. Wordmark at far left in 16px Söhne 400 white. Right-aligned nav links in 16px Söhne 400 white with 16px column gap. No background fill, no border, no underline — links are identified by position and tracking alone.
 
-### Pill CTA Button
-**Role:** Primary action trigger
+### Hero Mark + Display Headline
+**Role:** Opening brand statement
 
-Voltage Lime (#e3fc03) fill, Obsidian (#000000) text, 50px border-radius (full pill), 16px 32px padding, Whyte Book 16px / weight 400 / line-height 1.0. No border, no shadow. Sits centered over hero imagery and stretches full-width on product cards (padding 12px 20px). This is the only interactive surface allowed to carry color.
+Centered layout on #000000. Display headline at 116px Feature Deck 300 in white, letter-spacing -0.018em.
 
-### Hero Banner
-**Role:** Full-bleed product showcase
+### Section Opener (Two-Column)
+**Role:** Editorial section introduction
 
-Edge-to-edge product image filling 100vw × ~560px with a centered overlay headline at 72px Whyte Regular in Voltage Lime, followed by a pill CTA. The lime headline over the muted product photograph creates the brand's signature moment — chromatic type floating on a desaturated canvas. No gradient overlay; the product image's natural tones carry the contrast.
+Charcoal (#1d1d1d) background. Left column: small uppercase Söhne 400 white label above a 72px Feature Deck 300 white headline. Right column: body copy in 17px Söhne 400 white, max-width ~480px, generous line-height 1.5. Large vertical gap (128–144px) between label/headline and body.
 
-### Product Card
-**Role:** Racket showcase tile
+### Specialty Tag (Pill)
+**Role:** Category label for services
 
-White surface, 16px border-radius, 1px Obsidian border, product image fills 100% width with 16px top-corner radius carrying through. Below the image: product title at 13px Whyte Book (left-aligned) and price at 13px right-aligned, separated by a hairline Obsidian rule. Full-width Pill CTA Button stacked beneath. The 1px black border on a white card is the system doing the work that shadows do elsewhere.
+Pill shape, 9999px border-radius. White background (#ffffff), black text (#000000) in 16px Söhne 400. Minimal padding ~8px 16px. No border, no shadow. Functions as a quiet chip floating on the dark surface.
 
-### Section Header
-**Role:** Subsection title block
+### Service Index List
+**Role:** Vertical enumeration of capabilities
 
-Centered text block, max-width ~640px. Primary title at 38px Whyte Book, color Obsidian. Optional supporting copy at 16px Whyte Book, color Graphite, 1.6 line-height. Generous 32-40px gap between title and body. No rule, no background — the centering and whitespace do the separation.
+Stacked list of service names in 82px Feature Deck 300 white, each line at 1.05 line-height creating near-touching rows. A single uppercase letter (A, B, C, D) in 16px Söhne 400 white sits flush-left as an index marker, vertically aligned to each entry. No dividers, no bullets — the letter is the only annotation.
 
-### Product Variant Tag
-**Role:** Inline product color indicator
+### Hairline Divider
+**Role:** Structural separation
 
-Tiny Voltage Lime square or short label, ~12px, positioned on the product image (top-left corner). Functions as a swatch callout — the lime chip is the same hue as the CTA, reinforcing that the accent is functional, not decorative.
+1px solid #d6d5d0 line. Used sparingly to mark zone transitions. The warm off-white tone distinguishes structural borders from text-white (#ffffff) — subtle but critical for visual hierarchy.
 
-### Text Input / Search Field
-**Role:** Query input and form fields
+### Pill Button
+**Role:** Interactive action
 
-White fill, 1px Obsidian border, 50px border-radius, Whyte Book 16px placeholder in Graphite. 12-16px vertical padding. Focus state thickens border to 2px Obsidian — no color change, no glow. The pill radius is reserved for inputs, buttons, and tags only.
+9999px border-radius, white background (#ffffff), black text (#000000) in 16px Söhne 400. Padding 12px 24px. No border, no shadow. The pill geometry is the only interactive shape in the system — everything else is rectangular or borderless.
 
-### Footer
-**Role:** Site-wide footer band
+### Form Input
+**Role:** Text entry field
 
-Full-width Obsidian (#000000) band, white text, uppercase Whyte Inktrap 16px for column headers, Whyte Book 13px for link lists. Padding 48-64px vertical. Inverts the page's white-on-black to black-on-white — the same border and type system, just inverted. No social icons in a different style; everything stays in the monochrome logic.
-
-### Icon Button
-**Role:** Utility action trigger
-
-20-24px line icon, 1.5px Obsidian stroke, no fill, no border, no background. Used in nav (search, cart, account) and within cards. Touch target padded to 40px square. No hover state besides color holding — icons are utilitarian, not expressive.
-
-### Product Image Frame
-**Role:** Photographic container
-
-Full-bleed product photograph, 16px border-radius, no border, no shadow. Images carry a 1px Obsidian hairline when used in product cards but stand borderless in hero contexts. The product itself is the content — the frame is barely there.
-
-### Category Grid
-**Role:** Product listing layout
-
-3-column grid on desktop, 1-column mobile, 16-24px gutters. Cards stretch to equal height; images are aspect-ratio locked (3:4) so all rackets align. No alternating background tints — the grid sits on pure white with hairline grid lines.
-
-### Racket Specification Callout
-**Role:** Inline technical note
-
-Centered body text at 16px Whyte Book, Graphite color, max-width 720px, used below section headers to describe product attributes ('Medium balance, 100% carbon and sandy finish — perfect for smooth spins and power in the attacking game without sacrificing too much control.'). Functions as a quiet technical-editorial voice between hero and grid.
+Transparent or #1d1d1d background on dark sections. Bottom border only, 1px #d6d5d0. White placeholder text, white input text in 16px Söhne 400. No box, no fill — the underline is the affordance.
 
 ## Do's and Don'ts
 
 ### Do
-- Use Voltage Lime (#e3fc03) only on filled actions, active states, and the 72px hero headline — never as a background wash, never as a decorative gradient.
-- Set all button and input radii to 50px (full pill) and all card/image radii to 16px — these two values are the only radii the system permits.
-- Use Whyte Book at 400 weight for everything between 13px and 38px; do not introduce a bold weight to create hierarchy — use size and color step instead.
-- Compose every page on Paper White (#ffffff) with Concrete (#e6e6e6) as the only permitted mid-gray for section dividers and backdrops.
-- Reserve 1px Obsidian (#000000) hairlines for card borders and structural rules — the system uses lines, not shadows, to separate surfaces.
-- Set product photographs full-bleed within 16px-radius frames; let the racket colors carry all visual variety inside the grid.
-- Use uppercase, tracked navigation links at 13px Whyte Book with ~0.04em letter-spacing for all top-bar and footer text.
+- Use #000000 as the base canvas and #1d1d1d for elevated section bands — never invert to a light theme.
+- Set display headlines at 72–116px in Feature Deck 300 with -0.009em to -0.018em letter-spacing; this negative tracking is non-negotiable for the editorial feel.
+- Use 9999px radius exclusively for tags and buttons; use 8px only for rectangular cards or image containers.
+- Apply 128–144px vertical padding for major section breaks; this generous air is what makes the system feel considered rather than dense.
+- Annotate lists with uppercase single letters (A, B, C, D) flush-left in Söhne 400 when the list functions as a specimen or index.
+- Restrict all chromatic color to inside editorial photography; the interface itself must remain pure monochrome.
+- Pair large serif Feature Deck headlines with small uppercase Söhne 400 labels above them — the size contrast (116px vs 16px) is the primary hierarchy signal.
 
 ### Don't
-- Do not introduce a second chromatic hue — no blues, reds, or greens outside the product photography. The page is monochrome plus lime, full stop.
-- Do not use box-shadows or drop-shadows to elevate cards; elevation comes from 1px Obsidian borders on white surfaces, never from blurred shadows.
-- Do not use a bold or 600+ weight for headlines — Whyte Regular at 400 with tight tracking is the signature; boldness would break the editorial register.
-- Do not round images or cards to anything other than 16px, and do not use 4px or 8px micro-radii — the system lives in two radius steps only.
-- Do not place buttons on colored or photographic backgrounds without the Voltage Lime fill — a white or black button would lose the brand's only signal.
-- Do not stack the lime accent on lime (lime button on lime highlight) — the accent must sit against Paper White or Obsidian to register.
-- Do not use centered text alignment for body copy, product titles, or prices — reserve centering for hero headlines and section headers only.
-
-## Surfaces
-
-| Level | Name | Value | Purpose |
-|-------|------|-------|---------|
-| 0 | Paper White | `#ffffff` | Primary page canvas — all sections, cards, and product grids sit on this surface. |
-| 1 | Concrete | `#e6e6e6` | Soft section backdrop and divider wash when a page needs a quiet tonal break without introducing a color. |
-| 2 | Voltage Lime | `#e3fc03` | Accent surface — appears only on the pill CTA and occasionally as a 12px swatch tag on product images. |
-| 3 | Obsidian | `#000000` | Inverted surface for the footer band — black canvas, white type, same border and radius rules. |
-
-## Imagery
-
-Product photography is the entire visual strategy. Rackets are shot straight-on, centered, on a pure light-gray studio backdrop with soft directional lighting and a faint ground shadow. No lifestyle, no court, no athlete — the object is the hero. Images are tightly cropped to the racket silhouette and presented at large scale inside the hero and at 3:4 aspect ratio in the product grid. The racket colors (sage, cream, coral, blue, green, orange) provide the page's only chromatic variety, and the surrounding UI stays ruthlessly monochrome so the products read as the color event. No illustrations, no icons beyond thin-line UI glyphs, no 3D renders, no abstract graphics.
-
-## Layout
-
-The page is a max-width 1280px contained layout, centered, with full-bleed hero exceptions. The hero is a full-viewport-width product image (~560px tall) with centered 72px lime headline and a pill CTA floating over it. Below the hero, the page settles into a single-column stack of sections separated by 64px gaps, each section either a centered text block (title + supporting copy) or a 3-column product grid. Navigation is a flat top bar with uppercase text links and right-aligned utility icons. There is no sticky header, no sidebar, no mega-menu. The footer is a full-width black band. Section rhythm is: hero image → centered category header → 3-column product grid → repeat. All content sits on white; tonal contrast comes from the product photography and the single lime accent, not from alternating background bands.
-
-## Agent Prompt Guide
-
-**Quick Color Reference**
-- text: #000000 (Obsidian)
-- background: #ffffff (Paper White)
-- border: #000000 (Obsidian, 1px hairline)
-- accent: #e3fc03 (Voltage Lime)
-- secondary text: #323232 (Graphite)
-- primary action: #e3fc03 (filled action)
-
-**3-5 Example Component Prompts**
-
-1. **Hero Banner** — Full-bleed 100vw × 560px product image with centered 72px Whyte Regular headline in #e3fc03 (Voltage Lime), letter-spacing -1.44px. Below the headline, a pill CTA: 50px radius, #e3fc03 fill, #000000 text, Whyte Book 16px, padding 16px 32px.
-
-2. **Product Card** — White surface (#ffffff), 1px #000000 border, 16px radius. Product image fills the card top with 16px top-corner radius. Below: 13px Whyte Book product title left-aligned in #000000, 13px price right-aligned, separated by a 1px #000000 hairline. Full-width pill CTA stacked beneath: 50px radius, #e3fc03 fill, #000000 text.
-
-3. **Section Header** — Centered on white, max-width 640px. Title at 38px Whyte Book in #000000, supporting copy at 16px Whyte Book in #323232, line-height 1.6. 40px gap between title and body. No rule, no background.
-
-4. **Top Navigation Bar** — Full-width white bar, 80px tall. Left: 'TWO TWO' wordmark in Whyte Book 16px uppercase. Center-left: five uppercase links at 13px Whyte Book, #000000, letter-spacing 0.04em. Right: three icon buttons (currency, search, cart) as 20px line icons with 1.5px #000000 stroke. No background, no border.
-
-5. **Footer Band** — Full-width #000000 background, 64px vertical padding. Column headers in 16px Whyte Inktrap uppercase #ffffff, link lists in 13px Whyte Book #ffffff. Inverts the page's monochrome system without introducing any new color.
-
-## Two-Radius System
-
-The design uses exactly two border-radius values across every component: 50px for interactive elements (buttons, inputs, tags) and 16px for static surfaces (cards, images, containers). This binary is deliberate — it signals 'interactive vs. static' geometrically, so a user can tell what is clickable from radius alone. A card with a 4px corner says 'document'; a card with a 16px corner says 'product showcase'; a button with 50px says 'tap me.' Do not introduce 4px, 8px, or 24px radii — the system's restraint is the design.
-
-## Similar Brands
-
-- **Teenage Engineering** — Same Swiss-grotesque typography approach, monochrome product UI, and a single bold accent color used only on interactive surfaces.
-- **Apple (product pages)** — Full-bleed product photography as the sole chromatic event, white canvas, hairline borders, and one restrained accent for CTA — same 'let the object be the hero' discipline.
-- **Aesop** — Editorial minimalism, uppercase tracked navigation, product-centered photography on neutral backdrops, and a near-zero decorative color palette.
-- **Hodinkee** — Pill-shaped CTAs, centered editorial section headers, and a two-radius system separating product surfaces from interactive elements.
-- **Beosound (Bang & Olufsen product lines)** — Compact product grids, light-mode product photography, tight display typography, and a minimal monochrome-plus-accent palette.
-
-## Quick Start
-
-### CSS Custom Properties
-
-```css
-:root {
-  /* Colors */
-  --color-voltage-lime: #e3fc03;
-  --color-obsidian: #000000;
-  --color-graphite: #323232;
-  --color-carbon: #1a1a1a;
-  --color-paper-white: #ffffff;
-  --color-concrete: #e6e6e6;
-
-  /* Typography — Font Families */
-  --font-whyteregular: 'WhyteRegular', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte: 'Whyte', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte-book: 'Whyte Book', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte-inktrap: 'Whyte Inktrap', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Typography — Scale */
-  --text-caption: 13px;
-  --leading-caption: 1.6;
-  --tracking-caption: 0px;
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.6;
-  --tracking-body-sm: 0px;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --tracking-body: 0px;
-  --text-subheading: 22px;
-  --leading-subheading: 1.4;
-  --tracking-subheading: 0px;
-  --text-heading-sm: 26px;
-  --leading-heading-sm: 1.3;
-  --tracking-heading-sm: -0.26px;
-  --text-heading: 32px;
-  --leading-heading: 1.15;
-  --tracking-heading: -0.64px;
-  --text-heading-lg: 38px;
-  --leading-heading-lg: 1.3;
-  --tracking-heading-lg: -0.38px;
-  --text-display: 72px;
-  --leading-display: 1.1;
-  --tracking-display: -1.44px;
-
-  /* Typography — Weights */
-  --font-weight-regular: 400;
-
-  /* Spacing */
-  --spacing-unit: 4px;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-64: 64px;
-  --spacing-68: 68px;
-
-  /* Layout */
-  --page-max-width: 1280px;
-  --section-gap: 64px;
-  --card-padding: 20px;
-  --element-gap: 16px;
-
-  /* Border Radius */
-  --radius-lg: 8px;
-  --radius-2xl: 16px;
-  --radius-full: 50px;
-
-  /* Named Radii */
-  --radius-tags: 50px;
-  --radius-cards: 16px;
-  --radius-images: 16px;
-  --radius-inputs: 50px;
-  --radius-buttons: 50px;
-
-  /* Surfaces */
-  --surface-paper-white: #ffffff;
-  --surface-concrete: #e6e6e6;
-  --surface-voltage-lime: #e3fc03;
-  --surface-obsidian: #000000;
-}
-```
-
-### Tailwind v4
-
-```css
-@theme {
-  /* Colors */
-  --color-voltage-lime: #e3fc03;
-  --color-obsidian: #000000;
-  --color-graphite: #323232;
-  --color-carbon: #1a1a1a;
-  --color-paper-white: #ffffff;
-  --color-concrete: #e6e6e6;
-
-  /* Typography */
-  --font-whyteregular: 'WhyteRegular', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte: 'Whyte', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte-book: 'Whyte Book', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-whyte-inktrap: 'Whyte Inktrap', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Typography — Scale */
-  --text-caption: 13px;
-  --leading-caption: 1.6;
-  --tracking-caption: 0px;
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.6;
-  --tracking-body-sm: 0px;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --tracking-body: 0px;
-  --text-subheading: 22px;
-  --leading-subheading: 1.4;
-  --tracking-subheading: 0px;
-  --text-heading-sm: 26px;
-  --leading-heading-sm: 1.3;
-  --tracking-heading-sm: -0.26px;
-  --text-heading: 32px;
-  --leading-heading: 1.15;
-  --tracking-heading: -0.64px;
-  --text-heading-lg: 38px;
-  --leading-heading-lg: 1.3;
-  --tracking-heading-lg: -0.38px;
-  --text-display: 72px;
-  --leading-display: 1.1;
-  --tracking-display: -1.44px;
-
-  /* Spacing */
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-64: 64px;
-  --spacing-68: 68px;
-
-  /* Border Radius */
-  --radius-lg: 8px;
-  --radius-2xl: 16px;
-  --radius-full: 50px;
-}
-```
+- Do not introduce any chromatic interface color — no blues, greens, reds, or warm tints in UI elements. Color belongs only in imagery.
+- Do not use Feature Deck (the serif) for body copy, navigation, or functional text; it is display-only at 72px+.
+- Do not apply box-shadows or drop-shadows to any element; the system uses flat surfaces and hairline borders for all separation.
+- Do not set display headlines at weight 400 or above in the serif — the light/thin weight is the signature; heavier weights break the whisper-quiet authority.
+- Do not use gradients, glows, or colored backgrounds behind text blocks; sections are always flat #000000 or #1d1d1d.
+- Do not use #d6d5d0 for text — it is a border/divider color with insufficient contrast for reading; use #ffffff for all readable text.
+- Do not add background fills to navigation or header areas; the top bar is always transparent against the dark canvas.

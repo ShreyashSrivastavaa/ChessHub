@@ -30,7 +30,7 @@ export function MobileCtaBar() {
             Live 1:1 Coaching
           </span>
           <span className="text-[11px] text-[#323232]">
-            Shreyash & Tapesh
+            Shreyash & Tapeshnu
           </span>
         </div>
         <Button href="/book" variant="primary" size="sm" className="h-[38px] px-5">

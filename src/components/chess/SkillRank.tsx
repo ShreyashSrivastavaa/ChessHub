@@ -27,9 +27,9 @@ export function SkillRank({ name, stage, comment, className = "" }: SkillRankPro
   const currentLevel = STAGE_CONFIG[stage]?.level ?? 1;
 
   return (
-    <div className={`py-3 border-b border-[#000000]/10 last:border-b-0 ${className}`}>
+    <div className={`py-3 border-b border-[#1d1d1d] last:border-b-0 ${className}`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <span className="text-[16px] text-[#000000] font-[family-name:var(--font-body)]">
+        <span className="text-[16px] text-[#ffffff] font-[family-name:var(--font-body)]">
           {name}
         </span>
 
@@ -47,27 +47,26 @@ export function SkillRank({ name, stage, comment, className = "" }: SkillRankPro
                   whileInView={shouldReduceMotion ? {} : { scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: (step - 1) * 0.06, duration: 0.2 }}
-                  className={`w-[14px] h-[14px] border border-[#000000] transition-colors duration-150 ${
+                  className={`w-[14px] h-[14px] border border-[#d6d5d0]/50 transition-colors duration-150 ${
                     isCurrent
-                      ? "bg-[#e3fc03]"
+                      ? "bg-[#ffffff]"
                       : isFilled
-                      ? "bg-[#000000]"
-                      : "bg-[#ffffff]"
+                      ? "bg-[#d6d5d0]/60"
+                      : "bg-[#1d1d1d]"
                   }`}
                 />
               );
             })}
           </div>
 
-          {/* Stage label */}
-          <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.04em] text-[#323232] min-w-[85px] text-right">
+          <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#d6d5d0] min-w-[90px] text-right">
             {STAGE_CONFIG[stage]?.label}
           </span>
         </div>
       </div>
 
       {comment && (
-        <p className="mt-1 text-[13px] text-[#323232] font-[family-name:var(--font-body)] italic">
+        <p className="mt-1 text-[13px] text-[#d6d5d0]/70 italic">
           &ldquo;{comment}&rdquo;
         </p>
       )}

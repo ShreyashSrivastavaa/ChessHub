@@ -211,7 +211,7 @@ export default async function StudentDashboardPage({
       ) : (
         <EmptyState
           title="No classes booked yet"
-          description="Reserve a 1:1 slot with Shreyash or Tapesh to start your chess progression."
+          description="Reserve a 1:1 slot with Shreyash or Tapeshnu to start your chess progression."
           actionLabel="Book a Class"
           actionHref="/book"
         />
@@ -254,7 +254,7 @@ export default async function StudentDashboardPage({
               </div>
             ) : (
               <p className="text-[14px] text-[#323232] py-4">
-                Nothing assigned. After your next class, Shreyash or Tapesh may add a few positions to work through.
+                Nothing assigned. After your next class, Shreyash or Tapeshnu may add a few positions to work through.
               </p>
             )}
           </div>
