@@ -66,8 +66,8 @@ This file logs all product, design, and technical decisions made during the impl
 - **Footer Typography:** Aligned column headers to 16px uppercase Whyte Inktrap tokens and link lists to 13px Whyte Book.
 - **Two-Radius System:** Preserved 50px pill radius for interactive elements (buttons, inputs, tags) and 16px radius for containers and cards with 0px deviation.
 
-### 9. Athletics Dark Monograph Migration & Tapeshnu Update
-- **Faculty Update:** Coach Tapesh renamed to **Tapeshnu** across the entire academy (configuration, database seed, public pages, student portals, and legal disclosures).
+### 9. Athletics Dark Monograph Migration & Tapesnu Update
+- **Faculty Update:** Coach Tapesh renamed to **Tapesnu** across the entire academy (configuration, database seed, public pages, student portals, and legal disclosures).
 - **Design System Overhaul:** Migrated from TWOTWO light theme to **Athletics — Style Reference ("monograph on black velvet")**:
   - Ruthlessly monochromatic dark palette: Obsidian `#000000` canvas, Charcoal `#1d1d1d` elevated card containers, Paper White `#ffffff` crisp typography, and Ash `#d6d5d0` hairline accents.
   - Typography: Feature Deck (loaded via `Newsreader` 300 light serif display, 72–116px) paired with Söhne (loaded via `Inter` 300/400 grotesque) and JetBrains Mono for metadata.

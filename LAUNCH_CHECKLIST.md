@@ -18,7 +18,7 @@ This checklist itemizes every placeholder, configuration value, credential, and 
   - [ ] Replace placeholder credentials (`[PLACEHOLDER: add certification or teaching experience]`).
   - [ ] Set real Google Meet personal room or default meeting link.
   - [ ] Upload coach portrait photograph (if available).
-- [ ] **Tapesh:**
+- [ ] **Tapesnu:**
   - [ ] Verify FIDE ID and actual official FIDE rating. (Leave fields blank to display "FIDE-rated" without unverified numbers).
   - [ ] Add real competitive background and teaching philosophy.
   - [ ] Set real Google Meet personal room or default meeting link.
@@ -28,9 +28,9 @@ This checklist itemizes every placeholder, configuration value, credential, and 
 - [ ] Review and update all session durations and prices in paise (INR):
   - [ ] Trial Assessment Class (e.g. Free or nominal fee)
   - [ ] Foundations 1:1 with Shreyash (e.g. ₹999 / $15)
-  - [ ] Intermediate 1:1 with Tapesh (e.g. ₹1,499 / $20)
-  - [ ] Advanced Opening Repertoire with Tapesh (e.g. ₹1,999 / $25)
-  - [ ] Tournament Preparation Analysis with Tapesh (e.g. ₹2,499 / $30)
+  - [ ] Intermediate 1:1 with Tapesnu (e.g. ₹1,499 / $20)
+  - [ ] Advanced Opening Repertoire with Tapesnu (e.g. ₹1,999 / $25)
+  - [ ] Tournament Preparation Analysis with Tapesnu (e.g. ₹2,499 / $30)
 - [ ] Verify GST tax liability and update tax note in `src/config/policy.ts`.
 
 ### 4. Payments (Razorpay Integration)

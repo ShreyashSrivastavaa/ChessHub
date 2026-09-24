@@ -11,7 +11,7 @@ export const BRAND_CONFIG = {
   name: "TWO ROOKS",
   shortName: "Two Rooks",
   tagline: "Live chess coaching. One coach, one student, one board.",
-  heroSubcopy: "Shreyash builds your foundations. Tapeshnu, a FIDE-rated player, sharpens your game. Classes run live on Google Meet.",
+  heroSubcopy: "Shreyash builds your foundations. Tapesnu, a FIDE-rated player, sharpens your game. Classes run live on Google Meet.",
   domain: "tworooks.com",
   contactEmail: "hello@tworooks.com",
   whatsappNumber: "+91 98765 43210", // PLACEHOLDER: Update with real WhatsApp business number
@@ -32,7 +32,15 @@ export const BRAND_CONFIG = {
     },
     tapesh: {
       slug: "tapesh",
-      name: "Tapeshnu",
+      name: "Tapesnu",
+      headline: "FIDE-Rated Competitive Player & Coach",
+      focus: "Openings and lines, advanced tactics, positional play, calculation, strategy, game analysis, tournament preparation.",
+      fideRated: true,
+      avatarPlaceholderInitial: "T",
+    },
+    tapesnu: {
+      slug: "tapesh",
+      name: "Tapesnu",
       headline: "FIDE-Rated Competitive Player & Coach",
       focus: "Openings and lines, advanced tactics, positional play, calculation, strategy, game analysis, tournament preparation.",
       fideRated: true,
@@ -40,7 +48,7 @@ export const BRAND_CONFIG = {
     },
     tapeshnu: {
       slug: "tapesh",
-      name: "Tapeshnu",
+      name: "Tapesnu",
       headline: "FIDE-Rated Competitive Player & Coach",
       focus: "Openings and lines, advanced tactics, positional play, calculation, strategy, game analysis, tournament preparation.",
       fideRated: true,
