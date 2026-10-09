@@ -1,86 +1,79 @@
-import { describe, it, expect, vi } from "vitest";
-import { POLICY_CONFIG } from "../src/config/policy";
-import { addHours, subHours, isBefore } from "date-fns";
-import { MockPaymentProvider } from "../src/lib/payments/provider";
+import { describe, it, expect } from "vitest";
+import { BUSINESS_CONFIG, getPlanByLevel } from "../src/config/business";
+import { addHours, isBefore } from "date-fns";
 
-describe("Business Logic & Policies", () => {
-  describe("Policy Windows", () => {
-    it("enforces 12-hour cancellation notice window", () => {
-      const now = new Date();
-      const sessionIn10Hours = addHours(now, 10);
-      const sessionIn14Hours = addHours(now, 14);
-
-      const minNoticeTime = addHours(now, POLICY_CONFIG.cancelNoticeHours);
-
-      // Session inside 12h: cannot cancel without penalty
-      expect(isBefore(sessionIn10Hours, minNoticeTime)).toBe(true);
-
-      // Session outside 12h: can cancel free of charge
-      expect(isBefore(sessionIn14Hours, minNoticeTime)).toBe(false);
+describe("Chess Hub Business Logic & Policies", () => {
+  describe("Direct Contact & Payment Enquiry Workflow", () => {
+    it("coaches are strictly Shreyash and Tapesnu", () => {
+      const coachNames = BUSINESS_CONFIG.coaches.map((c) => c.name);
+      expect(coachNames).toContain("Shreyash");
+      expect(coachNames).toContain("Tapesnu");
+      // Spelling check
+      expect(coachNames).not.toContain("Tapesh");
     });
 
-    it("enforces 12-hour rescheduling notice window", () => {
-      const now = new Date();
-      const sessionIn5Hours = addHours(now, 5);
-      const sessionIn20Hours = addHours(now, 20);
+    it("payment policy mandates direct coach communication", () => {
+      expect(BUSINESS_CONFIG.paymentPolicy.requireDirectContact).toBe(true);
+      expect(BUSINESS_CONFIG.paymentPolicy.description).toContain("No online payments");
+    });
 
-      const minNoticeTime = addHours(now, POLICY_CONFIG.rescheduleNoticeHours);
+    it("correct mailto URL is constructed with prefilled booking details", () => {
+      const mockBooking = {
+        reference: "CH-AB12CD",
+        level: "beginner",
+        date: "2026-11-20",
+        timeSlot: "10:00",
+        priceRupees: 500,
+        fullName: "Rahul Varma",
+      };
 
-      expect(isBefore(sessionIn5Hours, minNoticeTime)).toBe(true);
-      expect(isBefore(sessionIn20Hours, minNoticeTime)).toBe(false);
+      const mailtoSubject = encodeURIComponent(
+        `Chess Hub Booking Confirmation - Ref: ${mockBooking.reference}`
+      );
+      const mailtoBody = encodeURIComponent(
+        `Hello Shreyash & Tapesnu,\n\nI have submitted a booking request on Chess Hub with the following details:\n\nReference: ${
+          mockBooking.reference
+        }\nStudent Name: ${mockBooking.fullName}\nLevel: ${mockBooking.level.toUpperCase()} Coaching\nDate: ${
+          mockBooking.date
+        }\nTime Slot: ${mockBooking.timeSlot} IST\nPrice: ₹${
+          mockBooking.priceRupees
+        } per session\n\nI would like to discuss payment arrangements and finalize my session confirmation.\n\nThank you,\n${
+          mockBooking.fullName
+        }`
+      );
+
+      const generatedLink = `mailto:${BUSINESS_CONFIG.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+      expect(generatedLink).toContain(`mailto:${BUSINESS_CONFIG.email}`);
+      expect(generatedLink).toContain(encodeURIComponent(mockBooking.reference));
+      expect(generatedLink).toContain(encodeURIComponent("₹500 per session"));
+    });
+
+    it("tel link targets Coach Tapesnu correctly", () => {
+      expect(BUSINESS_CONFIG.phone).toBe("+91 9930917551");
+      expect(BUSINESS_CONFIG.contactCoachName).toBe("Tapesnu");
+      const telLink = `tel:${BUSINESS_CONFIG.phone}`;
+      expect(telLink).toBe("tel:+91 9930917551");
     });
   });
 
-  describe("Payment Provider Abstraction", () => {
-    const mockProvider = new MockPaymentProvider();
-
-    it("creates orders with INR currency and correct paise amount", async () => {
-      const order = await mockProvider.createOrder({
-        bookingId: "b_test_123",
-        amountPaise: 99900,
-        currency: "INR",
-        receipt: "TR-0142",
-      });
-
-      expect(order.providerOrderId).toContain("order_mock_");
-      expect((order.clientPayload as any).amount).toBe(99900);
-      expect((order.clientPayload as any).currency).toBe("INR");
+  describe("Coaching Pricing Single Source of Truth", () => {
+    it("Beginner coaching is integer 500 rupees", () => {
+      expect(BUSINESS_CONFIG.plans.beginner.priceRupees).toBe(500);
+      expect(BUSINESS_CONFIG.plans.beginner.pricePaise).toBe(50000);
     });
 
-    it("verifies mock client signatures accurately", () => {
-      const valid = mockProvider.verifyClientSignature({
-        providerOrderId: "order_mock_test_1",
-        providerPaymentId: "pay_123",
-        signature: "mock_valid_signature",
-      });
-      expect(valid).toBe(true);
-
-      const invalid = mockProvider.verifyClientSignature({
-        providerOrderId: "order_real_123",
-        providerPaymentId: "pay_123",
-        signature: "invalid_sig",
-      });
-      expect(invalid).toBe(false);
+    it("Advanced coaching is integer 800 rupees", () => {
+      expect(BUSINESS_CONFIG.plans.advanced.priceRupees).toBe(800);
+      expect(BUSINESS_CONFIG.plans.advanced.pricePaise).toBe(80000);
     });
 
-    it("parses webhooks and validates signature header", async () => {
-      const headers = new Headers();
-      headers.set("x-mock-signature", "mock_valid");
-
-      const event = await mockProvider.parseAndVerifyWebhook(
-        JSON.stringify({
-          event_id: "evt_100",
-          event: "payment.captured",
-          orderId: "order_mock_1",
-          paymentId: "pay_mock_1",
-          amount: 99900,
-        }),
-        headers
-      );
-
-      expect(event.providerEventId).toBe("evt_100");
-      expect(event.status).toBe("captured");
-      expect(event.amountPaise).toBe(99900);
+    it("resolves plan case-insensitively and returns correct defaults", () => {
+      expect(getPlanByLevel("BEGINNER").priceRupees).toBe(500);
+      expect(getPlanByLevel("beginner").priceRupees).toBe(500);
+      expect(getPlanByLevel("ADVANCED").priceRupees).toBe(800);
+      expect(getPlanByLevel("advanced").priceRupees).toBe(800);
+      expect(getPlanByLevel("unknown").priceRupees).toBe(500); // safe fallback
     });
   });
 });

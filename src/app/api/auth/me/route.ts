@@ -8,6 +8,21 @@ export async function GET() {
     return NextResponse.json({ user: null });
   }
 
+  // Check AdminUser first
+  const adminUser = await prisma.adminUser.findUnique({
+    where: { id: session.id },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+    },
+  });
+
+  if (adminUser) {
+    return NextResponse.json({ user: adminUser });
+  }
+
   const user = await prisma.user.findUnique({
     where: { id: session.id },
     select: {
@@ -15,7 +30,6 @@ export async function GET() {
       email: true,
       name: true,
       role: true,
-      studentProfiles: true,
     },
   });
 

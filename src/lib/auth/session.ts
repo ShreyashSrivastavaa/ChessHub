@@ -9,7 +9,7 @@ export interface SessionUser {
   role: "STUDENT" | "COACH" | "ADMIN";
 }
 
-const COOKIE_NAME = "tworooks_session";
+const COOKIE_NAME = "chesshub_session";
 const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "two-rooks-fallback-secret-minimum-32-chars-key"
 );

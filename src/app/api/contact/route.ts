@@ -18,17 +18,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid contact form input" }, { status: 400 });
     }
 
-    // If honeypot is filled, silent reject (bot detected)
+    // Honeypot check
     if (parsed.data.website_trap && parsed.data.website_trap.length > 0) {
       return NextResponse.json({ success: true });
     }
 
-    await prisma.contactMessage.create({
+    // Persist as audit log entry
+    await prisma.auditLog.create({
       data: {
-        name: parsed.data.name,
-        email: parsed.data.email,
-        message: parsed.data.message,
-        level: parsed.data.level,
+        action: "CONTACT_INQUIRY",
+        entity: "Contact",
+        entityId: parsed.data.email,
+        details: JSON.stringify({
+          name: parsed.data.name,
+          email: parsed.data.email,
+          level: parsed.data.level,
+          message: parsed.data.message,
+        }),
       },
     });
 

@@ -1,111 +1,101 @@
-import { prisma } from "../db/prisma";
-import { BRAND_CONFIG } from "@/config/brand";
+import { BUSINESS_CONFIG } from "@/config/business";
 
-export interface NotificationPayload {
-  userId: string;
-  type:
-    | "BOOKING_CONFIRMED"
-    | "PAYMENT_FAILED"
-    | "BOOKING_CANCELLED"
-    | "BOOKING_RESCHEDULED"
-    | "HOMEWORK_ASSIGNED"
-    | "COACH_NOTE_ADDED"
-    | "PASSWORD_RESET"
-    | "CLASS_REMINDER_24H"
-    | "CLASS_REMINDER_1H";
-  title: string;
-  body: string;
-  href?: string;
-  emailData?: {
-    to: string;
-    subject: string;
-    textBody: string;
-    meetUrl?: string;
-  };
+export interface BookingNotificationDetails {
+  reference: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  level: string;
+  priceRupees: number;
+  date: string;
+  timeSlot: string;
+  message?: string | null;
 }
 
-export interface Notifier {
-  send(payload: NotificationPayload): Promise<void>;
-}
+export async function sendBookingNotifications(booking: BookingNotificationDetails) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.EMAIL_FROM || `Chess Hub <notifications@chesshub.in>`;
 
-export class InAppNotifier implements Notifier {
-  async send(payload: NotificationPayload): Promise<void> {
-    try {
-      await prisma.notification.create({
-        data: {
-          userId: payload.userId,
-          type: payload.type,
-          title: payload.title,
-          body: payload.body,
-          href: payload.href,
-        },
-      });
-    } catch (err) {
-      console.error("[InAppNotifier] Failed to create notification:", err);
-    }
-  }
-}
-
-export class EmailNotifier implements Notifier {
-  private apiKey: string;
-  private from: string;
-
-  constructor() {
-    this.apiKey = process.env.RESEND_API_KEY || "";
-    this.from = process.env.EMAIL_FROM || `${BRAND_CONFIG.name} <notifications@${BRAND_CONFIG.domain}>`;
+  if (!apiKey) {
+    // Email provider is not configured. Do not claim an email was sent.
+    return { sent: false, reason: "No email provider configured" };
   }
 
-  async send(payload: NotificationPayload): Promise<void> {
-    if (!payload.emailData) return;
+  const coachName = booking.level.toLowerCase() === "advanced" ? "Tapesnu" : "Shreyash";
 
-    if (!this.apiKey) {
-      // In development or when Resend key is not set, log clean email preview
-      console.log(`\n--- [EMAIL NOTIFICATION PREVIEW] ---`);
-      console.log(`To: ${payload.emailData.to}`);
-      console.log(`From: ${this.from}`);
-      console.log(`Subject: ${payload.emailData.subject}`);
-      console.log(`Body:\n${payload.emailData.textBody}`);
-      if (payload.emailData.meetUrl) {
-        console.log(`Meet Link: ${payload.emailData.meetUrl}`);
-      }
-      console.log(`-------------------------------------\n`);
-      return;
-    }
+  const studentSubject = `[Chess Hub] Booking Request Received: ${booking.reference}`;
+  const studentBody = `Hi ${booking.fullName},
 
-    try {
-      // Direct call to Resend REST API without bloated SDK
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${this.apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: this.from,
-          to: [payload.emailData.to],
-          subject: payload.emailData.subject,
-          text: `${payload.emailData.textBody}\n\n---\n${BRAND_CONFIG.name}\n${BRAND_CONFIG.tagline}`,
-        }),
-      });
+We have received your booking request for ${booking.level.toUpperCase()} Chess Coaching!
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("[EmailNotifier] Resend API error:", errorText);
-      }
-    } catch (err) {
-      console.error("[EmailNotifier] Network error sending email:", err);
-    }
+Booking Details:
+- Reference: ${booking.reference}
+- Level: ${booking.level === "advanced" ? "Advanced Coaching (₹800/session)" : "Beginner Coaching (₹500/session)"}
+- Date: ${booking.date}
+- Time Slot: ${booking.timeSlot} (Asia/Kolkata)
+- Status: PENDING (Awaiting Direct Contact)
+
+NEXT STEP:
+To confirm your session and discuss payment arrangements, please contact the coaches directly:
+- Email: ${BUSINESS_CONFIG.email}
+- Call/WhatsApp: ${BUSINESS_CONFIG.phone} (${BUSINESS_CONFIG.contactCoachName})
+
+Please mention your booking reference (${booking.reference}) when you reach out.
+Note: Payments are not processed online. All arrangements are handled directly with the coaches.
+
+Warm regards,
+Shreyash & Tapesnu
+Chess Hub — ${BUSINESS_CONFIG.tagline}`;
+
+  const adminSubject = `[Chess Hub] New Booking Request: ${booking.reference} (${booking.fullName})`;
+  const adminBody = `New booking request received on Chess Hub!
+
+Student: ${booking.fullName}
+Email: ${booking.email}
+Phone: ${booking.phone}
+Level: ${booking.level.toUpperCase()}
+Fee: ₹${booking.priceRupees}
+Date: ${booking.date}
+Time Slot: ${booking.timeSlot}
+Reference: ${booking.reference}
+Notes/Message: ${booking.message || "None"}
+
+Please look out for direct communication from the student to finalize payment and confirm the booking in your Admin Dashboard.`;
+
+  try {
+    // Send student acknowledgement
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [booking.email],
+        subject: studentSubject,
+        text: studentBody,
+      }),
+    });
+
+    // Send admin notification
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [BUSINESS_CONFIG.email],
+        subject: adminSubject,
+        text: adminBody,
+      }),
+    });
+
+    return { sent: true };
+  } catch (error) {
+    console.error("Failed to deliver notification emails:", error);
+    return { sent: false, error };
   }
 }
-
-// Composite notifier that sends both in-app and email
-export class CompositeNotifier implements Notifier {
-  private inApp = new InAppNotifier();
-  private email = new EmailNotifier();
-
-  async send(payload: NotificationPayload): Promise<void> {
-    await Promise.all([this.inApp.send(payload), this.email.send(payload)]);
-  }
-}
-
-export const notifier = new CompositeNotifier();
