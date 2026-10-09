@@ -2,95 +2,53 @@ import React from "react";
 import { prisma } from "@/lib/db/prisma";
 import { requireRole } from "@/lib/auth/session";
 import { DashboardShell, NavTabItem } from "@/components/layout/DashboardShell";
-import { Tag } from "@/components/ui/Tag";
-import { Button } from "@/components/ui/Button";
-import { revalidatePath } from "next/cache";
+import { BUSINESS_CONFIG } from "@/config/business";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminCoachesPage() {
   const session = await requireRole(["ADMIN"]);
 
-  const coaches = await prisma.coach.findMany({
-    include: {
-      user: true,
-      credentials: true,
-      sessionTypes: true,
-    },
-  });
-
-  async function handleToggleCoachActive(formData: FormData) {
-    "use server";
-    const id = formData.get("id") as string;
-    const coach = await prisma.coach.findUnique({ where: { id } });
-    if (!coach) return;
-    await prisma.coach.update({
-      where: { id },
-      data: { isActive: !coach.isActive },
-    });
-    revalidatePath("/admin/coaches");
-    revalidatePath("/coaches");
-  }
+  const [coaches, pendingCount] = await Promise.all([
+    prisma.coach.findMany(),
+    prisma.booking.count({ where: { status: "PENDING" } }),
+  ]);
 
   const adminTabs: NavTabItem[] = [
     { label: "Overview", href: "/admin" },
-    { label: "Coaches", href: "/admin/coaches" },
-    { label: "Session Types", href: "/admin/session-types" },
-    { label: "Bookings", href: "/admin/bookings" },
-    { label: "Payments", href: "/admin/payments" },
-    { label: "Testimonials", href: "/admin/testimonials" },
-    { label: "Users", href: "/admin/users" },
+    { label: "Bookings", href: "/admin/bookings", badge: pendingCount },
+    { label: "Availability", href: "/admin/availability" },
+    { label: "Audit Log", href: "/admin/audit" },
   ];
 
   return (
     <DashboardShell
       role="ADMIN"
       userName={session.name}
-      title="Coach Faculty Management"
-      subtitle="Manage coach statuses, profiles, and Google Meet rooms"
+      title="Coach Profiles"
+      subtitle="Coaching roster for Chess Hub"
       tabs={adminTabs}
     >
       <div className="flex flex-col gap-6">
         {coaches.map((c) => (
           <div
             key={c.id}
-            className="p-6 border border-[#000000] rounded-[16px] bg-[#ffffff] flex flex-col md:flex-row md:items-center justify-between gap-6"
+            className="p-6 rounded-2xl bg-[#141418] border border-[#2e2e36] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           >
-            <div className="flex flex-col gap-1">
+            <div>
               <div className="flex items-center gap-2">
-                <span className="text-[20px] font-[family-name:var(--font-heading)] text-[#000000]">
+                <span className="text-[20px] font-[family-name:var(--font-heading)] font-normal text-[#f5f3ef]">
                   {c.displayName}
                 </span>
-                <Tag variant={c.isActive ? "lime" : "concrete"} size="sm">
-                  {c.isActive ? "Active Faculty" : "Inactive"}
-                </Tag>
+                <span className="px-2.5 py-0.5 rounded-full bg-[#2e5a44]/30 text-[#4e8765] text-[11px] font-[family-name:var(--font-mono)] uppercase">
+                  Active Coach
+                </span>
               </div>
-
-              <span className="text-[13px] font-[family-name:var(--font-mono)] text-[#323232]">
-                Slug: /{c.slug} · Email: {c.user.email}
+              <span className="text-[13px] font-[family-name:var(--font-mono)] text-[#cfa859] block mt-1">
+                Slug: /{c.slug}
               </span>
-
-              <p className="text-[14px] text-[#323232] mt-1 max-w-[500px]">
-                {c.bio}
-              </p>
-
-              <div className="mt-2 text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
-                Default Classroom: <span className="text-[#000000] underline">{c.defaultMeetUrl}</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start md:items-end gap-3">
-              <form action={handleToggleCoachActive}>
-                <input type="hidden" name="id" value={c.id} />
-                <Button
-                  type="submit"
-                  variant={c.isActive ? "secondary" : "primary"}
-                  size="sm"
-                >
-                  {c.isActive ? "Deactivate Coach" : "Activate Coach"}
-                </Button>
-              </form>
-
-              <span className="text-[12px] font-[family-name:var(--font-mono)] text-[#323232]">
-                {c.sessionTypes.length} active session types
+              <span className="text-[13px] text-[#a8a39a] block">
+                {c.slug === "tapesnu" ? `Phone: ${BUSINESS_CONFIG.phone}` : `Email: ${BUSINESS_CONFIG.email}`}
               </span>
             </div>
           </div>
