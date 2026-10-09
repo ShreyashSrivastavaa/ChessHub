@@ -6,18 +6,17 @@ export interface BoardHighlight {
 }
 
 export interface BoardProps {
-  size?: number; // width/height in px or full responsive
+  size?: number;
   highlights?: BoardHighlight[];
   showCoordinates?: boolean;
   className?: string;
-  pieces?: Record<string, string>; // e.g., "e4": "knight", "e5": "pawn"
 }
 
 export function Board({
   size,
   highlights = [
     { row: 4, col: 4 }, // e4
-    { row: 2, col: 5 }, // f6 or Nf3
+    { row: 2, col: 5 }, // f6
   ],
   showCoordinates = true,
   className = "",
@@ -34,7 +33,7 @@ export function Board({
   return (
     <div
       style={style}
-      className={`relative aspect-square w-full max-w-[440px] border border-[#d6d5d0]/30 rounded-[8px] overflow-hidden bg-[#000000] select-none ${className}`}
+      className={`relative aspect-square w-full max-w-[440px] border border-[#2e2e36] rounded-[12px] overflow-hidden bg-[#0e0e10] select-none shadow-[0_12px_40px_rgba(0,0,0,0.5)] ${className}`}
     >
       <div className="grid grid-cols-8 grid-rows-8 w-full h-full">
         {ranks.map((rank, rIdx) =>
@@ -47,10 +46,10 @@ export function Board({
                 key={`${file}${rank}`}
                 className={`relative flex items-center justify-center transition-colors duration-200 ${
                   highlighted
-                    ? "bg-[#ffffff]"
+                    ? "bg-[#cfa859]/30 border border-[#cfa859]/50"
                     : isDark
-                    ? "bg-[#141414]"
-                    : "bg-[#1d1d1d]"
+                    ? "bg-[#141418]"
+                    : "bg-[#1f1f26]"
                 }`}
               >
                 {/* File coordinate on bottom rank */}
@@ -58,7 +57,7 @@ export function Board({
                   <span
                     aria-hidden="true"
                     className={`absolute bottom-0.5 right-1 text-[9px] font-[family-name:var(--font-mono)] ${
-                      highlighted ? "text-[#000000]" : "text-[#d6d5d0]/50"
+                      highlighted ? "text-[#cfa859]" : "text-[#a8a39a]/60"
                     }`}
                   >
                     {file}
@@ -69,7 +68,7 @@ export function Board({
                   <span
                     aria-hidden="true"
                     className={`absolute top-0.5 left-1 text-[9px] font-[family-name:var(--font-mono)] ${
-                      highlighted ? "text-[#000000]" : "text-[#d6d5d0]/50"
+                      highlighted ? "text-[#cfa859]" : "text-[#a8a39a]/60"
                     }`}
                   >
                     {rank}

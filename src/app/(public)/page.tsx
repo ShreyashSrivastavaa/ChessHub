@@ -1,580 +1,398 @@
 import React from "react";
 import Link from "next/link";
-import { prisma } from "@/lib/db/prisma";
-import { BRAND_CONFIG } from "@/config/brand";
-import { POLICY_CONFIG } from "@/config/policy";
+import { BUSINESS_CONFIG } from "@/config/business";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Tag } from "@/components/ui/Tag";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Board } from "@/components/chess/Board";
 import { PieceIcon } from "@/components/chess/PieceIcon";
-import { FaqAccordion } from "@/components/ui/FaqAccordion";
+import { Mail, Phone, Calendar, CheckCircle2, ArrowRight, ShieldAlert } from "lucide-react";
 
-export default async function HomePage() {
-  let coaches: any[] = [];
-  let sessionTypes: any[] = [];
-  let skillAreas: any[] = [];
-  let testimonials: any[] = [];
-
-  try {
-    coaches = await prisma.coach.findMany({
-      where: { isActive: true },
-      include: {
-        credentials: { orderBy: { sortOrder: "asc" } },
-        sessionTypes: { where: { isActive: true } },
-      },
-    });
-
-    sessionTypes = await prisma.sessionType.findMany({
-      where: { isActive: true },
-      include: { coach: true },
-      orderBy: { pricePaise: "asc" },
-    });
-
-    skillAreas = await prisma.skillArea.findMany({
-      orderBy: { sortOrder: "asc" },
-    });
-
-    testimonials = await prisma.testimonial.findMany({
-      where: { isVisible: true, approvedAt: { not: null } },
-    });
-  } catch (err) {
-    console.error("Database query fallback on HomePage:", err);
-  }
-
-  // Fallback to Brand Config coaches if database query yields empty or errored
-  if (coaches.length === 0) {
-    coaches = [
-      {
-        id: "coach-shreyash",
-        slug: "shreyash",
-        displayName: BRAND_CONFIG.coaches.shreyash.name,
-        philosophy:
-          "Every master was once a beginner who learned to see the board clearly. We start with how pieces coordinate and build confidence move by move without memorization overload.",
-        credentials: [],
-        sessionTypes: [],
-      },
-      {
-        id: "coach-tapesh",
-        slug: "tapesh",
-        displayName: BRAND_CONFIG.coaches.tapesh.name,
-        philosophy:
-          "Chess at the competitive level is about concrete calculation, opening discipline, and exploiting dynamic imbalances. We analyze your real games to eliminate systemic inaccuracies.",
-        credentials: [],
-        sessionTypes: [],
-      },
-    ];
-  }
-
-  const foundationsSkills = skillAreas.filter((s) => s.track === "FOUNDATIONS");
-  const improvementSkills = skillAreas.filter((s) => s.track === "IMPROVEMENT");
-
-  const faqItems = [
-    {
-      question: "How do I join my live class?",
-      answer:
-        "Every session takes place 1:1 on Google Meet. You receive your secure Meet link on your booking confirmation page, via email, and directly on your student dashboard. The join button becomes active 10 minutes prior to class start.",
-    },
-    {
-      question: "What equipment do I or my child need?",
-      answer:
-        "A laptop, tablet, or desktop computer with a working webcam, microphone, and stable internet. A physical chessboard is optional but helpful; your coach shares an interactive digital board on screen.",
-    },
-    {
-      question: "What age range is the academy designed for?",
-      answer:
-        "We teach students from age 6 upward to adults. Shreyash specializes in absolute beginners, young children, and foundational mechanics. Tapesnu works with intermediate and competitive tournament players.",
-    },
-    {
-      question: "Can a parent book and manage classes for a child?",
-      answer:
-        "Yes. Parents create a guardian account and can add one or more student profiles. You receive all schedule updates, homework assignments, and coach notes directly in your portal.",
-    },
-    {
-      question: "Which level or coach should I choose?",
-      answer:
-        "If you are new to chess, learning rules, or booking for a child, choose Foundations with Shreyash. If you already play games online or at a club and want tournament calculation and opening repertoires, choose Tapesnu. You can also book a diagnostic assessment class.",
-    },
-    {
-      question: "What is the cancellation and rescheduling policy?",
-      answer: `You can reschedule or cancel any session free of charge up to ${POLICY_CONFIG.cancelNoticeHours} hours before start time directly from your dashboard. Inside ${POLICY_CONFIG.cancelNoticeHours} hours, the session is reserved and treated as delivered.`,
-    },
-    {
-      question: "Are classes recorded?",
-      answer:
-        "Sessions are not recorded by default to ensure privacy and relaxed conversation. If you would like a session recorded for study review, simply ask your coach at the start of class.",
-    },
-  ];
+export default function HomePage() {
+  const { plans, coaches, howItWorksSteps } = BUSINESS_CONFIG;
 
   return (
-    <div className="flex flex-col w-full bg-[#000000] text-[#ffffff]">
-      {/* 1. HERO SECTION (Full-bleed Obsidian surface, light serif display) */}
-      <section className="w-full bg-[#000000] text-[#ffffff] pt-20 pb-28 md:pt-32 md:pb-40 border-b border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 flex flex-col gap-8">
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.12em] px-3.5 py-1 rounded-[9999px] border border-[#d6d5d0]/30 text-[#d6d5d0]">
-                  Live 1:1 Chess Coaching
-                </span>
-                <span className="text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70">
-                  On Google Meet
-                </span>
+    <div className="flex flex-col w-full bg-[#0e0e10] text-[#f5f3ef]">
+      {/* 1. HERO SECTION */}
+      <section className="relative w-full overflow-hidden pt-16 pb-24 md:pt-28 md:pb-36 border-b border-[#2e2e36]">
+        {/* Subtle chess board watermark grid */}
+        <div className="absolute inset-0 chess-board-pattern opacity-40 pointer-events-none" aria-hidden="true" />
+        <div className="relative max-w-[1440px] mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Hero Content */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full border border-[#cfa859]/30 bg-[#cfa859]/10 text-[12px] font-[family-name:var(--font-mono)] text-[#cfa859] w-fit">
+                <span className="w-2 h-2 rounded-full bg-[#cfa859]" />
+                <span>Online 1:1 Chess Coaching</span>
+                <span className="text-[#a8a39a]">·</span>
+                <span className="text-[#dcd8d0]">Shreyash & Tapesnu</span>
               </div>
 
-              <h1 className="text-[52px] sm:text-[72px] lg:text-[100px] leading-[1.03] tracking-[-0.02em] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
-                Live chess coaching, <br />
-                <span className="italic font-light text-[#d6d5d0]">one-on-one.</span>
+              <h1 className="text-[44px] sm:text-[60px] lg:text-[76px] leading-[1.05] tracking-[-0.02em] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+                {BUSINESS_CONFIG.tagline}
               </h1>
 
-              <p className="text-[17px] md:text-[19px] text-[#d6d5d0] leading-[1.6] max-w-[560px] font-[family-name:var(--font-body)]">
-                {BRAND_CONFIG.heroSubcopy}
+              <p className="text-[17px] md:text-[19px] text-[#dcd8d0] leading-[1.6] max-w-[620px] font-[family-name:var(--font-body)]">
+                {BUSINESS_CONFIG.heroSubtext}
               </p>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                <Button href="/book" variant="primary" size="lg" className="px-8">
-                  Book a class
-                </Button>
-                <Button href="/coaches" variant="secondary" size="lg" className="px-8">
-                  Meet the coaches &rarr;
-                </Button>
-              </div>
-
-              {/* Trust strip */}
-              <div className="pt-8 border-t border-[#1d1d1d] flex flex-wrap items-center gap-6 text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70">
-                {BRAND_CONFIG.trustSignals.map((signal, idx) => (
-                  <span key={signal} className="flex items-center gap-2">
-                    {idx > 0 && <span className="opacity-30">/</span>}
-                    <span>{signal}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Cropped Monochrome Board Motif on Charcoal */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center">
-              <div className="w-full max-w-[420px] p-3 bg-[#1d1d1d] rounded-[8px] border border-[#d6d5d0]/20">
-                <Board
-                  highlights={[
-                    { row: 4, col: 4 }, // e4
-                    { row: 2, col: 5 }, // Nf3
-                  ]}
-                  showCoordinates={true}
-                  className="w-full"
-                />
-                <div className="mt-3.5 px-2 flex items-center justify-between text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
-                  <span>1. e4 e5 2. Nf3 Nc6</span>
-                  <span className="text-[#ffffff]">Classical Opening</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. "WHO IS THIS FOR?" ROUTER (Charcoal Elevated Band) */}
-      <section className="w-full py-24 md:py-36 bg-[#1d1d1d] border-b border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <SectionHeader
-            tag="Find Your Match"
-            title="Who is this for?"
-            description="We do not teach a one-size-fits-all curriculum. Pick your current situation to match directly with the right coach."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1: Beginner */}
-            <Card hoverable className="flex flex-col justify-between h-[340px] bg-[#000000] border border-[#d6d5d0]/20">
-              <div>
-                <div className="w-[44px] h-[44px] rounded-[9999px] border border-[#d6d5d0]/40 flex items-center justify-center mb-5 text-[#ffffff]">
-                  <PieceIcon piece="pawn" size={20} />
-                </div>
-                <h3 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mb-3">
-                  New to chess, or starting fresh
-                </h3>
-                <p className="text-[15px] text-[#d6d5d0] leading-[1.6]">
-                  Learn rules, piece values, board vision, and checkmate patterns without confusion.
-                </p>
-              </div>
-              <Button
-                href="/book?level=BEGINNER&coach=shreyash"
-                variant="secondary"
-                size="md"
-                fullWidth
-              >
-                Start with Shreyash
-              </Button>
-            </Card>
-
-            {/* Card 2: Intermediate */}
-            <Card hoverable className="flex flex-col justify-between h-[340px] bg-[#000000] border border-[#d6d5d0]/20">
-              <div>
-                <div className="w-[44px] h-[44px] rounded-[9999px] border border-[#d6d5d0]/40 flex items-center justify-center mb-5 text-[#ffffff]">
-                  <PieceIcon piece="knight" size={20} />
-                </div>
-                <h3 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mb-3">
-                  You play online and want to improve
-                </h3>
-                <p className="text-[15px] text-[#d6d5d0] leading-[1.6]">
-                  Positional understanding, deep calculation, dynamic tactics, and tournament preparation.
-                </p>
-              </div>
-              <Button
-                href="/book?level=INTERMEDIATE&coach=tapesh"
-                variant="secondary"
-                size="md"
-                fullWidth
-              >
-                Train with Tapesnu
-              </Button>
-            </Card>
-
-            {/* Card 3: Diagnostic */}
-            <Card hoverable className="flex flex-col justify-between h-[340px] bg-[#000000] border border-[#d6d5d0]/20">
-              <div>
-                <div className="w-[44px] h-[44px] rounded-[9999px] border border-[#d6d5d0]/40 flex items-center justify-center mb-5 text-[#ffffff]">
-                  <PieceIcon piece="rook" size={20} />
-                </div>
-                <h3 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mb-3">
-                  Not sure where you stand?
-                </h3>
-                <p className="text-[15px] text-[#d6d5d0] leading-[1.6]">
-                  Book a 30-minute diagnostic session. We evaluate your play and map out a concrete plan.
-                </p>
-              </div>
-              <Button
-                href="/book?type=trial"
-                variant="primary"
-                size="md"
-                fullWidth
-              >
-                Book Assessment Class
-              </Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. TWO COACHES SECTION (Obsidian Canvas) */}
-      <section className="w-full py-24 md:py-36 bg-[#000000] border-b border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <SectionHeader
-            tag="The Faculty"
-            title="Two dedicated coaches"
-            description="One coach builds your foundational board intuition. The other refines your competitive edge."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {coaches.map((coach) => {
-              const isShreyash = coach.slug === "shreyash";
-              const coachBrand = isShreyash
-                ? BRAND_CONFIG.coaches.shreyash
-                : BRAND_CONFIG.coaches.tapesh;
-
-              return (
-                <div
-                  key={coach.id}
-                  className="bg-[#1d1d1d] border border-[#d6d5d0]/20 rounded-[8px] p-8 md:p-10 flex flex-col justify-between gap-8"
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                <Button
+                  href="/book"
+                  variant="primary"
+                  size="lg"
+                  className="!bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium px-8 shadow-lg shadow-[#cfa859]/10"
                 >
-                  <div className="flex flex-col gap-6">
-                    {/* Header */}
-                    <div className="flex items-center justify-between pb-6 border-b border-[#d6d5d0]/10">
-                      <div className="flex items-center gap-4">
-                        <div className="w-[52px] h-[52px] rounded-[8px] bg-[#000000] border border-[#d6d5d0]/30 flex items-center justify-center font-[family-name:var(--font-heading)] text-[22px] text-[#ffffff]">
-                          {coachBrand.avatarPlaceholderInitial}
-                        </div>
-                        <div>
-                          <h3 className="text-[28px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
-                            {coach.displayName}
-                          </h3>
-                          <p className="text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]">
-                            {coachBrand.headline}
-                          </p>
-                        </div>
-                      </div>
+                  Book a Session
+                </Button>
+                <Button
+                  href="#coaching"
+                  variant="secondary"
+                  size="lg"
+                  className="border-[#2e2e36] text-[#f5f3ef] hover:border-[#cfa859] hover:text-[#cfa859] px-8"
+                >
+                  Explore Coaching &darr;
+                </Button>
+              </div>
 
-                      {coachBrand.fideRated ? (
-                        <Tag variant="lime" size="sm">
-                          FIDE-rated
-                        </Tag>
-                      ) : (
-                        <Tag variant="outline" size="sm">
-                          Foundations
-                        </Tag>
-                      )}
-                    </div>
+              {/* Direct payment note */}
+              <div className="pt-4 flex items-center gap-3 text-[13px] text-[#a8a39a] font-[family-name:var(--font-mono)]">
+                <ShieldAlert size={15} className="text-[#cfa859] shrink-0" />
+                <span>
+                  No online payment gateway · Students contact coaches directly to confirm and pay
+                </span>
+              </div>
+            </div>
 
-                    <p className="text-[16px] leading-[1.6] text-[#d6d5d0] font-[family-name:var(--font-body)]">
-                      {coach.philosophy}
+            {/* Right Chess Visual */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-[420px] p-4 rounded-2xl bg-[#141418] border border-[#2e2e36] shadow-2xl">
+                <div className="flex items-center justify-between pb-3 border-b border-[#2e2e36] mb-3 text-[12px] font-[family-name:var(--font-mono)] text-[#a8a39a]">
+                  <span className="flex items-center gap-1.5 text-[#cfa859]">
+                    <PieceIcon piece="knight" size={16} strokeWidth={2} />
+                    Tactical Harmony
+                  </span>
+                  <span>1:1 Interactive Board</span>
+                </div>
+                <Board showCoordinates={true} className="w-full" />
+                <div className="pt-3 mt-3 border-t border-[#2e2e36] flex items-center justify-between text-[11px] font-[family-name:var(--font-mono)] text-[#a8a39a]">
+                  <span>Beginner: ₹500/session</span>
+                  <span className="text-[#cfa859]">·</span>
+                  <span>Advanced: ₹800/session</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. COACHING PLANS SECTION */}
+      <section id="coaching" className="w-full py-20 md:py-28 border-b border-[#2e2e36] bg-[#141416]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+          <div className="text-center max-w-[680px] mx-auto mb-16 flex flex-col items-center gap-3">
+            <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.12em] text-[#cfa859]">
+              Tailored Programs
+            </span>
+            <h2 className="text-[36px] md:text-[46px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+              Coaching Plans
+            </h2>
+            <p className="text-[16px] text-[#dcd8d0] font-[family-name:var(--font-body)]">
+              Straightforward per-session coaching with no hidden packages or lock-ins. Choose your level to get started.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1100px] mx-auto">
+            {/* Beginner Card */}
+            <div className="flex flex-col justify-between p-8 md:p-10 rounded-2xl bg-[#1a1a1e] border border-[#2e2e36] hover:border-[#cfa859]/50 transition-all duration-200">
+              <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] px-3 py-1 rounded-full bg-[#2e5a44]/30 text-[#4e8765] border border-[#2e5a44]/50">
+                      Level 1
+                    </span>
+                    <h3 className="text-[28px] font-[family-name:var(--font-heading)] font-normal text-[#f5f3ef] mt-3">
+                      {plans.beginner.name}
+                    </h3>
+                    <p className="text-[14px] text-[#a8a39a] font-[family-name:var(--font-body)] mt-1">
+                      {plans.beginner.audience}
                     </p>
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-[#141418] border border-[#2e2e36] flex items-center justify-center text-[#cfa859]">
+                    <PieceIcon piece="pawn" size={24} />
+                  </div>
+                </div>
 
-                    {/* What they teach tag list */}
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {coachBrand.focus.split(",").map((item) => (
+                <div className="py-4 border-y border-[#2e2e36]">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[40px] font-[family-name:var(--font-mono)] font-semibold text-[#f5f3ef]">
+                      ₹{plans.beginner.priceRupees}
+                    </span>
+                    <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#a8a39a]">
+                      per session ({plans.beginner.durationMinutes} min)
+                    </span>
+                  </div>
+                  <p className="text-[14px] text-[#dcd8d0] mt-2">
+                    {plans.beginner.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#cfa859]">
+                    What you will cover:
+                  </span>
+                  <ul className="flex flex-col gap-2 text-[14px] text-[#dcd8d0]">
+                    {plans.beginner.topics.map((topic) => (
+                      <li key={topic} className="flex items-start gap-2.5">
+                        <CheckCircle2 size={16} className="text-[#4e8765] shrink-0 mt-0.5" />
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-[#2e2e36]">
+                <Button
+                  href="/book?level=beginner"
+                  variant="primary"
+                  size="md"
+                  fullWidth
+                  className="!bg-[#f5f3ef] !text-[#0e0e10] hover:!bg-[#ffffff]"
+                >
+                  Book This Session &rarr;
+                </Button>
+              </div>
+            </div>
+
+            {/* Advanced Card */}
+            <div className="flex flex-col justify-between p-8 md:p-10 rounded-2xl bg-[#1a1a1e] border-2 border-[#cfa859]/60 hover:border-[#cfa859] transition-all duration-200 relative shadow-xl shadow-[#cfa859]/5">
+              <div className="absolute -top-3 right-8 px-3 py-0.5 rounded-full bg-[#cfa859] text-[#0e0e10] text-[11px] font-[family-name:var(--font-mono)] uppercase font-semibold">
+                Competitive Focus
+              </div>
+
+              <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] px-3 py-1 rounded-full bg-[#cfa859]/20 text-[#cfa859] border border-[#cfa859]/40">
+                      Level 2
+                    </span>
+                    <h3 className="text-[28px] font-[family-name:var(--font-heading)] font-normal text-[#f5f3ef] mt-3">
+                      {plans.advanced.name}
+                    </h3>
+                    <p className="text-[14px] text-[#a8a39a] font-[family-name:var(--font-body)] mt-1">
+                      {plans.advanced.audience}
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-[#141418] border border-[#2e2e36] flex items-center justify-center text-[#cfa859]">
+                    <PieceIcon piece="knight" size={24} />
+                  </div>
+                </div>
+
+                <div className="py-4 border-y border-[#2e2e36]">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[40px] font-[family-name:var(--font-mono)] font-semibold text-[#f5f3ef]">
+                      ₹{plans.advanced.priceRupees}
+                    </span>
+                    <span className="text-[14px] font-[family-name:var(--font-mono)] text-[#a8a39a]">
+                      per session ({plans.advanced.durationMinutes} min)
+                    </span>
+                  </div>
+                  <p className="text-[14px] text-[#dcd8d0] mt-2">
+                    {plans.advanced.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#cfa859]">
+                    What you will cover:
+                  </span>
+                  <ul className="flex flex-col gap-2 text-[14px] text-[#dcd8d0]">
+                    {plans.advanced.topics.map((topic) => (
+                      <li key={topic} className="flex items-start gap-2.5">
+                        <CheckCircle2 size={16} className="text-[#cfa859] shrink-0 mt-0.5" />
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-[#2e2e36]">
+                <Button
+                  href="/book?level=advanced"
+                  variant="primary"
+                  size="md"
+                  fullWidth
+                  className="!bg-[#cfa859] !text-[#0e0e10] hover:!bg-[#e0b86a] !font-medium"
+                >
+                  Book This Session &rarr;
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. HOW IT WORKS (4 STEPS) */}
+      <section className="w-full py-20 md:py-28 border-b border-[#2e2e36]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+          <div className="text-center max-w-[680px] mx-auto mb-16 flex flex-col items-center gap-3">
+            <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.12em] text-[#cfa859]">
+              Clear Workflow
+            </span>
+            <h2 className="text-[36px] md:text-[46px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+              How It Works
+            </h2>
+            <p className="text-[16px] text-[#dcd8d0]">
+              From booking your preferred slot to meeting your coach 1:1 online.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {howItWorksSteps.map((step) => (
+              <div
+                key={step.stepNumber}
+                className="flex flex-col p-6 rounded-2xl bg-[#141418] border border-[#2e2e36] relative"
+              >
+                <div className="w-10 h-10 rounded-full bg-[#cfa859]/10 border border-[#cfa859]/30 flex items-center justify-center font-[family-name:var(--font-mono)] text-[#cfa859] text-[15px] font-medium mb-4">
+                  0{step.stepNumber}
+                </div>
+                <h3 className="text-[18px] font-[family-name:var(--font-heading)] font-normal text-[#f5f3ef] mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-[14px] text-[#a8a39a] leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button
+              href="/book"
+              variant="primary"
+              size="lg"
+              className="!bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium px-8"
+            >
+              Get Started with Step 1 &rarr;
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. MEET THE COACHES */}
+      <section className="w-full py-20 md:py-28 border-b border-[#2e2e36] bg-[#141416]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+          <div className="text-center max-w-[680px] mx-auto mb-16 flex flex-col items-center gap-3">
+            <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.12em] text-[#cfa859]">
+              Instructors
+            </span>
+            <h2 className="text-[36px] md:text-[46px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+              Meet the Coaches
+            </h2>
+            <p className="text-[16px] text-[#dcd8d0]">
+              Personalized guidance with dedicated instructors who care about your chess growth.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1100px] mx-auto">
+            {coaches.map((coach) => (
+              <div
+                key={coach.slug}
+                className="flex flex-col p-8 rounded-2xl bg-[#1a1a1e] border border-[#2e2e36]"
+              >
+                {/* Photo slot / Avatar */}
+                <div className="flex items-center gap-4 pb-6 border-b border-[#2e2e36]">
+                  <div className="w-16 h-16 rounded-xl bg-[#0e0e10] border border-[#cfa859]/40 flex items-center justify-center font-[family-name:var(--font-heading)] text-[26px] text-[#cfa859] shrink-0">
+                    {coach.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+                      {coach.name}
+                    </h3>
+                    <p className="text-[13px] font-[family-name:var(--font-mono)] text-[#cfa859]">
+                      {coach.roleTitle}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bio */}
+                <p className="text-[15px] text-[#dcd8d0] leading-relaxed pt-6">
+                  {coach.bio}
+                </p>
+
+                {/* Optional experience - only render if present */}
+                {coach.experience && (
+                  <div className="mt-4 p-3 rounded-lg bg-[#141418] border border-[#2e2e36] text-[13px] text-[#a8a39a]">
+                    <span className="text-[#f5f3ef] font-medium block mb-0.5">Experience:</span>
+                    {coach.experience}
+                  </div>
+                )}
+
+                {/* Specialties */}
+                {coach.specialties && coach.specialties.length > 0 && (
+                  <div className="pt-6 mt-6 border-t border-[#2e2e36]">
+                    <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#a8a39a] block mb-3">
+                      Teaching Specialties:
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {coach.specialties.map((spec) => (
                         <span
-                          key={item}
-                          className="px-3 py-1 rounded-[9999px] bg-[#000000] border border-[#d6d5d0]/20 text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]"
+                          key={spec}
+                          className="px-3 py-1 rounded-full bg-[#141418] border border-[#2e2e36] text-[12px] font-[family-name:var(--font-body)] text-[#dcd8d0]"
                         >
-                          {item.trim()}
+                          {spec}
                         </span>
                       ))}
                     </div>
                   </div>
+                )}
 
-                  <div className="pt-6 border-t border-[#d6d5d0]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <Link
-                      href={`/coaches/${coach.slug}`}
-                      className="text-[14px] font-[family-name:var(--font-body)] text-[#ffffff] hover-underline-animation"
-                    >
-                      View full profile &rarr;
-                    </Link>
-
-                    <Button
-                      href={`/book?coach=${coach.slug}`}
-                      variant="primary"
-                      size="sm"
-                    >
-                      Book with {coach.displayName}
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. WHAT A CLASS LOOKS LIKE (Specimen Index on Charcoal) */}
-      <section className="w-full py-24 md:py-36 bg-[#1d1d1d] border-b border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <SectionHeader
-            tag="Curriculum Delivery"
-            title="What a class looks like"
-            description="From initial reservation to live Google Meet room in under two minutes."
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                index: "A",
-                title: "Choose Level",
-                desc: "Select beginner, foundations, intermediate, or a diagnostic assessment.",
-              },
-              {
-                index: "B",
-                title: "Pick a Slot",
-                desc: "Select a date and time in IST that suits your weekly schedule.",
-              },
-              {
-                index: "C",
-                title: "Pay in INR",
-                desc: "Pay securely via Razorpay (UPI, cards, netbanking) with instant confirmation.",
-              },
-              {
-                index: "D",
-                title: "Join on Meet",
-                desc: "Join your private Google Meet classroom. Screen-shared board, notes, and homework.",
-              },
-            ].map((item) => (
-              <div
-                key={item.index}
-                className="p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#000000] flex flex-col justify-between h-[230px]"
-              >
-                <span className="text-[16px] font-[family-name:var(--font-mono)] text-[#ffffff] pb-2 border-b border-[#1d1d1d]">
-                  {item.index}
-                </span>
-                <div>
-                  <h4 className="text-[22px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mb-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-[14px] text-[#d6d5d0] leading-[1.5]">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. PRICING SNAPSHOT (Obsidian Canvas) */}
-      <section className="w-full py-24 md:py-36 bg-[#000000] border-b border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <SectionHeader
-            tag="Transparent Rates"
-            title="1:1 Coaching Plans"
-            description="Transparent pricing in INR. All sessions include live instruction, personalized coach notes, and tailored homework."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {sessionTypes.slice(0, 3).map((st) => (
-              <div
-                key={st.id}
-                className="p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d] flex flex-col justify-between h-[360px]"
-              >
-                <div>
-                  <div className="flex items-center justify-between pb-4 border-b border-[#d6d5d0]/10">
-                    <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em] text-[#d6d5d0]">
-                      {st.coach.displayName}
-                    </span>
-                    <Tag variant="outline" size="sm">
-                      {st.durationMinutes} min
-                    </Tag>
-                  </div>
-
-                  <h3 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-4 mb-2">
-                    {st.name}
-                  </h3>
-                  <p className="text-[14px] text-[#d6d5d0] leading-[1.6]">
-                    {st.description}
-                  </p>
-                </div>
-
-                <div className="pt-6 border-t border-[#d6d5d0]/10 flex items-center justify-between">
-                  <div>
-                    <span className="text-[26px] font-[family-name:var(--font-mono)] text-[#ffffff]">
-                      {st.pricePaise === 0
-                        ? "Free Trial"
-                        : `₹${(st.pricePaise / 100).toLocaleString("en-IN")}`}
-                    </span>
-                  </div>
+                <div className="pt-6 mt-auto">
                   <Button
-                    href={`/book?type=${st.id}&coach=${st.coach.slug}`}
-                    variant="primary"
+                    href={`/book?level=${coach.slug === "tapesnu" ? "advanced" : "beginner"}`}
+                    variant="secondary"
                     size="sm"
+                    fullWidth
+                    className="border-[#2e2e36] text-[#f5f3ef] hover:border-[#cfa859]"
                   >
-                    Book Class
+                    Book with {coach.name}
                   </Button>
                 </div>
               </div>
             ))}
           </div>
-
-          <div className="text-center mt-12">
-            <Link
-              href="/pricing"
-              className="text-[15px] font-[family-name:var(--font-body)] text-[#ffffff] hover-underline-animation"
-            >
-              View all class formats & policies &rarr;
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* 6. WHAT YOU WILL ACTUALLY WORK ON (Charcoal Surface) */}
-      <section className="w-full py-24 md:py-36 bg-[#1d1d1d] border-b border-[#1d1d1d]">
+      {/* 5. DIRECT CONTACT SECTION */}
+      <section className="w-full py-20 md:py-28">
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-          <SectionHeader
-            tag="Curriculum"
-            title="What you will actually work on"
-            description="Structured progression without gimmicks. Every topic maps directly to real board situations."
-          />
+          <div className="max-w-[800px] mx-auto p-8 md:p-12 rounded-3xl bg-[#141418] border border-[#2e2e36] text-center flex flex-col items-center gap-6">
+            <span className="text-[12px] font-[family-name:var(--font-mono)] uppercase tracking-[0.12em] text-[#cfa859]">
+              Questions & Inquiries
+            </span>
+            <h2 className="text-[32px] md:text-[42px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef]">
+              Speak Directly with the Coaches
+            </h2>
+            <p className="text-[15px] text-[#dcd8d0] max-w-[560px]">
+              Have questions regarding student level, custom class schedules, or payment arrangements? Contact us directly.
+            </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Foundations Track */}
-            <div className="p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#000000]">
-              <div className="flex items-center justify-between pb-5 border-b border-[#d6d5d0]/10 mb-6">
-                <span className="text-[22px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
-                  Foundations Track (Shreyash)
-                </span>
-                <Tag variant="outline" size="sm">
-                  Beginner
-                </Tag>
-              </div>
-              <div className="flex flex-wrap gap-2.5">
-                {foundationsSkills.map((s) => (
-                  <span
-                    key={s.id}
-                    className="px-3.5 py-1.5 rounded-[9999px] border border-[#d6d5d0]/30 text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]"
-                  >
-                    {s.name}
-                  </span>
-                ))}
-              </div>
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+              <a
+                href={`mailto:${BUSINESS_CONFIG.email}`}
+                className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#1a1a1e] border border-[#2e2e36] hover:border-[#cfa859] text-[14px] font-[family-name:var(--font-mono)] text-[#f5f3ef] transition-colors"
+              >
+                <Mail size={16} className="text-[#cfa859]" />
+                <span>{BUSINESS_CONFIG.email}</span>
+              </a>
+              <a
+                href={`tel:${BUSINESS_CONFIG.phone}`}
+                className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#1a1a1e] border border-[#2e2e36] hover:border-[#cfa859] text-[14px] font-[family-name:var(--font-mono)] text-[#f5f3ef] transition-colors"
+              >
+                <Phone size={16} className="text-[#cfa859]" />
+                <span>{BUSINESS_CONFIG.phoneDisplay} ({BUSINESS_CONFIG.contactCoachName})</span>
+              </a>
             </div>
-
-            {/* Improvement Track */}
-            <div className="p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#000000]">
-              <div className="flex items-center justify-between pb-5 border-b border-[#d6d5d0]/10 mb-6">
-                <span className="text-[22px] font-[family-name:var(--font-heading)] font-light text-[#ffffff]">
-                  Improvement Track (Tapesnu)
-                </span>
-                <Tag variant="lime" size="sm">
-                  Intermediate / FIDE
-                </Tag>
-              </div>
-              <div className="flex flex-wrap gap-2.5">
-                {improvementSkills.map((s) => (
-                  <span
-                    key={s.id}
-                    className="px-3.5 py-1.5 rounded-[9999px] border border-[#d6d5d0]/30 text-[13px] font-[family-name:var(--font-mono)] text-[#d6d5d0]"
-                  >
-                    {s.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. REAL TESTIMONIALS (ONLY RENDER IF APPROVED EXIST) */}
-      {testimonials.length > 0 && (
-        <section className="w-full py-24 md:py-36 bg-[#000000] border-b border-[#1d1d1d]">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-            <SectionHeader
-              tag="Real Feedback"
-              title="From our students and parents"
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((t) => (
-                <Card key={t.id} className="flex flex-col justify-between">
-                  <p className="text-[16px] leading-[1.6] text-[#d6d5d0] italic">
-                    &ldquo;{t.body}&rdquo;
-                  </p>
-                  <div className="mt-6 pt-4 border-t border-[#d6d5d0]/10 flex items-center justify-between text-[13px] font-[family-name:var(--font-mono)]">
-                    <span className="text-[#ffffff]">{t.authorName}</span>
-                    <span className="text-[#d6d5d0] uppercase">{t.relationship}</span>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 8. FAQ ACCORDION */}
-      <section className="w-full py-24 md:py-36 max-w-[880px] mx-auto px-6 md:px-12">
-        <SectionHeader
-          tag="Clarity"
-          title="Frequently asked questions"
-          description="Everything you need to know about joining, equipment, and scheduling."
-        />
-        <FaqAccordion items={faqItems} />
-      </section>
-
-      {/* 9. FINAL CTA BAND */}
-      <section className="w-full py-24 md:py-32 bg-[#1d1d1d] text-[#ffffff] border-t border-[#1d1d1d]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 text-center flex flex-col items-center gap-6">
-          <h2 className="text-[40px] sm:text-[56px] md:text-[72px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] leading-[1.05]">
-            One coach, one student, one board.
-          </h2>
-          <p className="text-[17px] md:text-[19px] text-[#d6d5d0] max-w-[600px] leading-[1.6]">
-            Book your first class in under 2 minutes. Shreyash builds your foundation, Tapesnu sharpens your tournament play.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-            <Button href="/book" variant="primary" size="lg" className="px-8">
-              Book a class
-            </Button>
-            <a
-              href={`https://wa.me/${BRAND_CONFIG.whatsappNumber.replace(/[^0-9]/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[15px] text-[#ffffff] font-[family-name:var(--font-body)] hover-underline-animation"
-            >
-              Questions? Chat on WhatsApp &rarr;
-            </a>
           </div>
         </div>
       </section>

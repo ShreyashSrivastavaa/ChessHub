@@ -3,11 +3,10 @@
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { BRAND_CONFIG } from "@/config/brand";
+import { BUSINESS_CONFIG } from "@/config/business";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Card } from "@/components/ui/Card";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Shield } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -38,12 +37,8 @@ function LoginForm() {
 
       if (callbackUrl) {
         router.push(callbackUrl);
-      } else if (data.user.role === "ADMIN") {
-        router.push("/admin");
-      } else if (data.user.role === "COACH") {
-        router.push("/coach");
       } else {
-        router.push("/app");
+        router.push("/admin");
       }
       router.refresh();
     } catch (err: unknown) {
@@ -55,19 +50,20 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-[420px] mx-auto p-6 md:p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d]">
+    <div className="w-full max-w-[420px] mx-auto p-8 rounded-3xl border border-[#2e2e36] bg-[#141418] shadow-2xl">
       <div className="text-center mb-6">
         <Link
           href="/"
-          className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#ffffff]"
+          className="inline-flex items-center gap-2 text-[18px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef]"
         >
-          {BRAND_CONFIG.name}
+          <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" />
+          <span>{BUSINESS_CONFIG.name}</span>
         </Link>
-        <h1 className="text-[28px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-3">
-          Sign In
+        <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef] mt-4">
+          Admin Portal Sign In
         </h1>
-        <p className="text-[13px] text-[#d6d5d0] font-[family-name:var(--font-mono)] mt-1">
-          Access your classes, notes, and homework
+        <p className="text-[13px] text-[#a8a39a] mt-1">
+          Manage bookings, calendar slots, and coaching availability
         </p>
       </div>
 
@@ -78,31 +74,21 @@ function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="you@example.com"
+          placeholder="admin@chesshub.in"
         />
 
-        <div className="flex flex-col gap-1">
-          <Input
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="••••••••"
-          />
-          <div className="text-right">
-            <Link
-              href="/forgot-password"
-              className="text-[12px] font-[family-name:var(--font-mono)] text-[#d6d5d0]/70 hover:text-[#ffffff] underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
-        </div>
+        <Input
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="••••••••"
+        />
 
         {error && (
-          <div className="flex items-center gap-2 text-[13px] text-[#ff6b6b]">
-            <AlertCircle size={15} strokeWidth={1.5} />
+          <div className="p-3 rounded-xl bg-[#b3261e]/15 border border-[#b3261e]/40 text-[#ff6b6b] text-[13px] flex items-center gap-2">
+            <AlertCircle size={15} className="shrink-0" />
             <span>{error}</span>
           </div>
         )}
@@ -110,20 +96,17 @@ function LoginForm() {
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           disabled={loading}
-          className="mt-2"
+          className="mt-2 !bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium"
         >
-          {loading ? "Signing in..." : "Sign In"}
+          {loading ? "Signing in..." : "Sign In &rarr;"}
         </Button>
       </form>
 
-      <div className="mt-6 pt-6 border-t border-[#d6d5d0]/20 text-center text-[13px] text-[#d6d5d0]">
-        Don&apos;t have an account yet?{" "}
-        <Link href="/signup" className="text-[#ffffff] font-medium underline">
-          Create account
-        </Link>
+      <div className="mt-6 pt-6 border-t border-[#2e2e36] text-center text-[12px] text-[#a8a39a]">
+        Default credentials can be initialized with <code className="text-[#cfa859]">npm run admin:create</code>.
       </div>
     </div>
   );
@@ -131,8 +114,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#000000] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <Suspense fallback={<div className="text-center text-[13px] text-[#d6d5d0]">Loading...</div>}>
+    <div className="min-h-screen bg-[#0e0e10] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <Suspense fallback={<div className="text-center text-[13px] text-[#a8a39a]">Loading...</div>}>
         <LoginForm />
       </Suspense>
     </div>
