@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const COOKIE_NAME = "tworooks_session";
+const COOKIE_NAME = "chesshub_session";
 const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "two-rooks-fallback-secret-minimum-32-chars-key"
 );
@@ -30,11 +30,11 @@ export async function middleware(request: NextRequest) {
     const role = payload.role as string;
 
     if (isAdminRoute && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/app", request.url));
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    if (isCoachRoute && role !== "COACH" && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/app", request.url));
+    if (isCoachRoute || isStudentRoute) {
+      return NextResponse.redirect(new URL("/", request.url));
     }
 
     return NextResponse.next();

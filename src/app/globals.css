@@ -1,144 +1,121 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-obsidian: #000000;
-  --color-charcoal: #1d1d1d;
-  --color-paper-white: #ffffff;
-  --color-ash: #d6d5d0;
-  --color-error: #B3261E;
+  /* Palette Tokens — Dark Charcoal, Warm White, Subtle Gold & Forest Accents */
+  --color-canvas: #0e0e10;
+  --color-charcoal-deep: #141416;
+  --color-charcoal-surface: #1a1a1e;
+  --color-charcoal-elevated: #222228;
+  --color-charcoal-border: #2e2e36;
+  --color-charcoal-hover: #363640;
+
+  --color-warm-white: #f5f3ef;
+  --color-warm-white-muted: #dcd8d0;
+  --color-warm-gray: #a8a39a;
+  --color-warm-dim: #6e6a64;
+
+  --color-gold-accent: #cfa859;
+  --color-gold-hover: #e0b86a;
+  --color-gold-muted: rgba(207, 168, 89, 0.15);
+
+  --color-green-accent: #2e5a44;
+  --color-green-light: #4e8765;
+  --color-green-muted: rgba(46, 90, 68, 0.25);
+
+  --color-error: #b3261e;
+  --color-error-muted: rgba(179, 38, 30, 0.15);
 
   /* Typography — Font Families */
-  --font-feature-deck: var(--font-feature-deck), "Newsreader", "Cormorant Garamond", Georgia, serif;
-  --font-sohne: var(--font-sohne), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-heading: var(--font-feature-deck), "Newsreader", serif;
-  --font-body: var(--font-sohne), "Inter", sans-serif;
-  --font-mono: var(--font-mono), monospace;
+  --font-heading: var(--font-feature-deck), "Newsreader", "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-sohne), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
 
   /* Typography — Scale */
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.5;
-  --tracking-body-sm: 0px;
+  --text-body-sm: 14px;
+  --text-body: 16px;
   --text-subheading: 22px;
-  --leading-subheading: 1.3;
-  --tracking-subheading: 0px;
-  --text-heading: 72px;
-  --leading-heading: 1.1;
-  --tracking-heading: -0.65px;
-  --text-heading-lg: 82px;
-  --leading-heading-lg: 1.05;
-  --tracking-heading-lg: -0.74px;
-  --text-display: 116px;
-  --leading-display: 1.05;
-  --tracking-display: -2.09px;
+  --text-heading: 36px;
+  --text-display: 56px;
 
-  /* Spacing */
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-128: 128px;
-  --spacing-144: 144px;
-
-  /* Border Radius */
-  --radius-lg: 8px;
-  --radius-full: 9999px;
+  /* Border Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-pill: 9999px;
-  --radius-card: 8px;
 }
 
 :root {
-  /* Colors */
-  --color-obsidian: #000000;
-  --color-charcoal: #1d1d1d;
-  --color-paper-white: #ffffff;
-  --color-ash: #d6d5d0;
-  --color-error: #B3261E;
-
-  /* Typography — Font Families */
-  --font-feature-deck: var(--font-feature-deck), 'Newsreader', 'Cormorant Garamond', Georgia, serif;
-  --font-shne: var(--font-sohne), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Typography — Weights */
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-
-  /* Spacing */
-  --spacing-unit: 8px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-128: 128px;
-  --spacing-144: 144px;
-
-  /* Layout */
-  --page-max-width: 1440px;
-  --section-gap: 128px;
-  --card-padding: 24px;
-  --element-gap: 24px;
-
-  /* Named Radii */
-  --radius-tags: 9999px;
-  --radius-cards: 8px;
-  --radius-buttons: 9999px;
-  --radius-pill: 9999px;
-  --radius-card: 8px;
-
-  /* Surfaces */
-  --surface-obsidian-canvas: #000000;
-  --surface-charcoal-surface: #1d1d1d;
-  --surface-hairline-layer: #d6d5d0;
+  --color-canvas: #0e0e10;
+  --color-charcoal-surface: #1a1a1e;
+  --color-charcoal-elevated: #222228;
+  --color-charcoal-border: #2e2e36;
+  --color-warm-white: #f5f3ef;
+  --color-warm-white-muted: #dcd8d0;
+  --color-gold-accent: #cfa859;
+  --color-green-accent: #2e5a44;
 }
 
 /* Base resets & typography discipline */
 * {
-  border-color: #d6d5d0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
-  font-family: var(--font-sohne), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
+  background-color: var(--color-canvas);
+  color: var(--color-warm-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
 }
 
-/* Custom focus ring */
+/* Visible accessible focus ring */
 :focus-visible {
-  outline: 1px solid #ffffff;
-  outline-offset: 2px;
+  outline: 2px solid var(--color-gold-accent);
+  outline-offset: 3px;
 }
 
-/* Hairline utility */
-.border-hairline {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #d6d5d0;
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* Subtle link underline */
+/* Chessboard pattern utilities */
+.chess-board-pattern {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+}
+
+/* Subtle link underline animation */
 .hover-underline-animation {
   position: relative;
   text-decoration: none;
 }
 
 .hover-underline-animation::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
   height: 1px;
   bottom: -2px;
   left: 0;
-  background-color: currentColor;
+  background-color: var(--color-gold-accent);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }

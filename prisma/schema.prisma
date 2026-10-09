@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -7,389 +7,158 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum Role {
-  STUDENT
-  COACH
-  ADMIN
-}
-
-enum BookingStatus {
-  PENDING_PAYMENT
-  CONFIRMED
-  COMPLETED
-  CANCELLED
-  NO_SHOW
-  EXPIRED
-}
-
-enum PaymentStatus {
-  CREATED
-  AUTHORIZED
-  CAPTURED
-  FAILED
-  REFUND_DUE
-  REFUNDED
-}
-
-enum SkillStage {
-  INTRODUCED
-  DEVELOPING
-  RELIABLE
-  FLUENT
-}
-
-enum Level {
-  BEGINNER
-  FOUNDATIONS
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum HomeworkStatus {
-  ASSIGNED
-  SUBMITTED
-  REVIEWED
+model AdminUser {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  role         String     @default("ADMIN")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  auditLogs    AuditLog[]
 }
 
 model User {
-  id              String           @id @default(cuid())
-  email           String           @unique
-  passwordHash    String
-  name            String
-  phone           String?
-  role            Role             @default(STUDENT)
-  emailVerifiedAt DateTime?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-
-  coachProfile    Coach?
-  studentProfiles Student[]        @relation("GuardianStudents")
-  bookingsMade    Booking[]        @relation("BookedByUser")
-  notifications   Notification[]
-  resetTokens     PasswordResetToken[]
-}
-
-model Student {
-  id                    String                @id @default(cuid())
-  ownerUserId           String
-  ownerUser             User                  @relation("GuardianStudents", fields: [ownerUserId], references: [id], onDelete: Cascade)
-  displayName           String
-  dateOfBirth           DateTime?
-  birthYear             Int?
-  level                 Level                 @default(BEGINNER)
-  isMinor               Boolean               @default(false)
-  chessPlatformUsername String?
-  currentRating         Int?
-  notes                 String?
-  createdAt             DateTime              @default(now())
-
-  bookings              Booking[]
-  skills                StudentSkill[]
-  skillHistory          StudentSkillHistory[]
-  goals                 Goal[]
-  coachNotes            CoachNote[]
-  homework              Homework[]
-  ratingSnapshots       RatingSnapshot[]
-
-  @@index([ownerUserId])
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Coach {
-  id                String                  @id @default(cuid())
-  userId            String                  @unique
-  user              User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  slug              String                  @unique
-  displayName       String
-  bio               String
-  philosophy        String
-  focusLevels       String                  // JSON array string e.g. ["BEGINNER", "FOUNDATIONS"]
-  defaultMeetUrl    String
-  timeZone          String                  @default("Asia/Kolkata")
-  slotBufferMinutes Int                     @default(10)
-  minNoticeHours    Int                     @default(12)
-  maxAdvanceDays    Int                     @default(30)
-  fideId            String?
-  fideRating        Int?
-  isActive          Boolean                 @default(true)
-  createdAt         DateTime                @default(now())
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  displayName String
+  email       String?
+  phone       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  credentials       CoachCredential[]
-  sessionTypes      SessionType[]
-  availabilityRules AvailabilityRule[]
-  exceptions        AvailabilityException[]
-  bookings          Booking[]
-  coachNotes        CoachNote[]
-  homeworkAssigned  Homework[]
-
-  @@index([slug])
-  @@index([isActive])
-}
-
-model CoachCredential {
-  id        String   @id @default(cuid())
-  coachId   String
-  coach     Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  label     String
-  detail    String
-  sortOrder Int      @default(0)
-
-  @@index([coachId])
-}
-
-model SessionType {
-  id              String    @id @default(cuid())
-  coachId         String
-  coach           Coach     @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  name            String
-  level           Level
-  durationMinutes Int
-  pricePaise      Int
-  description     String
-  isTrial         Boolean   @default(false)
-  isActive        Boolean   @default(true)
-  createdAt       DateTime  @default(now())
-
-  bookings        Booking[]
-
-  @@index([coachId])
-  @@index([isActive])
+  slots    Slot[]
+  bookings Booking[]
 }
 
 model AvailabilityRule {
-  id             String    @id @default(cuid())
-  coachId        String
-  coach          Coach     @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  weekday        Int       // 0 = Sunday, 1 = Monday, ... 6 = Saturday
-  startMinute    Int       // minutes from midnight (e.g. 540 = 09:00)
-  endMinute      Int       // minutes from midnight (e.g. 1080 = 18:00)
-  sessionTypeIds String?   // comma-separated or JSON string, null = all
-  validFrom      DateTime?
-  validTo        DateTime?
+  id          String   @id @default(cuid())
+  dayOfWeek   Int      // 0 = Sunday, 1 = Monday, ... 6 = Saturday
+  startTime   String   // "10:00" (HH:mm)
+  endTime     String   // "18:00" (HH:mm)
+  duration    Int      @default(60) // slot duration in minutes
+  capacity    Int      @default(1)
+  coachSlug   String?  // "shreyash" | "tapesnu" | null (applies to academy)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@index([coachId, weekday])
+  @@index([dayOfWeek, isActive])
 }
 
-model AvailabilityException {
-  id          String   @id @default(cuid())
-  coachId     String
-  coach       Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  date        String   // YYYY-MM-DD
-  kind        String   // "BLOCKED" | "EXTRA_OPEN"
-  startMinute Int?
-  endMinute   Int?
-  reason      String?
+model AvailabilityDate {
+  id        String   @id @default(cuid())
+  date      String   @unique // "YYYY-MM-DD"
+  isBlocked Boolean  @default(false)
+  reason    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([coachId, date])
+  @@index([date])
+}
+
+model Slot {
+  id              String   @id @default(cuid())
+  date            String   // "YYYY-MM-DD" in Asia/Kolkata
+  startTime       String   // "10:00"
+  endTime         String   // "11:00"
+  startsAt        DateTime // UTC
+  endsAt          DateTime // UTC
+  durationMinutes Int      @default(60)
+  capacity        Int      @default(1)
+  isBlocked       Boolean  @default(false)
+  isSoldOut       Boolean  @default(false)
+  coachId         String?
+  coach           Coach?   @relation(fields: [coachId], references: [id], onDelete: SetNull)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  bookings Booking[]
+
+  @@unique([date, startTime])
+  @@index([date])
+  @@index([startsAt])
+  @@index([isBlocked, isSoldOut])
 }
 
 model Booking {
-  id                 String        @id @default(cuid())
-  reference          String        @unique // e.g. TR-0142
-  studentId          String
-  student            Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  bookedByUserId     String
-  bookedByUser       User          @relation("BookedByUser", fields: [bookedByUserId], references: [id], onDelete: Cascade)
-  coachId            String
-  coach              Coach         @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  sessionTypeId      String
-  sessionType        SessionType   @relation(fields: [sessionTypeId], references: [id])
-  startsAt           DateTime
-  endsAt             DateTime
-  status             BookingStatus @default(PENDING_PAYMENT)
-  meetUrl            String?
-  holdExpiresAt      DateTime?
-  cancelledAt        DateTime?
-  cancelledBy        String?       // "STUDENT" | "COACH" | "SYSTEM"
-  cancelReason       String?
-  rescheduledFromId  String?
-  utmSource          String?
-  utmMedium          String?
-  utmCampaign        String?
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
+  id             String         @id @default(cuid())
+  reference      String         @unique // Human-friendly e.g. "CH-7X8K2M"
+  idempotencyKey String?        @unique
+  fullName       String
+  email          String
+  phone          String
+  level          String         // "beginner" | "advanced"
+  priceRupees    Int            // 500 or 800
+  currency       String         @default("INR")
+  date           String         // "YYYY-MM-DD"
+  timeSlot       String         // "10:00"
+  startsAt       DateTime       // UTC
+  endsAt         DateTime       // UTC
+  status         String         @default("PENDING") // PENDING | CONFIRMED | CANCELLED | COMPLETED
+  message        String?
+  adminNotes     String?
+  slotId         String?
+  slot           Slot?          @relation(fields: [slotId], references: [id], onDelete: SetNull)
+  coachId        String?
+  coach          Coach?         @relation(fields: [coachId], references: [id], onDelete: SetNull)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 
-  payments           Payment[]
-  coachNotes         CoachNote[]
-  homework           Homework[]
+  events BookingEvent[]
 
-  @@index([coachId, startsAt, endsAt])
-  @@index([studentId])
-  @@index([bookedByUserId])
   @@index([status])
+  @@index([date])
+  @@index([email])
+  @@index([startsAt])
+  @@index([reference])
 }
 
-model Payment {
-  id                String        @id @default(cuid())
-  bookingId         String
-  booking           Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  provider          String        // "mock" | "razorpay"
-  providerOrderId   String
-  providerPaymentId String?
-  amountPaise       Int
-  currency          String        @default("INR")
-  status            PaymentStatus @default(CREATED)
-  failureReason     String?
-  refundedAt        DateTime?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+model BookingEvent {
+  id          String   @id @default(cuid())
+  bookingId   String
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  eventType   String   // "CREATED" | "CONFIRMED" | "CANCELLED" | "COMPLETED" | "RESCHEDULED" | "NOTE_UPDATED"
+  performedBy String   // "STUDENT" | "ADMIN" | "SYSTEM"
+  details     String?
+  createdAt   DateTime @default(now())
 
   @@index([bookingId])
-  @@index([providerOrderId])
+  @@index([createdAt])
 }
 
-model PaymentEvent {
-  id              String   @id @default(cuid())
-  providerEventId String   @unique
-  type            String
-  payload         String   // JSON string
-  processedAt     DateTime @default(now())
+model AuditLog {
+  id          String     @id @default(cuid())
+  adminUserId String?
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  action      String
+  entity      String
+  entityId    String?
+  details     String?
+  ipAddress   String?
+  createdAt   DateTime   @default(now())
+
+  @@index([action])
+  @@index([createdAt])
 }
 
-model SkillArea {
-  id           String                @id @default(cuid())
-  name         String
-  track        String                // "FOUNDATIONS" | "IMPROVEMENT"
-  sortOrder    Int                   @default(0)
-
-  skills       StudentSkill[]
-  skillHistory StudentSkillHistory[]
-}
-
-model StudentSkill {
-  id                String      @id @default(cuid())
-  studentId         String
-  student           Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  skillAreaId       String
-  skillArea         SkillArea   @relation(fields: [skillAreaId], references: [id], onDelete: Cascade)
-  stage             SkillStage  @default(INTRODUCED)
-  coachComment      String?
-  updatedByCoachId  String?
-  updatedAt         DateTime    @updatedAt
-
-  @@unique([studentId, skillAreaId])
-  @@index([studentId])
-}
-
-model StudentSkillHistory {
-  id                String      @id @default(cuid())
-  studentId         String
-  student           Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  skillAreaId       String
-  skillArea         SkillArea   @relation(fields: [skillAreaId], references: [id], onDelete: Cascade)
-  oldStage          SkillStage?
-  newStage          SkillStage
-  comment           String?
-  changedByCoachId  String?
-  changedAt         DateTime    @default(now())
-
-  @@index([studentId])
-}
-
-model Goal {
-  id          String    @id @default(cuid())
-  studentId   String
-  student     Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  title       String
-  description String?
-  targetDate  DateTime?
-  status      String    @default("ACTIVE") // ACTIVE | COMPLETED | PAUSED
-  createdBy   String    // STUDENT | COACH
-  createdAt   DateTime  @default(now())
-
-  @@index([studentId])
-}
-
-model CoachNote {
-  id               String   @id @default(cuid())
-  bookingId        String?
-  booking          Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
-  studentId        String
-  student          Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  coachId          String
-  coach            Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  body             String
-  visibleToStudent Boolean  @default(true)
-  createdAt        DateTime @default(now())
-
-  @@index([studentId])
-  @@index([coachId])
-}
-
-model Homework {
-  id              String         @id @default(cuid())
-  studentId       String
-  student         Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  coachId         String
-  coach           Coach          @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  bookingId       String?
-  booking         Booking?       @relation(fields: [bookingId], references: [id], onDelete: SetNull)
-  title           String
-  instructions    String
-  tags            String         // JSON array string e.g. ["Fork", "Italian Game"]
-  dueDate         DateTime?
-  status          HomeworkStatus @default(ASSIGNED)
-  studentResponse String?
-  coachFeedback   String?
-  createdAt       DateTime       @default(now())
-
-  @@index([studentId])
-  @@index([coachId])
-}
-
-model RatingSnapshot {
-  id         String   @id @default(cuid())
-  studentId  String
-  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  rating     Int
-  source     String   // SELF | LICHESS | CHESSCOM | FIDE | COACH
-  recordedAt DateTime @default(now())
-
-  @@index([studentId])
-}
-
-model Notification {
-  id        String    @id @default(cuid())
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type      String
-  title     String
-  body      String
-  href      String?
-  readAt    DateTime?
-  createdAt DateTime  @default(now())
-
-  @@index([userId])
-}
-
-model Testimonial {
-  id           String    @id @default(cuid())
-  authorName   String
-  relationship String    // "student" | "parent"
-  body         String
-  approvedAt   DateTime?
-  isVisible    Boolean   @default(false)
-  createdAt    DateTime  @default(now())
-
-  @@index([isVisible, approvedAt])
-}
-
-model ContactMessage {
+model RateLimit {
   id        String   @id @default(cuid())
-  name      String
-  email     String
-  message   String
-  level     String?
-  createdAt DateTime @default(now())
-}
-
-model PasswordResetToken {
-  id        String    @id @default(cuid())
-  tokenHash String    @unique
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key       String   @unique
+  count     Int      @default(1)
   expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime  @default(now())
 
-  @@index([userId])
+  @@index([key, expiresAt])
 }

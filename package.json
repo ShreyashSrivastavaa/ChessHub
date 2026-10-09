@@ -1,5 +1,5 @@
 {
-  "name": "two-rooks-chess",
+  "name": "chess-hub",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,13 +7,16 @@
     "build": "node scripts/build.js",
     "postinstall": "node scripts/postinstall.js",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
+    "admin:create": "tsx scripts/create-admin.ts",
     "test": "vitest run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@neon/config": "^1.8.6",
+    "@neon/env": "^1.5.3",
     "@prisma/client": "^6.4.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-dialog": "^1.1.5",
@@ -35,16 +38,20 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.0.6",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.13.4",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.0",
     "postcss": "^8.5.2",
     "prisma": "^6.4.1",
     "tailwindcss": "^4.0.6",
     "tsx": "^4.23.15",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.71.1",
     "vitest": "^3.0.5"
   }
 }
