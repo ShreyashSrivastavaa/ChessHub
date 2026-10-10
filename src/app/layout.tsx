@@ -24,11 +24,12 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(BUSINESS_CONFIG.siteUrl),
   title: {
-    default: `${BUSINESS_CONFIG.name} — ${BUSINESS_CONFIG.tagline}`,
-    template: `%s | ${BUSINESS_CONFIG.name}`,
+    default: "ChessHub | Learn. Play. Improve.",
+    template: "%s | ChessHub",
   },
   description: BUSINESS_CONFIG.heroSubtext,
   keywords: [
+    "ChessHub",
     "Chess Hub",
     "chess coaching",
     "online chess tutor",
@@ -38,21 +39,45 @@ export const metadata: Metadata = {
     "Shreyash chess coach",
     "Tapesnu chess coach",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { rel: "icon", url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { rel: "icon", url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+  },
   alternates: {
     canonical: BUSINESS_CONFIG.siteUrl,
   },
   openGraph: {
-    title: `${BUSINESS_CONFIG.name} — ${BUSINESS_CONFIG.tagline}`,
+    title: "ChessHub | Learn. Play. Improve.",
     description: BUSINESS_CONFIG.heroSubtext,
     url: BUSINESS_CONFIG.siteUrl,
-    siteName: BUSINESS_CONFIG.name,
+    siteName: "ChessHub",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ChessHub — Learn. Play. Improve.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BUSINESS_CONFIG.name} — ${BUSINESS_CONFIG.tagline}`,
+    title: "ChessHub | Learn. Play. Improve.",
     description: BUSINESS_CONFIG.heroSubtext,
+    images: ["/og-image.png"],
   },
 };
 

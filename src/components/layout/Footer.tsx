@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { BUSINESS_CONFIG } from "@/config/business";
 import { Mail, Phone, ShieldAlert } from "lucide-react";
+import { ChessHubLogo } from "../ui/ChessHubLogo";
 
 export function Footer() {
   return (
@@ -10,12 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-14 border-b border-[#2e2e36]">
           {/* Brand Info */}
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" aria-hidden="true" />
-              <span className="text-[22px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef]">
-                {BUSINESS_CONFIG.name}
-              </span>
-            </div>
+            <ChessHubLogo size="lg" withTagline={true} />
             <p className="text-[14px] text-[#a8a39a] leading-[1.6] max-w-[280px] font-[family-name:var(--font-body)]">
               Personalized 1:1 online chess coaching run by Shreyash and Tapesnu.
             </p>
@@ -47,7 +43,7 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <Link href="/book" className="text-[#cfa859] hover:underline font-medium">
-                  &rarr; Book a session
+                  → Book a session
                 </Link>
               </li>
             </ul>
@@ -62,6 +58,11 @@ export function Footer() {
               <li>
                 <Link href="/" className="hover:text-[#f5f3ef] transition-colors">
                   Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/board" className="hover:text-[#f5f3ef] transition-colors">
+                  Chess Board Studio
                 </Link>
               </li>
               <li>

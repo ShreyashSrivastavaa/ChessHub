@@ -8,6 +8,8 @@ import { User, Menu, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
+import { ChessHubLogo } from "../ui/ChessHubLogo";
+
 export interface TopNavProps {
   user?: {
     id: string;
@@ -21,6 +23,7 @@ export function TopNav({ user }: TopNavProps) {
 
   const navLinks = [
     { label: "Home", href: "/" },
+    { label: "Board", href: "/board" },
     { label: "Coaching", href: "/#coaching" },
     { label: "How It Works", href: "/how-it-works" },
     { label: "About Us", href: "/about" },
@@ -30,14 +33,8 @@ export function TopNav({ user }: TopNavProps) {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0e0e10]/95 backdrop-blur-md border-b border-[#2e2e36] text-[#f5f3ef]">
       <div className="max-w-[1440px] mx-auto h-[68px] px-6 md:px-12 flex items-center justify-between">
-        {/* Left: Brand Wordmark */}
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 text-[20px] font-[family-name:var(--font-heading)] tracking-[-0.01em] text-[#f5f3ef] hover:text-[#cfa859] transition-colors"
-        >
-          <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" aria-hidden="true" />
-          <span className="font-medium">{BUSINESS_CONFIG.name}</span>
-        </Link>
+        {/* Left: Brand Logo */}
+        <ChessHubLogo size="md" withTagline={false} />
 
         {/* Center: Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
@@ -93,16 +90,11 @@ export function TopNav({ user }: TopNavProps) {
           <Dialog.Content className="fixed inset-0 bg-[#0e0e10] text-[#f5f3ef] z-50 flex flex-col p-6 overflow-y-auto">
             <VisuallyHidden.Root>
               <Dialog.Title>Navigation Menu</Dialog.Title>
-              <Dialog.Description>Chess Hub navigation menu for mobile devices</Dialog.Description>
+              <Dialog.Description>ChessHub navigation menu for mobile devices</Dialog.Description>
             </VisuallyHidden.Root>
 
             <div className="flex items-center justify-between pb-6 border-b border-[#2e2e36]">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" />
-                <span className="text-[18px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef]">
-                  {BUSINESS_CONFIG.name}
-                </span>
-              </div>
+              <ChessHubLogo size="md" withTagline={true} />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-[40px] h-[40px] rounded-full inline-flex items-center justify-center text-[#f5f3ef] hover:bg-[#1a1a1e] transition-colors"
@@ -130,7 +122,7 @@ export function TopNav({ user }: TopNavProps) {
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-[18px] font-[family-name:var(--font-mono)] text-[#cfa859] pt-4"
                 >
-                  &rarr; Admin Dashboard
+                  → Admin Dashboard
                 </Link>
               ) : (
                 <Link

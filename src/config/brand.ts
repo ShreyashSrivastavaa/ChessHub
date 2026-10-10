@@ -8,17 +8,17 @@ export interface CoachBrandInfo {
 }
 
 export const BRAND_CONFIG = {
-  name: "TWO ROOKS",
-  shortName: "Two Rooks",
-  tagline: "Live chess coaching. One coach, one student, one board.",
+  name: "ChessHub",
+  shortName: "ChessHub",
+  tagline: "Learn. Play. Improve.",
   heroSubcopy: "Shreyash builds your foundations. Tapesnu, a FIDE-rated player, sharpens your game. Classes run live on Google Meet.",
-  domain: "tworooks.com",
-  contactEmail: "hello@tworooks.com",
-  whatsappNumber: "+91 98765 43210", // PLACEHOLDER: Update with real WhatsApp business number
+  domain: "chess-hub-six.vercel.app",
+  contactEmail: "shreyashsr2004@gmail.com",
+  whatsappNumber: "+91 99309 17551",
   social: {
-    instagram: "@tworookschess",
-    youtube: "@tworookschess",
-    twitter: "@tworookschess",
+    instagram: "@chesshub",
+    youtube: "@chesshub",
+    twitter: "@chesshub",
   },
   location: "India / Global Online",
   coaches: {

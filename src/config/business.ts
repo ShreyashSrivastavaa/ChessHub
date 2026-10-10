@@ -31,11 +31,11 @@ export interface CoachProfile {
 }
 
 export const BUSINESS_CONFIG = {
-  name: "Chess Hub",
-  legalName: "Chess Hub Coaching",
-  tagline: "Think Smarter. Play Stronger.",
+  name: "ChessHub",
+  legalName: "ChessHub Coaching",
+  tagline: "Learn. Play. Improve.",
   heroSubtext:
-    "Personalized chess coaching for beginners and advanced players. Build your strategy, sharpen your tactics, and become a more confident player with Chess Hub.",
+    "Personalized chess coaching for beginners and advanced players. Build your strategy, sharpen your tactics, and become a more confident player with ChessHub.",
   email: "shreyashsr2004@gmail.com",
   phone: "+91 9930917551",
   phoneDisplay: "+91 99309 17551",

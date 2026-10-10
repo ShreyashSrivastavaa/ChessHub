@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { BUSINESS_CONFIG } from "@/config/business";
 import { LogOut, Shield } from "lucide-react";
+import { ChessHubLogo } from "../ui/ChessHubLogo";
 
 export interface NavTabItem {
   label: string;
@@ -46,13 +47,7 @@ export function DashboardShell({
       <header className="w-full bg-[#141418] border-b border-[#2e2e36] select-none sticky top-0 z-30">
         <div className="max-w-[1440px] mx-auto h-[64px] px-6 md:px-12 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-[18px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef] hover:text-[#cfa859] transition-colors"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" />
-              <span>{BUSINESS_CONFIG.name}</span>
-            </Link>
+            <ChessHubLogo size="sm" withTagline={false} />
             <span className="text-[11px] font-[family-name:var(--font-mono)] uppercase px-2.5 py-0.5 rounded-full bg-[#cfa859]/10 border border-[#cfa859]/30 text-[#cfa859] flex items-center gap-1">
               <Shield size={11} />
               <span>{role}</span>

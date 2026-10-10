@@ -27,7 +27,7 @@ export function MobileCtaBar() {
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <span className="text-[13px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef]">
-            Chess Hub
+            ChessHub
           </span>
           <span className="text-[11px] font-[family-name:var(--font-mono)] text-[#cfa859]">
             From ₹500 / session

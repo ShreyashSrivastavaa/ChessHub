@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { BUSINESS_CONFIG } from "@/config/business";
 
 export const runtime = "edge";
-export const alt = "Chess Hub — Think Smarter. Play Stronger.";
+export const alt = "ChessHub — Learn. Play. Improve.";
 export const size = {
   width: 1200,
   height: 630,
