@@ -157,7 +157,7 @@ export default function HomePage() {
                   fullWidth
                   className="!bg-[#f5f3ef] !text-[#0e0e10] hover:!bg-[#ffffff]"
                 >
-                  Book This Session &rarr;
+                  Book This Session →
                 </Button>
               </div>
             </div>
@@ -223,7 +223,7 @@ export default function HomePage() {
                   fullWidth
                   className="!bg-[#cfa859] !text-[#0e0e10] hover:!bg-[#e0b86a] !font-medium"
                 >
-                  Book This Session &rarr;
+                  Book This Session →
                 </Button>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function HomePage() {
               size="lg"
               className="!bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium px-8"
             >
-              Get Started with Step 1 &rarr;
+              Get Started with Step 1 →
             </Button>
           </div>
         </div>

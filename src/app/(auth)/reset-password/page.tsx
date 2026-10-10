@@ -7,6 +7,7 @@ import { BRAND_CONFIG } from "@/config/brand";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { ChessHubLogo } from "@/components/ui/ChessHubLogo";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -51,13 +52,8 @@ function ResetPasswordForm() {
   return (
     <div className="w-full max-w-[420px] mx-auto p-6 md:p-8 border border-[#000000] rounded-[16px] bg-[#ffffff]">
       <div className="text-center mb-6">
-        <Link
-          href="/"
-          className="text-[18px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#000000]"
-        >
-          {BRAND_CONFIG.name}
-        </Link>
-        <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000] mt-3">
+        <ChessHubLogo size="lg" withTagline={true} variant="stacked" lightMode={true} />
+        <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-normal text-[#000000] mt-4">
           Set New Password
         </h1>
       </div>

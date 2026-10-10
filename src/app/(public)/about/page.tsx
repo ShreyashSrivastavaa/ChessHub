@@ -12,7 +12,7 @@ export default function AboutPage() {
     <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-20">
       <SectionHeader
         tag="Faculty & Philosophy"
-        title="About Chess Hub"
+        title="About ChessHub"
         description="Founded and coached by Shreyash and Tapesnu. We provide dedicated 1:1 online chess coaching focused on core understanding and competitive tactics."
       />
 

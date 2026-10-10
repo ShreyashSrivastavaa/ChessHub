@@ -265,7 +265,7 @@ export default async function AdminOverviewPage() {
             href="/admin/availability"
             className="text-[13px] font-[family-name:var(--font-mono)] text-[#cfa859] hover:underline"
           >
-            Manage Slots & Rules &rarr;
+            Manage Slots & Rules →
           </Link>
         </div>
 

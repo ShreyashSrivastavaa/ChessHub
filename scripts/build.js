@@ -1,8 +1,24 @@
 const { execSync } = require("child_process");
 
-// Ensure DATABASE_URL is set for Prisma CLI and Next.js SSG
+const fs = require("fs");
+
+// Load .env if present
+if (typeof process.loadEnvFile === "function") {
+  try {
+    process.loadEnvFile();
+  } catch {}
+} else if (!process.env.DATABASE_URL && fs.existsSync(".env")) {
+  try {
+    const envContent = fs.readFileSync(".env", "utf8");
+    const match = envContent.match(/DATABASE_URL=["']?([^"'\r\n]+)["']?/);
+    if (match) {
+      process.env.DATABASE_URL = match[1];
+    }
+  } catch {}
+}
+
 if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL = "file:./dev.db";
+  process.env.DATABASE_URL = "postgresql://localhost:5432/postgres";
 }
 
 function run(cmd) {

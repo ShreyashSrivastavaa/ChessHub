@@ -4,7 +4,7 @@ import { ChessHubBookingFlow } from "@/components/booking/ChessHubBookingFlow";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Book a Session — Chess Hub",
+  title: "Book a Session — ChessHub",
   description:
     "Schedule your 1:1 online chess coaching session with Shreyash or Tapesnu. Choose Beginner (₹500) or Advanced (₹800).",
 };

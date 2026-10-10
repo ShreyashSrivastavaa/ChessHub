@@ -12,7 +12,7 @@ export default function HowItWorksPage() {
     <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-20">
       <SectionHeader
         tag="Student Journey"
-        title="How Chess Hub Works"
+        title="How ChessHub Works"
         description="A straightforward 4-step workflow to connect with our coaches and begin your 1:1 lessons."
       />
 

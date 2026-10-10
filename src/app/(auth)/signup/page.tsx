@@ -7,6 +7,7 @@ import { BRAND_CONFIG } from "@/config/brand";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { AlertCircle } from "lucide-react";
+import { ChessHubLogo } from "@/components/ui/ChessHubLogo";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -68,13 +69,8 @@ export default function SignupPage() {
     <div className="min-h-screen bg-[#000000] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-[460px] mx-auto p-6 md:p-8 border border-[#d6d5d0]/20 rounded-[8px] bg-[#1d1d1d]">
         <div className="text-center mb-6">
-          <Link
-            href="/"
-            className="text-[16px] font-[family-name:var(--font-heading)] uppercase tracking-[0.06em] text-[#ffffff]"
-          >
-            {BRAND_CONFIG.name}
-          </Link>
-          <h1 className="text-[28px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-3">
+          <ChessHubLogo size="lg" withTagline={true} variant="stacked" />
+          <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-light text-[#ffffff] mt-4">
             Create Account
           </h1>
           <p className="text-[13px] text-[#d6d5d0] font-[family-name:var(--font-mono)] mt-1">

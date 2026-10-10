@@ -235,10 +235,10 @@ export function ChessHubBookingFlow() {
   // SUCCESS VIEW
   if (bookingResult) {
     const mailtoSubject = encodeURIComponent(
-      `Chess Hub Booking Confirmation - Ref: ${bookingResult.reference}`
+      `ChessHub Booking Confirmation - Ref: ${bookingResult.reference}`
     );
     const mailtoBody = encodeURIComponent(
-      `Hello Shreyash & Tapesnu,\n\nI have submitted a booking request on Chess Hub with the following details:\n\nReference: ${
+      `Hello Shreyash & Tapesnu,\n\nI have submitted a booking request on ChessHub with the following details:\n\nReference: ${
         bookingResult.reference
       }\nStudent Name: ${bookingResult.fullName}\nLevel: ${bookingResult.level.toUpperCase()} Coaching\nDate: ${
         bookingResult.date
@@ -326,7 +326,7 @@ export function ChessHubBookingFlow() {
                 className="flex items-center justify-center gap-2.5 h-[50px] px-6 rounded-full bg-[#cfa859] text-[#0e0e10] font-medium hover:bg-[#e0b86a] transition-colors"
               >
                 <Mail size={16} />
-                <span>Email Chess Hub</span>
+                <span>Email ChessHub</span>
               </a>
               <a
                 href={`tel:${BUSINESS_CONFIG.phone}`}
@@ -345,7 +345,7 @@ export function ChessHubBookingFlow() {
                 className="text-[13px] text-[#4e8765] hover:underline inline-flex items-center gap-1.5"
               >
                 <MessageSquare size={14} />
-                <span>Prefer WhatsApp? Message Coach Tapesnu directly &rarr;</span>
+                <span>Prefer WhatsApp? Message Coach Tapesnu directly →</span>
               </a>
             </div>
           </div>
@@ -689,7 +689,7 @@ export function ChessHubBookingFlow() {
               disabled={isSubmitting || !selectedSlotId}
               className="mt-6 !bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium"
             >
-              {isSubmitting ? "Reserving Slot..." : "Submit Booking Request &rarr;"}
+              {isSubmitting ? "Reserving Slot..." : "Submit Booking Request →"}
             </Button>
 
             <p className="text-[12px] text-[#a8a39a] text-center mt-3 leading-relaxed">

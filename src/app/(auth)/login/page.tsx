@@ -7,6 +7,7 @@ import { BUSINESS_CONFIG } from "@/config/business";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { AlertCircle, Shield } from "lucide-react";
+import { ChessHubLogo } from "@/components/ui/ChessHubLogo";
 
 function LoginForm() {
   const router = useRouter();
@@ -52,14 +53,8 @@ function LoginForm() {
   return (
     <div className="w-full max-w-[420px] mx-auto p-8 rounded-3xl border border-[#2e2e36] bg-[#141418] shadow-2xl">
       <div className="text-center mb-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-[18px] font-[family-name:var(--font-heading)] font-medium text-[#f5f3ef]"
-        >
-          <span className="w-2.5 h-2.5 rounded-full bg-[#cfa859]" />
-          <span>{BUSINESS_CONFIG.name}</span>
-        </Link>
-        <h1 className="text-[26px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef] mt-4">
+        <ChessHubLogo size="lg" withTagline={true} variant="stacked" />
+        <h1 className="text-[24px] font-[family-name:var(--font-heading)] font-light text-[#f5f3ef] mt-4">
           Admin Portal Sign In
         </h1>
         <p className="text-[13px] text-[#a8a39a] mt-1">
@@ -101,7 +96,7 @@ function LoginForm() {
           disabled={loading}
           className="mt-2 !bg-[#cfa859] hover:!bg-[#e0b86a] !text-[#0e0e10] !font-medium"
         >
-          {loading ? "Signing in..." : "Sign In &rarr;"}
+          {loading ? "Signing in..." : "Sign In →"}
         </Button>
       </form>
 

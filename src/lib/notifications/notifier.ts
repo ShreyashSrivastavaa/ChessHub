@@ -14,7 +14,7 @@ export interface BookingNotificationDetails {
 
 export async function sendBookingNotifications(booking: BookingNotificationDetails) {
   const apiKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.EMAIL_FROM || `Chess Hub <notifications@chesshub.in>`;
+  const fromEmail = process.env.EMAIL_FROM || `ChessHub <notifications@chesshub.in>`;
 
   if (!apiKey) {
     // Email provider is not configured. Do not claim an email was sent.
@@ -23,7 +23,7 @@ export async function sendBookingNotifications(booking: BookingNotificationDetai
 
   const coachName = booking.level.toLowerCase() === "advanced" ? "Tapesnu" : "Shreyash";
 
-  const studentSubject = `[Chess Hub] Booking Request Received: ${booking.reference}`;
+  const studentSubject = `[ChessHub] Booking Request Received: ${booking.reference}`;
   const studentBody = `Hi ${booking.fullName},
 
 We have received your booking request for ${booking.level.toUpperCase()} Chess Coaching!
@@ -45,10 +45,10 @@ Note: Payments are not processed online. All arrangements are handled directly w
 
 Warm regards,
 Shreyash & Tapesnu
-Chess Hub — ${BUSINESS_CONFIG.tagline}`;
+ChessHub — ${BUSINESS_CONFIG.tagline}`;
 
-  const adminSubject = `[Chess Hub] New Booking Request: ${booking.reference} (${booking.fullName})`;
-  const adminBody = `New booking request received on Chess Hub!
+  const adminSubject = `[ChessHub] New Booking Request: ${booking.reference} (${booking.fullName})`;
+  const adminBody = `New booking request received on ChessHub!
 
 Student: ${booking.fullName}
 Email: ${booking.email}

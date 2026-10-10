@@ -26,7 +26,7 @@ export default async function AdminCoachesPage() {
       role="ADMIN"
       userName={session.name}
       title="Coach Profiles"
-      subtitle="Coaching roster for Chess Hub"
+      subtitle="Coaching roster for ChessHub"
       tabs={adminTabs}
     >
       <div className="flex flex-col gap-6">

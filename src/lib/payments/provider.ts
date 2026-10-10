@@ -46,7 +46,7 @@ export class MockPaymentProvider implements PaymentProvider {
         amount: input.amountPaise,
         currency: input.currency,
         key: "mock_key_public",
-        name: "TWO ROOKS Chess Academy",
+        name: "ChessHub Coaching",
         description: `Booking ref: ${input.receipt}`,
       },
     };
@@ -134,7 +134,7 @@ export class RazorpayPaymentProvider implements PaymentProvider {
         amount: input.amountPaise,
         currency: input.currency,
         key: this.keyId,
-        name: "TWO ROOKS Chess Academy",
+        name: "ChessHub Coaching",
         description: `Session Booking ${input.receipt}`,
       },
     };

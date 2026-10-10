@@ -355,7 +355,7 @@ export function BookingFlow({
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Two Rooks//Chess Academy//EN",
+      "PRODID:-//ChessHub//Chess Coaching//EN",
       "CALSCALE:GREGORIAN",
       "BEGIN:VEVENT",
       `SUMMARY:Chess Coaching with ${confirmedBookingData.coachName} (${confirmedBookingData.reference})`,

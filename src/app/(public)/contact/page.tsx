@@ -17,7 +17,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // For direct contact enquiries without external DB form dependence
-    const mailtoSubject = encodeURIComponent(`Chess Hub Inquiry from ${name}`);
+    const mailtoSubject = encodeURIComponent(`ChessHub Inquiry from ${name}`);
     const mailtoBody = encodeURIComponent(
       `Hello Shreyash & Tapesnu,\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}\n`
     );
@@ -40,7 +40,7 @@ export default function ContactPage() {
             <div className="flex items-center gap-2.5 text-[#cfa859]">
               <Mail size={18} />
               <span className="text-[13px] font-[family-name:var(--font-mono)] uppercase tracking-[0.06em]">
-                Email Chess Hub
+                Email ChessHub
               </span>
             </div>
             <a
@@ -70,7 +70,7 @@ export default function ContactPage() {
             <div className="pt-2">
               <a
                 href={`https://wa.me/${BUSINESS_CONFIG.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
-                  "Hi Tapesnu, I'm reaching out regarding Chess Hub coaching."
+                  "Hi Tapesnu, I'm reaching out regarding ChessHub coaching."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -161,7 +161,7 @@ export default function ContactPage() {
                   size="lg"
                   className="mt-2 !bg-[#cfa859] !text-[#0e0e10] hover:!bg-[#e0b86a] !font-medium"
                 >
-                  Send Message via Email &rarr;
+                  Send Message via Email →
                 </Button>
               </form>
             )}

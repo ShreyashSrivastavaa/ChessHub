@@ -13,9 +13,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const coach = BUSINESS_CONFIG.coaches.find((c) => c.slug === slug);
-  if (!coach) return { title: "Coach Profile | Chess Hub" };
+  if (!coach) return { title: "Coach Profile | ChessHub" };
   return {
-    title: `${coach.name} — Chess Hub Coach`,
+    title: `${coach.name} — ChessHub Coach`,
     description: coach.bio,
   };
 }

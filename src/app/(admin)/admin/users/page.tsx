@@ -28,7 +28,7 @@ export default async function AdminUsersPage() {
       role="ADMIN"
       userName={session.name}
       title="Admin Accounts"
-      subtitle="Authorized administrators managing Chess Hub operations"
+      subtitle="Authorized administrators managing ChessHub operations"
       tabs={adminTabs}
     >
       <div className="rounded-2xl border border-[#2e2e36] bg-[#141418] overflow-hidden">

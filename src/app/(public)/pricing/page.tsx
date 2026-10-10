@@ -65,7 +65,7 @@ export default function PricingPage() {
               fullWidth
               className="!bg-[#f5f3ef] !text-[#0e0e10] hover:!bg-[#ffffff]"
             >
-              Book Beginner Session &rarr;
+              Book Beginner Session →
             </Button>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function PricingPage() {
               fullWidth
               className="!bg-[#cfa859] !text-[#0e0e10] hover:!bg-[#e0b86a] !font-medium"
             >
-              Book Advanced Session &rarr;
+              Book Advanced Session →
             </Button>
           </div>
         </div>
