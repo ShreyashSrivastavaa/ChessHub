@@ -77,11 +77,38 @@ export function useStockfish(options: StockfishHookOptions = {}) {
       return;
     }
 
+    const lastInfoUpdateRef = { current: 0 };
+    let pendingFlushTimer: NodeJS.Timeout | null = null;
+
+    const flushLines = () => {
+      const activeLines = Array.from(currentLinesRef.current.values())
+        .filter((l) => l.id <= multiPv)
+        .sort((a, b) => a.id - b.id);
+
+      setLines(activeLines);
+
+      // Update main eval from line 1
+      const line1 = currentLinesRef.current.get(1);
+      if (line1) {
+        setCurrentEval({
+          scoreCp: line1.scoreCp,
+          mate: line1.mate,
+          scoreText: line1.scoreText,
+          winChance: calculateWinChance(line1.scoreCp, line1.mate),
+        });
+        if (line1.bestMoveUci) {
+          setBestMove({ uci: line1.bestMoveUci, san: line1.bestMoveSan });
+        }
+      }
+    };
+
     worker.onmessage = (event: MessageEvent<string>) => {
       const line = typeof event.data === "string" ? event.data.trim() : "";
       if (!line) return;
 
       if (line === "uciok") {
+        worker.postMessage("setoption name Threads value 1");
+        worker.postMessage("setoption name Hash value 16");
         worker.postMessage("isready");
       } else if (line === "readyok") {
         isReadyRef.current = true;
@@ -96,28 +123,25 @@ export function useStockfish(options: StockfishHookOptions = {}) {
         if (parsed) {
           currentLinesRef.current.set(parsed.id, parsed);
 
-          // Build sorted list of lines up to current MultiPV
-          const activeLines = Array.from(currentLinesRef.current.values())
-            .filter((l) => l.id <= multiPv)
-            .sort((a, b) => a.id - b.id);
-
-          setLines(activeLines);
-
-          // Update main eval from line 1
-          const line1 = currentLinesRef.current.get(1);
-          if (line1) {
-            setCurrentEval({
-              scoreCp: line1.scoreCp,
-              mate: line1.mate,
-              scoreText: line1.scoreText,
-              winChance: calculateWinChance(line1.scoreCp, line1.mate),
-            });
-            if (line1.bestMoveUci) {
-              setBestMove({ uci: line1.bestMoveUci, san: line1.bestMoveSan });
-            }
+          // Throttle React state updates to ~8-10 per second (100ms)
+          const now = performance.now();
+          if (now - lastInfoUpdateRef.current >= 100) {
+            lastInfoUpdateRef.current = now;
+            flushLines();
+          } else if (!pendingFlushTimer) {
+            pendingFlushTimer = setTimeout(() => {
+              pendingFlushTimer = null;
+              lastInfoUpdateRef.current = performance.now();
+              flushLines();
+            }, 100);
           }
         }
       } else if (line.startsWith("bestmove")) {
+        if (pendingFlushTimer) {
+          clearTimeout(pendingFlushTimer);
+          pendingFlushTimer = null;
+        }
+        flushLines();
         setIsThinking(false);
         const parts = line.split(/\s+/);
         const moveUci = parts[1];
@@ -139,6 +163,10 @@ export function useStockfish(options: StockfishHookOptions = {}) {
     worker.postMessage("uci");
 
     return () => {
+      if (pendingFlushTimer) {
+        clearTimeout(pendingFlushTimer);
+        pendingFlushTimer = null;
+      }
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current);
       }

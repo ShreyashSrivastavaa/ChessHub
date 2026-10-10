@@ -7,10 +7,7 @@ import { useStockfish } from "@/hooks/useStockfish";
 import { EvalBar } from "./EvalBar";
 import { MoveList } from "./MoveList";
 import { EnginePanel, PlayVsEngineConfig } from "./EnginePanel";
-import { SetupPanel, PalettePiece } from "./SetupPanel";
-import { NotesPanel } from "./NotesPanel";
-import { PromotionDialog } from "./PromotionDialog";
-import { ShortcutsModal } from "./ShortcutsModal";
+import type { PalettePiece } from "./SetupPanel";
 import { Arrow, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
 import { Square, validateFen, PieceSymbol, Chess } from "chess.js";
 import {
@@ -23,12 +20,90 @@ import {
   Share2,
   Check,
 } from "lucide-react";
+import { BoardSkeleton } from "./BoardSkeleton";
+
+// Dynamically import auxiliary panels & dialogs to keep main thread light
+const SetupPanel = dynamic(
+  () => import("./SetupPanel").then((mod) => mod.SetupPanel),
+  {
+    loading: () => <div className="h-full rounded-xl bg-[#141416] border border-[#2e2e36] animate-pulse" />,
+  }
+);
+
+const NotesPanel = dynamic(
+  () => import("./NotesPanel").then((mod) => mod.NotesPanel),
+  {
+    loading: () => <div className="h-full rounded-xl bg-[#141416] border border-[#2e2e36] animate-pulse" />,
+  }
+);
+
+const PromotionDialog = dynamic(
+  () => import("./PromotionDialog").then((mod) => mod.PromotionDialog),
+  { ssr: false }
+);
+
+const ShortcutsModal = dynamic(
+  () => import("./ShortcutsModal").then((mod) => mod.ShortcutsModal),
+  { ssr: false }
+);
 
 // Dynamically import Chessboard without SSR to avoid hydration issues
 const Chessboard = dynamic(
   () => import("react-chessboard").then((mod) => mod.Chessboard),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <BoardSkeleton />,
+  }
 );
+
+interface MemoizedBoardProps {
+  fen: string;
+  orientation: "white" | "black";
+  showCoordinates: boolean;
+  isSetupMode: boolean;
+  currentTheme: { dark: string; light: string };
+  squareStyles: Record<string, React.CSSProperties>;
+  arrows: Arrow[];
+  onPieceDrop: (args: PieceDropHandlerArgs) => boolean;
+  onSquareClick: (args: SquareHandlerArgs) => void;
+  onSquareRightClick: (args: SquareHandlerArgs) => void;
+  onArrowsChange: (args: { arrows: Arrow[] }) => void;
+}
+
+// React.memo ensures engine evaluation/depth updates never cause the board to re-render
+const MemoizedBoard = React.memo(function MemoizedBoard({
+  fen,
+  orientation,
+  showCoordinates,
+  isSetupMode,
+  currentTheme,
+  squareStyles,
+  arrows,
+  onPieceDrop,
+  onSquareClick,
+  onSquareRightClick,
+  onArrowsChange,
+}: MemoizedBoardProps) {
+  return (
+    <Chessboard
+      options={{
+        position: fen,
+        boardOrientation: orientation,
+        showNotation: showCoordinates,
+        allowDragging: !isSetupMode,
+        darkSquareStyle: { backgroundColor: currentTheme.dark },
+        lightSquareStyle: { backgroundColor: currentTheme.light },
+        squareStyles,
+        arrows,
+        allowDrawingArrows: true,
+        onPieceDrop,
+        onSquareClick,
+        onSquareRightClick,
+        onArrowsChange,
+      }}
+    />
+  );
+});
 
 interface BoardStudioProps {
   initialFen?: string;
@@ -111,8 +186,8 @@ export function BoardStudio({ initialFen }: BoardStudioProps) {
     setMoveQualityAt,
   } = useChessGame({ initialFen: startPosition });
 
-  // Engine state & settings
-  const [engineActive, setEngineActive] = useState(true);
+  // Engine state & settings - defaults to false so worker/wasm only load on demand
+  const [engineActive, setEngineActive] = useState(false);
   const [engineDepth, setEngineDepth] = useState(16);
   const [multiPv, setMultiPv] = useState(1);
   const [showBestMoveArrow, setShowBestMoveArrow] = useState(true);
@@ -140,7 +215,7 @@ export function BoardStudio({ initialFen }: BoardStudioProps) {
     depth: engineDepth,
     multiPv,
     skillLevel: playVsEngine.skillLevel,
-    enabled: engineActive && !playVsEngine.active,
+    enabled: engineActive || playVsEngine.active,
   });
 
   // Active UI tab
@@ -570,8 +645,8 @@ export function BoardStudio({ initialFen }: BoardStudioProps) {
           </p>
         </div>
 
-        {/* Top actions & settings */}
-        <div className="flex items-center gap-2 flex-wrap">
+        {/* Top actions & settings - flex-nowrap prevents line-jump height shift on mobile */}
+        <div className="flex items-center gap-2 flex-nowrap overflow-x-auto max-w-full pb-0.5">
           {/* Sound Toggle */}
           <button
             onClick={toggleSound}
@@ -665,22 +740,18 @@ export function BoardStudio({ initialFen }: BoardStudioProps) {
               className="relative aspect-square w-full rounded-xl overflow-hidden border border-[#2e2e36] bg-[#0e0e10] shadow-2xl select-none"
               style={{ maxHeight: "min(600px, 80vh)" }}
             >
-              <Chessboard
-                options={{
-                  position: fen,
-                  boardOrientation: orientation,
-                  showNotation: showCoordinates,
-                  allowDragging: !isSetupMode,
-                  darkSquareStyle: { backgroundColor: currentTheme.dark },
-                  lightSquareStyle: { backgroundColor: currentTheme.light },
-                  squareStyles,
-                  arrows: combinedArrows,
-                  allowDrawingArrows: true,
-                  onPieceDrop: handlePieceDrop,
-                  onSquareClick: handleSquareClick,
-                  onSquareRightClick: handleSquareRightClick,
-                  onArrowsChange: handleArrowsChange,
-                }}
+              <MemoizedBoard
+                fen={fen}
+                orientation={orientation}
+                showCoordinates={showCoordinates}
+                isSetupMode={isSetupMode}
+                currentTheme={currentTheme}
+                squareStyles={squareStyles}
+                arrows={combinedArrows}
+                onPieceDrop={handlePieceDrop}
+                onSquareClick={handleSquareClick}
+                onSquareRightClick={handleSquareRightClick}
+                onArrowsChange={handleArrowsChange}
               />
             </div>
           </div>

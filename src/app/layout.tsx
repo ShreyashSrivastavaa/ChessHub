@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 import { BUSINESS_CONFIG } from "@/config/business";
 
@@ -7,18 +7,16 @@ const featureDeck = Newsreader({
   subsets: ["latin"],
   variable: "--font-feature-deck",
   display: "swap",
+  weight: ["400"],
+  preload: true,
 });
 
 const sohne = Inter({
   subsets: ["latin"],
   variable: "--font-sohne",
   display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
+  weight: ["400", "500", "600"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -134,7 +132,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${featureDeck.variable} ${sohne.variable} ${mono.variable}`}
+      className={`${featureDeck.variable} ${sohne.variable}`}
     >
       <head>
         <script

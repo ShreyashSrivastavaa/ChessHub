@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { BUSINESS_CONFIG } from "@/config/business";
 import { Button } from "../ui/Button";
@@ -18,8 +18,23 @@ export interface TopNavProps {
   } | null;
 }
 
-export function TopNav({ user }: TopNavProps) {
+export function TopNav({ user: initialUser }: TopNavProps) {
+  const [user, setUser] = useState(initialUser ?? null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (initialUser !== undefined) {
+      setUser(initialUser);
+      return;
+    }
+    // Client-side session fetch prevents dynamic deopt on marketing pages
+    fetch("/api/auth/me")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.user) setUser(data.user);
+      })
+      .catch(() => {});
+  }, [initialUser]);
 
   const navLinks = [
     { label: "Home", href: "/" },

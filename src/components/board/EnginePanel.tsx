@@ -43,7 +43,7 @@ const SKILL_LEVELS = [
   { level: 20, label: "Master / Max (~2600+ Elo)" },
 ];
 
-export function EnginePanel({
+export const EnginePanel = React.memo(function EnginePanel({
   engineEnabled,
   onToggleEngine,
   isReady,
@@ -337,4 +337,4 @@ export function EnginePanel({
       </div>
     </div>
   );
-}
+});

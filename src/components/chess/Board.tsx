@@ -12,7 +12,7 @@ export interface BoardProps {
   className?: string;
 }
 
-export function Board({
+export const Board = React.memo(function Board({
   size,
   highlights = [
     { row: 4, col: 4 }, // e4
@@ -81,4 +81,4 @@ export function Board({
       </div>
     </div>
   );
-}
+});

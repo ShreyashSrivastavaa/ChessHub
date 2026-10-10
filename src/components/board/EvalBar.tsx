@@ -9,7 +9,11 @@ interface EvalBarProps {
   isThinking?: boolean;
 }
 
-export function EvalBar({ evaluation, orientation, isThinking }: EvalBarProps) {
+export const EvalBar = React.memo(function EvalBar({
+  evaluation,
+  orientation,
+  isThinking,
+}: EvalBarProps) {
   // Win chance is 0..100 for White
   const whitePercent = evaluation ? evaluation.winChance : 50;
 
@@ -58,4 +62,4 @@ export function EvalBar({ evaluation, orientation, isThinking }: EvalBarProps) {
       )}
     </div>
   );
-}
+});

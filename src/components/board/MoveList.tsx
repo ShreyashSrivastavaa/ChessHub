@@ -29,7 +29,7 @@ interface MoveListProps {
   showQualityHints?: boolean;
 }
 
-export function MoveList({
+export const MoveList = React.memo(function MoveList({
   history,
   currentMoveIndex,
   onGoToMove,
@@ -228,4 +228,4 @@ export function MoveList({
       </div>
     </div>
   );
-}
+});
