@@ -9,6 +9,7 @@ interface ShortcutsModalProps {
 }
 
 const SHORTCUTS = [
+  { key: "Shift + F", desc: "Toggle fullscreen mode" },
   { key: "F", desc: "Flip board orientation" },
   { key: "← / →", desc: "Navigate previous / next move" },
   { key: "Home / End", desc: "Jump to starting position / latest move" },
