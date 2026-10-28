@@ -100,4 +100,81 @@ describe("Chess Studio & Engine Parser Test Suite", () => {
     // Missing kings or invalid rank
     expect(validateFen("8/8/8/8/8/8/8/8 w - - 0 1").ok).toBe(false);
   });
+
+  it("7. Editor FEN utilities convert to/from square map correctly", async () => {
+    const { fenToSquares, squaresToFen } = await import("../src/lib/chess/editor");
+    const startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    const squares = fenToSquares(startFen);
+
+    expect(Object.keys(squares).length).toBe(32);
+    expect(squares["e1"]).toEqual({ type: "k", color: "w" });
+    expect(squares["e8"]).toEqual({ type: "k", color: "b" });
+    expect(squares["e4"]).toBeUndefined();
+
+    const reconstructed = squaresToFen(squares, "w", { K: true, Q: true, k: true, q: true }, "-");
+    expect(reconstructed).toBe(startFen);
+  });
+
+  it("8. validateEditorPosition rejects illegal positions and accepts valid ones", async () => {
+    const { validateEditorPosition } = await import("../src/lib/chess/editor");
+
+    // Standard position is valid
+    const validStd = validateEditorPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    expect(validStd.valid).toBe(true);
+
+    // Empty board missing kings
+    const empty = validateEditorPosition("8/8/8/8/8/8/8/8 w - - 0 1");
+    expect(empty.valid).toBe(false);
+    expect(empty.error).toContain("Missing White King");
+
+    // Missing black king
+    const noBlackKing = validateEditorPosition("4K3/8/8/8/8/8/8/8 w - - 0 1");
+    expect(noBlackKing.valid).toBe(false);
+    expect(noBlackKing.error).toContain("Missing Black King");
+
+    // Multiple white kings
+    const twoKings = validateEditorPosition("4K3/8/8/8/8/8/8/4K2k w - - 0 1");
+    expect(twoKings.valid).toBe(false);
+    expect(twoKings.error).toContain("White Kings");
+
+    // Pawns on 8th rank
+    const pawnOn8th = validateEditorPosition("4k2P/8/8/8/8/8/8/4K3 w - - 0 1");
+    expect(pawnOn8th.valid).toBe(false);
+    expect(pawnOn8th.error).toContain("8th rank");
+
+    // Pawns on 1st rank
+    const pawnOn1st = validateEditorPosition("4k3/8/8/8/8/8/8/4K2p w - - 0 1");
+    expect(pawnOn1st.valid).toBe(false);
+    expect(pawnOn1st.error).toContain("1st rank");
+
+    // Adjacent kings
+    const touchingKings = validateEditorPosition("8/8/8/4kK2/8/8/8/8 w - - 0 1");
+    expect(touchingKings.valid).toBe(false);
+    expect(touchingKings.error).toContain("adjacent squares");
+
+    // Side not to move in check
+    const opponentInCheck = validateEditorPosition("4k3/4R3/8/8/8/8/8/4K3 b - - 0 1");
+    // If White is to move ('w') but Black's king was in check from Rook without White moving:
+    const whiteToMoveWithBlackInCheck = validateEditorPosition("4k3/4R3/8/8/8/8/8/4K3 w - - 0 1");
+    expect(whiteToMoveWithBlackInCheck.valid).toBe(false);
+    expect(whiteToMoveWithBlackInCheck.error).toContain("side not to move");
+  });
+
+  it("9. generateRandomPosition produces valid legal chess positions", async () => {
+    const { generateRandomPosition, validateEditorPosition } = await import(
+      "../src/lib/chess/editor"
+    );
+
+    for (let i = 0; i < 5; i++) {
+      const fen = generateRandomPosition();
+      const val = validateEditorPosition(fen);
+      expect(val.valid).toBe(true);
+      expect(val.error).toBeUndefined();
+
+      // Check exactly 1 of each king
+      const placement = fen.split(" ")[0];
+      expect((placement.match(/K/g) || []).length).toBe(1);
+      expect((placement.match(/k/g) || []).length).toBe(1);
+    }
+  });
 });
