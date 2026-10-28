@@ -375,7 +375,13 @@ export function useChessGame(options: UseChessGameOptions = {}) {
   const clearBoard = useCallback(() => {
     const emptyFen = "8/8/8/8/8/8/8/8 w - - 0 1";
     setStartFen(emptyFen);
-    chessRef.current = new Chess(emptyFen);
+    try {
+      const emptyChess = new Chess();
+      emptyChess.clear();
+      chessRef.current = emptyChess;
+    } catch {
+      // ignore
+    }
     setHistory([]);
     setCurrentMoveIndex(-1);
     setFen(emptyFen);
@@ -383,6 +389,11 @@ export function useChessGame(options: UseChessGameOptions = {}) {
     setPossibleMoves([]);
     setLastMove(null);
     setPendingPromotion(null);
+  }, []);
+
+  // Update board FEN directly for free-form editor mode
+  const setFenDirectly = useCallback((newFen: string) => {
+    setFen(newFen);
   }, []);
 
   // Load a custom FEN
@@ -529,6 +540,7 @@ export function useChessGame(options: UseChessGameOptions = {}) {
     reset,
     clearBoard,
     loadFen,
+    setFenDirectly,
     loadPgn,
     getPgn,
     setMoveQualityAt,
